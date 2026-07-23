@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avantika Pidiha</title>
+<meta name="description" content="Founding Product Designer at OverseeAI. I design agentic products with humans in control — and the design systems AI agents build to.">
+<meta name="theme-color" content="#f8f3e9">
+<link rel="icon" type="image/png" href="assets/ap-monogram-128.png">
+<link rel="canonical" href="https://www.avantikapidiha.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.avantikapidiha.com/">
+<meta property="og:title" content="Avantika Pidiha — Founding Product Designer, OverseeAI">
+<meta property="og:description" content="I design agentic products with humans in control — and the design systems AI agents build to.">
+<meta property="og:image" content="https://www.avantikapidiha.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Fonts are self-hosted (fonts/): no third-party requests, no GDPR
+     exposure, and the render path stays first-party. The two files
+     preloaded are the above-the-fold critical pair: the name (serif
+     italic) and body text (sans upright). -->
+<link rel="preload" href="fonts/instrumentserif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/dmsans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: 'DM Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(fonts/dmsans-italic-var-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: 'DM Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url(fonts/dmsans-italic-var-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(fonts/dmsans-var-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(fonts/dmsans-var-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url(fonts/instrumentserif-italic-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url(fonts/instrumentserif-italic-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url(fonts/instrumentserif-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url(fonts/instrumentserif-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style>
+<style>
+  /* ————————————————————————————————
+     Variant B2 — Editorial warmth + her marks
+     Resume pairing: Instrument Serif (display)
+     + DM Sans (body). Warm paper.
+     Accent = her coral family, one system:
+     links (deepened for AA) + hand-drawn marks.
+     MOBILE-FIRST: base styles are the 390px
+     phone composition; one min-width (68rem)
+     enhancement re-adds the hung margins.
+     ———————————————————————————————— */
+  :root {
+    --paper:  #f8f3e9;   /* warm cream */
+    --ink:    #3d3833;   /* body — 10.5:1 on paper */
+    --strong: #35302a;   /* name & entry titles — 11.8:1 */
+    --soft:   #6b6259;   /* secondary — 5.4:1 */
+    --faint:  #6f665a;   /* dates & labels — 5.1:1 */
+    --coral:  #e56749;   /* her bright coral — marks only, never text (2.98:1) */
+    --terracotta: #c05818; /* deep end — non-text uses only (4.08:1) */
+    --accent: #a64310;   /* link text: coral family deepened for AA — 5.53:1 */
+    --sage:   #e6f3e5;   /* her sage wash — arch fill */
+    --blush:  #fef1ec;   /* her blush wash — Now block + ICICI filler */
+    --hairline: rgb(61 56 51 / 0.16);
+    --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --measure: 38rem;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "DM Sans", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-optical-sizing: auto;
+    font-size: 1.0625rem;           /* 17px — DM Sans carries body text */
+    line-height: 1.65;
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: #ead9bd; color: var(--strong); }
+
+  .page {
+    max-width: calc(var(--measure) + 3rem);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  p, .ebody { text-wrap: pretty; }
+
+  /* ——— Links: the text half of the one accent system ——— */
+  a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgb(166 67 16 / 0.35);
+    text-underline-offset: 0.18em;
+  }
+  a:hover { text-decoration-color: var(--terracotta); }
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+    text-decoration: none;
+  }
+
+  /* ——— Header: composed for the phone first ———
+     Base = the 390px lockup: arch portrait on its own line,
+     the name (one line at 320/390/430 — verified 287px incl.
+     sparkle vs 296px content at 320; .nb keeps "Pidiha ✦"
+     together if it ever breaks), squiggle underneath, title
+     line, then the nav row. Desktop moves the arch beside the
+     name in the 68rem enhancement below. */
+  header { padding-block: clamp(3rem, 10vh, 7rem) 0; }
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.35rem;
+  }
+  .name-block { max-width: 100%; }
+  .nb { white-space: nowrap; }   /* the name sparkle wraps with the surname, never alone */
+
+  /* Arch portrait: rounded top, flat bottom — her signature shape.
+     The source (assets/portrait-arch.png, 440×550) is pre-cropped to
+     the arch's exact 0.8 ratio, so it fills edge to edge; the sage
+     wash shows only as the loading backdrop. */
+  .arch {
+    position: relative;
+    width: 88px;
+    height: 110px;
+    border-radius: 50% 50% 0 0;
+    overflow: hidden;
+    background: var(--sage);
+    flex: none;
+  }
+  .arch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    /* Instrument Serif is high-contrast and reads smaller than its
+       em size — the name runs bigger than the old serif did:
+       40px at 320 → ~42px at 390 → ~44px at 430; 60px at desktop */
+    font-size: clamp(2.5rem, 1.4rem + 5vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: 0;
+    color: var(--strong);
+  }
+
+  /* ——— Her marks: sparkle + squiggle (decorative, coral) ——— */
+  .sparkle { color: var(--coral); }
+  .sparkle svg { display: block; width: 100%; height: 100%; }
+  .sparkle-name {
+    display: inline-block;
+    width: 0.42em;                 /* em-based: tracks the name across sizes */
+    height: 0.42em;
+    margin-left: 0.14em;
+    transform: translateY(-0.55em) rotate(18deg);
+  }
+  .sparkle-now {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 0.5em;
+    vertical-align: -0.14em;
+  }
+  .squiggle {
+    display: block;
+    width: 142px;
+    height: auto;
+    margin-top: 0.55rem;
+    color: var(--coral);
+  }
+
+  .role {
+    margin-top: 0.65rem;
+    font-size: 1rem;
+    color: var(--soft);
+  }
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 0.85rem;
+    margin-top: 1.3rem;
+  }
+  .site-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;              /* comfortable thumb target on phones */
+    padding-inline: 0.3rem;
+    margin-inline: -0.3rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .site-nav a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+  .site-nav .sep { color: var(--faint); user-select: none; }
+
+  /* ——— Sections & rhythm ——— */
+  main > section { position: relative; margin-top: clamp(3rem, 8vh, 4.5rem); }
+  main > section + section { margin-top: clamp(3.25rem, 9vh, 5rem); }
+
+  h2 {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 1.1rem;
+  }
+
+  /* ——— Intro ——— */
+  .intro p + p { margin-top: 1.1em; }
+  .intro p:first-of-type {
+    font-size: 1.15em;
+    line-height: 1.55;
+  }
+
+  /* ——— Now: her blush wash, kept quiet ———
+     The italic line is Instrument Serif — the display voice
+     speaking once in the body of the page. */
+  .now p {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.25rem;             /* Instrument Serif runs small; 20px reads like body+ */
+    line-height: 1.55;
+    color: var(--ink);              /* 10.5:1 on blush too */
+    background: var(--blush);
+    border-radius: 12px;
+    padding: 1.05rem 1.25rem;
+    margin-inline: -0.75rem;        /* phone: a deliberate 12px overhang, clear of the viewport edge */
+  }
+
+  /* ——— Timeline ——— */
+  /* roomy, Jenny-style: full-width entry images need clear air before
+     the next date label; the rhythm stays uniform across all entries */
+  .entry + .entry { margin-top: 3rem; }
+  .when {
+    display: block;
+    font-style: normal;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+    color: var(--faint);
+    margin-bottom: 0.5rem;
+  }
+  .et {
+    /* run-in heading: h3 for the a11y tree, visually a display lead-in.
+       Instrument Serif has one weight; size, not boldness, sets it off */
+    display: inline;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 1;                 /* larger inline box must not stretch the first line */
+    color: var(--strong);
+  }
+
+  /* Tier 2 — compact milestones (NIFT, Harvard, B.Des): quieter title,
+     tighter rhythm. The body text is untouched — the demotion is
+     purely visual, so flagships read louder without the page saying less. */
+  .entry.compact .et { font-size: 1.1rem; }
+  .entry + .entry.compact { margin-top: 2rem; }
+  .entry.compact + .entry.compact { margin-top: 1.4rem; }
+
+  /* ——— Entry images: large, editorial, in flow (Jenny Wen treatment) ———
+     Additive slot: any .entry may carry <figure class="thumbs"> as the
+     last child of its .ebody — no other changes needed, and entries
+     without one render exactly as before. The figure holds ONE image
+     (full column width) or TWO wrapped in <div class="pair"> (a
+     side-by-side 2-up with equal heights). An optional <figcaption>
+     after the image(s) carries the artifact's receipt — one quiet
+     line, metric included.
+     Base (phone): full column width, in flow below the body.
+     Wide (68rem+): widens past the text measure — see the media query.
+     Framing is borderless — the images carry their own pale washes,
+     and two of them bake in their own rounded corners (a CSS hairline
+     would trace a different radius and misalign at those corners).
+     The 12px CSS radius matches the Now wash and rounds the
+     square-cornered assets; no border, no shadows.
+     .filler is the inline-SVG placeholder variant (ICICI, always solo);
+     it obeys the same box rules as a real image. */
+  .thumbs { margin: 1.25rem 0 0; }
+  .thumbs img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  .thumbs .pair {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 1rem;
+  }
+  .thumbs .pair img {
+    height: 100%;        /* both stretch to the row */
+    object-fit: cover;   /* the shorter of a pair crops, never squashes */
+  }
+  .thumbs figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+  /* INTERIM: thumb-myfood.png is ~75% blank white below its single
+     input field (content lives in the top ~260px of the 840×780
+     source). Crop the display box to that band so the page doesn't
+     show a dead white panel. When Avantika re-cuts the asset, delete
+     this rule and the crop-band class — nothing else changes.
+     (The input field is also clipped at the source's right edge;
+     only a re-cut can fix that.) */
+  .thumbs img.crop-band {
+    height: auto;
+    aspect-ratio: 840 / 260;
+    object-position: top;
+  }
+  .thumbs .filler {
+    display: block;
+    width: 100%;
+    height: auto;        /* svg keeps its viewBox ratio */
+    border-radius: 12px;
+  }
+  .filler { color: var(--coral); }
+  .filler-bg { fill: var(--blush); }
+
+  /* ——— About & footer ——— */
+  .about p + p { margin-top: 1.1em; }
+  /* the close: after the whole scroll, the reader lands on the ask —
+     the email steps up into the display voice, on its own line */
+  .about .say-hi {
+    display: block;
+    width: fit-content;
+    margin-top: 0.4rem;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.5rem;              /* Instrument Serif runs small; reads ~body×1.4 */
+    line-height: 1.25;
+    overflow-wrap: anywhere;        /* 320px: the address wraps, never overflows */
+    text-underline-offset: 0.14em;
+  }
+  footer {
+    margin-top: clamp(3.5rem, 10vh, 5.5rem);
+    padding-block: 1.6rem clamp(3rem, 8vh, 5rem);
+    border-top: 1px solid var(--hairline);
+  }
+  .monogram {
+    display: block;
+    width: 48px;
+    height: auto;
+    margin-bottom: 1.1rem;
+  }
+
+  /* ——— The one desktop enhancement: arch joins the name row;
+         dates & labels hang left, entry images widen past the measure ——— */
+  @media (min-width: 68rem) {
+    .masthead {
+      flex-direction: row;
+      align-items: flex-end;
+      column-gap: 1.6rem;
+      row-gap: 1.5rem;
+    }
+    .name-block { flex: 1 1 9rem; }
+    h1 { font-size: 3.75rem; }
+
+    h2 {
+      position: absolute;
+      top: 0.42em;
+      right: 100%;
+      margin: 0 2rem 0 0;
+      white-space: nowrap;
+      text-align: right;
+    }
+    /* the Now paragraph carries wash padding; keep the hung label
+       aligned with its first text line */
+    .now h2 { top: calc(0.42em + 1.05rem); }
+    .now p { margin-inline: -1.25rem; }  /* wash overhangs; text stays on the column grid */
+
+    /* Era labels are chapter heads: they stay IN FLOW above their group
+       at every width. Hanging them left like Now/About would overflow
+       the viewport at exactly 68rem — "CONSUMER SCALE · 2021–25" is
+       ~256px incl. margin vs the 216px side margin available. */
+    .timeline h2 {
+      position: static;
+      margin: 0 0 1.35rem;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .entry {
+      display: grid;
+      grid-template-columns: 9rem 1fr;
+      column-gap: 2rem;
+      margin-left: -11rem;
+    }
+    .when {
+      text-align: right;
+      margin-bottom: 0;
+      padding-top: 0.6em;   /* optically align cap-height with the entry title's first line */
+    }
+    /* extra air at desktop: the images are at their largest here */
+    .entry + .entry { margin-top: 3.5rem; }
+    .entry + .entry.compact { margin-top: 2.25rem; }
+    .entry.compact + .entry.compact { margin-top: 1.4rem; }
+
+    /* Entry images run WIDER than the text measure — Jenny's editorial
+       text-narrow/image-wide rhythm. The overhang spans the .page
+       gutters: 38rem measure + 2 × 1.5rem = 41rem, the full page box.
+       FIT CONTRACT: .ebody (the 1fr grid column) is exactly the 38rem
+       measure, and its right edge is the page content's right edge, so
+       the 1.5rem right overhang lands exactly on the page box edge —
+       no viewport overflow at ≥68rem. The 1.5rem left overhang eats
+       into the 2rem date-column gap, never the dates themselves. */
+    .thumbs { margin-inline: -1.5rem; }
+  }
+
+  /* ——— One orchestrated page-load reveal (motion lives only here) ——— */
+  @media (prefers-reduced-motion: no-preference) {
+    header, main > section, footer {
+      animation: settle 0.45s ease-out both;
+    }
+    .intro    { animation-delay: 0.05s; }
+    .now      { animation-delay: 0.10s; }
+    .timeline { animation-delay: 0.15s; }
+    .about    { animation-delay: 0.20s; }
+    footer    { animation-delay: 0.25s; }
+    @keyframes settle {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: none; }
+    }
+    /* the squiggle draws itself in, joining the tail of the stagger */
+    .squiggle path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: draw 1s cubic-bezier(0.65, 0, 0.35, 1) 0.4s forwards;
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* ——— Print: a tidy leave-behind — marks rest, words carry it ——— */
+  @media print {
+    :root { --paper: #ffffff; }
+    body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
+    header { padding-top: 0; }
+    header .site-nav { display: none; }    /* footer nav stays and carries the same links */
+    .arch, .squiggle, .sparkle, .monogram, .thumbs { display: none; }
+    h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
+    .et { font-size: 13.5pt; }
+    .now p { background: none; border-radius: 0; padding: 0; margin-inline: 0; font-size: 12pt; }
+    a { color: var(--ink); text-decoration-color: var(--hairline); }
+    main a[href^="http"]::after,
+    footer a[href^="http"]::after {
+      content: " (" attr(href) ")";
+      font-size: 0.82em;
+      color: var(--soft);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .entry, .now, .about { break-inside: avoid; }
+    footer { padding-bottom: 0; }
+    @page { margin: 1.8cm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="masthead">
+      <div class="arch">
+        <img src="assets/portrait-arch.png" alt="Avantika, smiling" width="440" height="550">
+      </div>
+      <div class="name-block">
+        <h1>Avantika <span class="nb">Pidiha<span class="sparkle sparkle-name" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span></span></h1>
+        <svg class="squiggle" viewBox="0 0 164 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path pathLength="1" d="M6 25 C12 24 19 20 24 15 C28 11 31 4.5 25 4 C19.5 3.6 16.5 11 22.5 15.5 C27 19 35 21.5 43 19.5 C50 17.6 54.5 14 58.5 11.5 C62 8 68 8.6 67.8 13.2 C67.6 17.8 60.5 17.6 61.8 12.2 C62.9 7.9 70 6.2 75.5 8.9 C82 12.4 88.5 16.9 98 16.4 C108 16 112 11.5 122 12.5 C131 13.4 136 18 145 16 C151 14.6 155 11 158 6.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p class="role">Founding Product Designer, OverseeAI</p>
+        <nav class="site-nav" aria-label="Contact">
+          <a href="https://linkedin.com/in/avantikapidiha">LinkedIn</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="./resume.pdf">Resume</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="mailto:avantikapidiha28@gmail.com">Email</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="intro" aria-label="Introduction">
+      <p>I'm the founding product designer at OverseeAI, where I design an enterprise agentic platform for insurance teams — AI agents run the work; human experts stay in control. I own design end to end: the product, the design system, and the language.</p>
+      <p>My focus is what happens after AI does the work — how an expert verifies it, trusts it, and signs off on it. And I build design systems machines can read: the Figma library, DESIGN.md, and token files are the spec, and AI coding agents read them on every build.</p>
+      <p>Before OverseeAI I shipped consumer products at scale. My redesigns cut customer service calls 37% at ICICI Lombard and 70% at Axis Bank, and lifted Lenskart's home-to-listing conversion 14%. OverseeAI hired that track record to build its design function from zero.</p>
+    </section>
+
+    <section class="now">
+      <h2><span class="sparkle sparkle-now" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>Now</h2>
+      <!-- PLACEHOLDER: Avantika updates before 28 Aug launch -->
+      <p>Currently at OverseeAI: expanding Vantage past its first 25 components · building the compare workflow for ratebooks · v2 of the voice system.</p>
+    </section>
+
+    <section class="timeline">
+      <h2>OverseeAI · 2026–now</h2>
+
+      <article class="entry">
+        <time class="when" datetime="2026">2026</time>
+        <div class="ebody"><h3 class="et">A voice for a platform that isn't a person</h3> — Defined a three-tier voice system (product / agent / status) for OverseeAI and shipped it as an AGENTS.md and a Claude skill: the voice spec is the writer, so every screen's copy is generated to spec. The rule I'm proudest of: the agent cites its sources instead of talking about itself.</div>
+      </article>
+
+      <article class="entry">
+        <time class="when" datetime="2026">2026</time>
+        <div class="ebody"><h3 class="et">Vantage, a design system AI agents build to</h3> — Built OverseeAI's design system from zero: 25+ WCAG 2.2 AA components powering 8+ end-to-end flows. DESIGN.md and the token files are the spec, and AI coding agents consume them on every build — which is why it took weeks, not quarters. Handoff stopped being a phase; nothing ships off-system, because the system is machine-read.</div>
+      </article>
+
+      <article class="entry">
+        <time class="when" datetime="2026-05">May 2026</time>
+        <div class="ebody"><h3 class="et">Joined OverseeAI as Founding Product Designer</h3> — Designing an agentic workbench where insurance teams create, verify, and compare ratebooks. The design problem is inverted from everything I'd done before: not "how does the user do the task" but "how does an expert supervise it." Decision cards replace open-ended chat, explicit go-gates sit before consequential extraction, and a three-altitude review mode lets experts verify thousands of AI-extracted cells without drowning.</div>
+      </article>
+
+    </section>
+
+    <section class="timeline">
+      <h2>The reset year · 2025–26</h2>
+
+      <article class="entry">
+        <span class="when"><time datetime="2026-03">March</time>–<time datetime="2026-05">May 2026</time></span>
+        <div class="ebody"><h3 class="et"><a href="https://www.myfoodapp.xyz/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo: concept, design, code, Play Store Early Access.<figure class="thumbs"><img src="assets/thumb-myfood.png" class="crop-band" alt="MyFood — nutrition app, Play Store Early Access" width="840" height="780" loading="lazy"><figcaption>Onboarding — live in Play Store Early Access.</figcaption></figure></div>
+      </article>
+
+      <article class="entry compact">
+        <time class="when" datetime="2025">2025</time>
+        <div class="ebody"><h3 class="et">Guest lecture at NIFT Mumbai</h3> — Taught a session on UX audits, user research, and AI-assisted design. I forgot to take a photo with the students.</div>
+      </article>
+
+      <article class="entry compact">
+        <time class="when" datetime="2025">2025</time>
+        <div class="ebody"><h3 class="et">Design Thinking and Innovation, Harvard Business School Online</h3> — Part of a deliberate year away from full-time work: retraining in AI-assisted design and systems thinking, with time for health and family. That retraining is exactly what OverseeAI hired me for.</div>
+      </article>
+
+    </section>
+
+    <section class="timeline">
+      <h2>Consumer scale · 2021–25</h2>
+
+      <article class="entry">
+        <span class="when"><time datetime="2024">2024</time>–<time datetime="2025">25</time></span>
+        <div class="ebody"><h3 class="et">ICICI Lombard — the IL TakeCare revamp (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around research with 54+ participants. Customer support calls fell 37% — my favorite kind of design metric, the phone that doesn't ring. Also built the company's first design system, cutting handoff time by 30%. (First time; Vantage is my second.)<figure class="thumbs" aria-hidden="true"><!-- FILLER: replace with real IL TakeCare art from her deck --><svg class="filler" viewBox="0 0 656 410" width="656" height="410" xmlns="http://www.w3.org/2000/svg" focusable="false"><rect class="filler-bg" x="0" y="0" width="656" height="410" rx="12"/><g transform="translate(292 169) scale(3)"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></g></svg></figure></div>
+      </article>
+
+      <article class="entry">
+        <span class="when"><time datetime="2023">2023</time>–<time datetime="2024">24</time></span>
+        <div class="ebody"><h3 class="et">Lenskart — the Home pod (Sr. Product Designer)</h3> — Led the Home design pod through a full homepage revamp: overall conversions up 10%, home-to-listing journeys up 14%, and a new 15-page Explore section that converted to order 40% better than home. Also streamlined Lenskart at Home booking, cutting drop-offs 30%.<figure class="thumbs"><img src="assets/thumb-lenskart.png" alt="Lenskart app — redesigned Home and Explore" width="1312" height="736" loading="lazy"><figcaption>The Explore section — 15 new pages, +40% to order vs home.</figcaption></figure></div>
+      </article>
+
+      <article class="entry">
+        <span class="when"><time datetime="2021">2021</time>–<time datetime="2023">23</time></span>
+        <div class="ebody"><h3 class="et">Axis Bank — service pages &amp; One View (Product Designer, via THEM Consulting)</h3> — Led design of the mobile app's service pages: service calls down 70%, task completion time down 45%. Shipped "One View," which hit 40% adoption in its first month.<figure class="thumbs"><img src="assets/thumb-axis-oneview.png" alt="Axis One View — unified accounts view" width="994" height="742" loading="lazy"><figcaption>One View — every account in one place; 40% adoption in month one.</figcaption></figure></div>
+      </article>
+
+      <article class="entry compact">
+        <time class="when" datetime="2021">2021</time>
+        <div class="ebody"><h3 class="et">B.Des, Unitedworld Institute of Design</h3> — Where it started.</div>
+      </article>
+
+    </section>
+
+    <section class="about">
+      <h2>About</h2>
+      <p>Off duty: Catan, tennis, trip-planning, and whichever park is nearest.</p>
+      <p>I'm open to senior product design roles on agentic/AI products. If you're building one — say hi: <a class="say-hi" href="mailto:avantikapidiha28@gmail.com">avantikapidiha28@gmail.com</a></p>
+    </section>
+
+  </main>
+
+  <footer>
+    <img class="monogram" src="assets/ap-monogram-128.png" alt="AP monogram" width="128" height="127" loading="lazy">
+    <nav class="site-nav" aria-label="Footer">
+      <a href="https://linkedin.com/in/avantikapidiha">LinkedIn</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="./resume.pdf">Resume</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="mailto:avantikapidiha28@gmail.com">Email</a>
+    </nav>
+  </footer>
+
+</div>
+</body>
+</html>

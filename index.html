@@ -263,20 +263,23 @@
     margin-bottom: 0.5rem;
   }
   .et {
-    /* run-in heading: h3 for the a11y tree, visually a display lead-in.
-       Instrument Serif has one weight; size, not boldness, sets it off */
-    display: inline;
+    /* block heading: the title gets its own line and real presence;
+       the body below opens with the em dash as its lead-in (Jenny's
+       pattern). Instrument Serif has one weight; size sets it off */
+    display: block;
     font-family: var(--display);
     font-weight: 400;
-    font-size: 1.3rem;
-    line-height: 1;                 /* larger inline box must not stretch the first line */
+    font-size: 1.45rem;
+    line-height: 1.2;
     color: var(--strong);
+    margin-bottom: 0.3rem;
   }
 
   /* Tier 2 — compact milestones (NIFT, Harvard, B.Des): quieter title,
-     tighter rhythm. The body text is untouched — the demotion is
-     purely visual, so flagships read louder without the page saying less. */
-  .entry.compact .et { font-size: 1.1rem; }
+     tighter rhythm, and the title stays RUN-IN (inline) — compacts
+     read as single quiet lines against the flagships' block titles.
+     The body text is untouched — the demotion is purely visual. */
+  .entry.compact .et { display: inline; font-size: 1.1rem; line-height: 1; margin-bottom: 0; }
   .entry + .entry.compact { margin-top: 2rem; }
   .entry.compact + .entry.compact { margin-top: 1.4rem; }
 
@@ -321,26 +324,11 @@
     color: var(--faint);
     font-variant-numeric: tabular-nums;
   }
-  /* INTERIM: thumb-myfood.png is ~75% blank white below its single
-     input field (content lives in the top ~260px of the 840×780
-     source). Crop the display box to that band so the page doesn't
-     show a dead white panel. When Avantika re-cuts the asset, delete
-     this rule and the crop-band class — nothing else changes.
-     (The input field is also clipped at the source's right edge;
-     only a re-cut can fix that.) */
-  .thumbs img.crop-band {
-    height: auto;
-    aspect-ratio: 840 / 260;
-    object-position: top;
-  }
-  .thumbs .filler {
-    display: block;
-    width: 100%;
-    height: auto;        /* svg keeps its viewBox ratio */
-    border-radius: 12px;
-  }
-  .filler { color: var(--coral); }
-  .filler-bg { fill: var(--blush); }
+  /* Artifact-card system: every entry image is a composed 16:10 card
+     (1312×820 @2x) on one of her brand washes — uniform ratio, uniform
+     rhythm. Cards are composed at capture time (cards.html in the
+     project scratch), not styled here, so the page treats all four
+     identically. */
 
   /* ——— About & footer ——— */
   .about p + p { margin-top: 1.1em; }
@@ -379,7 +367,11 @@
       row-gap: 1.5rem;
     }
     .name-block { flex: 1 1 9rem; }
-    h1 { font-size: 3.75rem; }
+    /* scale contrast is what reads as designed: the name owns the
+       masthead, the arch grows to hold its own beside it */
+    h1 { font-size: 4.5rem; }
+    .arch { width: 104px; height: 130px; }
+    .squiggle { width: 190px; margin-top: 0.4rem; }
 
     h2 {
       position: absolute;
@@ -430,6 +422,9 @@
        no viewport overflow at ≥68rem. The 1.5rem left overhang eats
        into the 2rem date-column gap, never the dates themselves. */
     .thumbs { margin-inline: -1.5rem; }
+    /* the card overhangs the measure; its caption returns to the text
+       grid — image breaks the grid, words respect it */
+    .thumbs figcaption { margin-inline: 1.5rem; }
   }
 
   /* ——— One orchestrated page-load reveal (motion lives only here) ——— */
@@ -552,7 +547,7 @@
 
       <article class="entry">
         <span class="when"><time datetime="2026-03">March</time>–<time datetime="2026-05">May 2026</time></span>
-        <div class="ebody"><h3 class="et"><a href="https://www.myfoodapp.xyz/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo: concept, design, code, Play Store Early Access.<figure class="thumbs"><img src="assets/thumb-myfood.png" class="crop-band" alt="MyFood — nutrition app, Play Store Early Access" width="840" height="780" loading="lazy"><figcaption>Onboarding — live in Play Store Early Access.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="https://www.myfoodapp.xyz/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo: concept, design, code, Play Store Early Access.<figure class="thumbs"><img src="assets/thumb-myfood.png" alt="MyFood — nutrition app, Play Store Early Access" width="1312" height="820" loading="lazy"><figcaption>Onboarding — live in Play Store Early Access.</figcaption></figure></div>
       </article>
 
       <article class="entry compact">
@@ -572,7 +567,7 @@
 
       <article class="entry">
         <span class="when"><time datetime="2024">2024</time>–<time datetime="2025">25</time></span>
-        <div class="ebody"><h3 class="et">ICICI Lombard — the IL TakeCare revamp (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around research with 54+ participants. Customer support calls fell 37% — my favorite kind of design metric, the phone that doesn't ring. Also built the company's first design system, cutting handoff time by 30%. (First time; Vantage is my second.)<figure class="thumbs" aria-hidden="true"><!-- FILLER: replace with real IL TakeCare art from her deck --><svg class="filler" viewBox="0 0 656 410" width="656" height="410" xmlns="http://www.w3.org/2000/svg" focusable="false"><rect class="filler-bg" x="0" y="0" width="656" height="410" rx="12"/><g transform="translate(292 169) scale(3)"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></g></svg></figure></div>
+        <div class="ebody"><h3 class="et">ICICI Lombard — the IL TakeCare revamp (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around research with 54+ participants. Customer support calls fell 37% — my favorite kind of design metric, the phone that doesn't ring. Also built the company's first design system, cutting handoff time by 30%. (First time; Vantage is my second.)<figure class="thumbs"><!-- FILLER: replace with real IL TakeCare art from her deck --><img src="assets/thumb-icici.png" alt="IL TakeCare — case study on request" width="1312" height="820" loading="lazy"></figure></div>
       </article>
 
       <article class="entry">
@@ -582,7 +577,7 @@
 
       <article class="entry">
         <span class="when"><time datetime="2021">2021</time>–<time datetime="2023">23</time></span>
-        <div class="ebody"><h3 class="et">Axis Bank — service pages &amp; One View (Product Designer, via THEM Consulting)</h3> — Led design of the mobile app's service pages: service calls down 70%, task completion time down 45%. Shipped "One View," which hit 40% adoption in its first month.<figure class="thumbs"><img src="assets/thumb-axis-oneview.png" alt="Axis One View — unified accounts view" width="994" height="742" loading="lazy"><figcaption>One View — every account in one place; 40% adoption in month one.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et">Axis Bank — service pages &amp; One View (Product Designer, via THEM Consulting)</h3> — Led design of the mobile app's service pages: service calls down 70%, task completion time down 45%. Shipped "One View," which hit 40% adoption in its first month.<figure class="thumbs"><img src="assets/thumb-axis-oneview.png" alt="Axis One View — unified accounts view" width="1312" height="820" loading="lazy"><figcaption>One View — every account in one place; 40% adoption in month one.</figcaption></figure></div>
       </article>
 
       <article class="entry compact">

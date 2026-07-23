@@ -99,6 +99,7 @@
     text-decoration-thickness: 1px;
     text-decoration-color: rgb(166 67 16 / 0.35);
     text-underline-offset: 0.18em;
+    transition: text-decoration-color 150ms ease-out;  /* feedback tier: near-imperceptible */
   }
   a:hover { text-decoration-color: var(--terracotta); }
   :focus-visible {
@@ -207,7 +208,10 @@
     text-transform: uppercase;
     text-decoration: none;
   }
-  .site-nav a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+  /* underline is always present but transparent, so hover FADES it in
+     rather than popping it (text-decoration existence can't animate) */
+  .site-nav a { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+  .site-nav a:hover { text-decoration-color: var(--accent); }
   .site-nav .sep { color: var(--faint); user-select: none; }
 
   /* ——— Sections & rhythm ——— */

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Avantika Pidiha</title>
 <meta name="description" content="Founding Product Designer at OverseeAI. I design agentic products with humans in control — and the design systems AI agents build to.">
-<meta name="theme-color" content="#f8f3e9">
+<meta name="theme-color" content="#faf8f4">
 <link rel="icon" type="image/png" href="assets/ap-monogram-128.png">
 <link rel="canonical" href="https://www.avantikapidiha.com/">
 <!-- STAGING ONLY: remove this noindex line when DNS flips to avantikapidiha.com (launch checklist item) -->
@@ -46,7 +46,7 @@
      enhancement re-adds the hung margins.
      ———————————————————————————————— */
   :root {
-    --paper:  #f8f3e9;   /* warm cream */
+    --paper:  #faf8f4;   /* warm off-white — lighter, Jenny-adjacent; the washes and cards carry the color now */
     --ink:    #3d3833;   /* body — 10.5:1 on paper */
     --strong: #35302a;   /* name & entry titles — 11.8:1 */
     --soft:   #6b6259;   /* secondary — 5.4:1 */
@@ -230,16 +230,8 @@
     line-height: 1.55;
   }
 
-  /* ——— Now: her blush wash, kept quiet ———
-     The italic line is Instrument Serif — the display voice
-     speaking once in the body of the page. */
+  /* ——— Now: her blush wash, kept quiet — page voice, not display ——— */
   .now p {
-    font-family: var(--display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 1.25rem;             /* Instrument Serif runs small; 20px reads like body+ */
-    line-height: 1.55;
-    color: var(--ink);              /* 10.5:1 on blush too */
     background: var(--blush);
     border-radius: 12px;
     padding: 1.05rem 1.25rem;
@@ -263,23 +255,18 @@
     margin-bottom: 0.5rem;
   }
   .et {
-    /* block heading: the title gets its own line and real presence;
-       the body below opens with the em dash as its lead-in (Jenny's
-       pattern). Instrument Serif has one weight; size sets it off */
-    display: block;
-    font-family: var(--display);
-    font-weight: 400;
-    font-size: 1.45rem;
-    line-height: 1.2;
+    /* run-in, Jenny-flat: titles are body-sized DM Sans 600 — weight,
+       not scale, sets them off. Instrument Serif belongs to the name
+       alone; the whole page speaks one sans voice under it. */
+    display: inline;
+    font-weight: 600;
+    font-size: 1.0625rem;
+    line-height: inherit;
     color: var(--strong);
-    margin-bottom: 0.3rem;
   }
 
-  /* Tier 2 — compact milestones (NIFT, Harvard, B.Des): quieter title,
-     tighter rhythm, and the title stays RUN-IN (inline) — compacts
-     read as single quiet lines against the flagships' block titles.
-     The body text is untouched — the demotion is purely visual. */
-  .entry.compact .et { display: inline; font-size: 1.1rem; line-height: 1; margin-bottom: 0; }
+  /* Tier 2 — compact milestones (NIFT, Harvard, B.Des): same flat
+     title voice, tighter rhythm and no image slots do the demotion. */
   .entry + .entry.compact { margin-top: 2rem; }
   .entry.compact + .entry.compact { margin-top: 1.4rem; }
 
@@ -333,15 +320,13 @@
   /* ——— About & footer ——— */
   .about p + p { margin-top: 1.1em; }
   /* the close: after the whole scroll, the reader lands on the ask —
-     the email steps up into the display voice, on its own line */
+     the email on its own line, weighted, in the page voice */
   .about .say-hi {
     display: block;
     width: fit-content;
     margin-top: 0.4rem;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 1.5rem;              /* Instrument Serif runs small; reads ~body×1.4 */
-    line-height: 1.25;
+    font-weight: 500;
+    font-size: 1.125rem;
     overflow-wrap: anywhere;        /* 320px: the address wraps, never overflows */
     text-underline-offset: 0.14em;
   }
@@ -406,7 +391,7 @@
     .when {
       text-align: right;
       margin-bottom: 0;
-      padding-top: 0.6em;   /* optically align cap-height with the entry title's first line */
+      padding-top: 0.45em;  /* optically align cap-height with the run-in title's first line */
     }
     /* extra air at desktop: the images are at their largest here */
     .entry + .entry { margin-top: 3.5rem; }
@@ -466,7 +451,7 @@
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
     .arch, .squiggle, .sparkle, .monogram, .thumbs { display: none; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
-    .et { font-size: 13.5pt; }
+    .et { font-size: 10.5pt; }
     .now p { background: none; border-radius: 0; padding: 0; margin-inline: 0; font-size: 12pt; }
     a { color: var(--ink); text-decoration-color: var(--hairline); }
     main a[href^="http"]::after,
@@ -547,7 +532,7 @@
 
       <article class="entry">
         <span class="when"><time datetime="2026-03">March</time>–<time datetime="2026-05">May 2026</time></span>
-        <div class="ebody"><h3 class="et"><a href="https://www.myfoodapp.xyz/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo: concept, design, code, Play Store Early Access.<figure class="thumbs"><img src="assets/thumb-myfood.png" alt="MyFood — nutrition app, Play Store Early Access" width="1312" height="820" loading="lazy"><figcaption>Onboarding — live in Play Store Early Access.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="https://www.myfoodapp.xyz/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo: concept, design, code, Play Store Early Access.<figure class="thumbs"><img src="assets/thumb-myfood.png" alt="MyFood — daily food-group balance screen" width="1312" height="820" loading="lazy"><figcaption>Daily balance — live in Play Store Early Access.</figcaption></figure></div>
       </article>
 
       <article class="entry compact">

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Avantika Pidiha</title>
 <meta name="description" content="Founding Product Designer at OverseeAI. I design agentic products with humans in control — and the design systems AI agents build to.">
-<meta name="theme-color" content="#faf8f4">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" type="image/png" href="assets/ap-monogram-128.png">
 <link rel="canonical" href="https://www.avantikapidiha.com/">
 <!-- STAGING ONLY: remove this noindex line when DNS flips to avantikapidiha.com (launch checklist item) -->
@@ -38,7 +38,8 @@
   /* ————————————————————————————————
      Variant B2 — Editorial warmth + her marks
      Resume pairing: Instrument Serif (display)
-     + DM Sans (body). Warm paper.
+     + DM Sans (body). White ground; the washes
+     and cards carry the warmth.
      Accent = her coral family, one system:
      links (deepened for AA) + hand-drawn marks.
      MOBILE-FIRST: base styles are the 390px
@@ -46,14 +47,14 @@
      enhancement re-adds the hung margins.
      ———————————————————————————————— */
   :root {
-    --paper:  #faf8f4;   /* warm off-white — lighter, Jenny-adjacent; the washes and cards carry the color now */
-    --ink:    #3d3833;   /* body — 10.5:1 on paper */
-    --strong: #35302a;   /* name & entry titles — 11.8:1 */
-    --soft:   #6b6259;   /* secondary — 5.4:1 */
-    --faint:  #6f665a;   /* dates & labels — 5.1:1 */
-    --coral:  #e56749;   /* her bright coral — marks only, never text (2.98:1) */
-    --terracotta: #c05818; /* deep end — non-text uses only (4.08:1) */
-    --accent: #a64310;   /* link text: coral family deepened for AA — 5.53:1 */
+    --paper:  #ffffff;   /* pure white — the washes and cards carry all the color */
+    --ink:    #3d3833;   /* body — 11.6:1 on paper */
+    --strong: #35302a;   /* name & entry titles — 13.1:1 */
+    --soft:   #6b6259;   /* secondary — 6.0:1 */
+    --faint:  #6f665a;   /* dates & labels — 5.6:1 */
+    --coral:  #e56749;   /* her bright coral — marks only, never text (3.3:1) */
+    --terracotta: #c05818; /* deep end — non-text uses only (4.5:1) */
+    --accent: #a64310;   /* link text: coral family deepened for AA — 6.1:1 */
     --sage:   #e6f3e5;   /* her sage wash — arch fill */
     --blush:  #fef1ec;   /* her blush wash — Now block + ICICI filler */
     --hairline: rgb(61 56 51 / 0.16);
@@ -82,7 +83,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  ::selection { background: #ead9bd; color: var(--strong); }
+  ::selection { background: #f3dacb; color: var(--strong); }  /* blush-family highlight — link text holds AA on it (4.58:1) */
 
   .page {
     max-width: calc(var(--measure) + 3rem);
@@ -111,8 +112,8 @@
 
   /* ——— Header: composed for the phone first ———
      Base = the 390px lockup: arch portrait on its own line,
-     the name (one line at 320/390/430 — verified 287px incl.
-     sparkle vs 296px content at 320; .nb keeps "Pidiha ✦"
+     the name (one line at 320/390/430 — verified 260.5px incl.
+     sparkle vs the 272px column at 320; .nb keeps "Pidiha ✦"
      together if it ever breaks), squiggle underneath, title
      line, then the nav row. Desktop moves the arch beside the
      name in the 68rem enhancement below. */
@@ -132,8 +133,8 @@
      wash shows only as the loading backdrop. */
   .arch {
     position: relative;
-    width: 88px;
-    height: 110px;
+    width: 112px;
+    height: 140px;
     border-radius: 50% 50% 0 0;
     overflow: hidden;
     background: var(--sage);
@@ -152,7 +153,7 @@
     font-weight: 400;
     /* Instrument Serif is high-contrast and reads smaller than its
        em size — the name runs bigger than the old serif did:
-       40px at 320 → ~42px at 390 → ~44px at 430; 60px at desktop */
+       40px at 320 → ~42px at 390 → ~44px at 430; 68px at desktop */
     font-size: clamp(2.5rem, 1.4rem + 5vw, 3.25rem);
     line-height: 1.08;
     letter-spacing: 0;
@@ -201,7 +202,9 @@
     align-items: center;
     min-height: 44px;              /* comfortable thumb target on phones */
     padding-inline: 0.3rem;
-    margin-inline: -0.3rem;
+    /* right margin also swallows the phantom 0.16em tracking after the
+       last cap, so the gaps around each sep dot read symmetric */
+    margin-inline: -0.3rem calc(-0.3rem - 0.16em);
     font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.16em;
@@ -215,8 +218,10 @@
   .site-nav .sep { color: var(--faint); user-select: none; }
 
   /* ——— Sections & rhythm ——— */
+  /* the 4.25rem floor keeps era-level separation above the 4rem
+     desktop entry gap on short viewports — hierarchy never inverts */
   main > section { position: relative; margin-top: clamp(3rem, 8vh, 4.5rem); }
-  main > section + section { margin-top: clamp(3.25rem, 9vh, 5rem); }
+  main > section + section { margin-top: clamp(4.25rem, 9vh, 5.5rem); }
 
   h2 {
     font-size: 0.75rem;
@@ -285,13 +290,12 @@
      Base (phone): full column width, in flow below the body.
      Wide (68rem+): widens past the text measure — see the media query.
      Framing is borderless — the images carry their own pale washes,
-     and two of them bake in their own rounded corners (a CSS hairline
-     would trace a different radius and misalign at those corners).
-     The 12px CSS radius matches the Now wash and rounds the
-     square-cornered assets; no border, no shadows.
+     and all four assets are square-cornered full-bleed wash: the
+     12px CSS radius (matching the Now wash) does all the rounding;
+     no border, no shadows.
      .filler is the inline-SVG placeholder variant (ICICI, always solo);
      it obeys the same box rules as a real image. */
-  .thumbs { margin: 1.25rem 0 0; }
+  .thumbs { margin: 1.5rem 0 0; }
   .thumbs img {
     display: block;
     width: 100%;
@@ -316,10 +320,10 @@
     font-variant-numeric: tabular-nums;
   }
   /* Artifact-card system: every entry image is a composed 16:10 card
-     (1312×820 @2x) on one of her brand washes — uniform ratio, uniform
-     rhythm. Cards are composed at capture time (cards.html in the
-     project scratch), not styled here, so the page treats all four
-     identically. */
+     (1504×940 — exact 2x of the 752×470 desktop display) on one of her
+     brand washes — uniform ratio, uniform rhythm. Cards are composed at
+     capture time (cards2.html in the project scratch), not styled here,
+     so the page treats all four identically. */
 
   /* ——— About & footer ——— */
   .about p + p { margin-top: 1.1em; }
@@ -357,10 +361,18 @@
     }
     .name-block { flex: 1 1 9rem; }
     /* scale contrast is what reads as designed: the name owns the
-       masthead, the arch grows to hold its own beside it */
-    h1 { font-size: 4.5rem; }
-    .arch { width: 104px; height: 130px; }
-    .squiggle { width: 190px; margin-top: 0.4rem; }
+       masthead (442.8px at 68px vs the 128px arch), and the arch is
+       big enough to hold its own beside it. 68px is the fit ceiling:
+       name-block = 608 − 128 arch − 25.6 gap = 454.4px, name measures
+       442.8px incl. sparkle — one line with 11.6px slack. */
+    h1 { font-size: 4.25rem; }  /* 68px */
+    /* arch bottom sits ON the nav caps baseline, not the invisible
+       44px tap-box bottom — the flat edge is the header's strongest
+       horizontal. 18px = (44 − 16 caps line box)/2 + descent. */
+    .arch { width: 128px; height: 160px; margin-bottom: 18px; }
+    /* tracks the phone lockup: ~90% ink coverage of "Avantika",
+       stroke ≈ 11.3% of the em — same proportions as the base */
+    .squiggle { width: 230px; margin-top: 0.4rem; }
 
     h2 {
       position: absolute;
@@ -398,22 +410,24 @@
       padding-top: 0.45em;  /* optically align cap-height with the run-in title's first line */
     }
     /* extra air at desktop: the images are at their largest here */
-    .entry + .entry { margin-top: 3.5rem; }
+    .entry + .entry { margin-top: 4rem; }
     .entry + .entry.compact { margin-top: 2.25rem; }
     .entry.compact + .entry.compact { margin-top: 1.4rem; }
 
     /* Entry images run WIDER than the text measure — Jenny's editorial
-       text-narrow/image-wide rhythm. The overhang spans the .page
-       gutters: 38rem measure + 2 × 1.5rem = 41rem, the full page box.
-       FIT CONTRACT: .ebody (the 1fr grid column) is exactly the 38rem
-       measure, and its right edge is the page content's right edge, so
-       the 1.5rem right overhang lands exactly on the page box edge —
-       no viewport overflow at ≥68rem. The 1.5rem left overhang eats
-       into the 2rem date-column gap, never the dates themselves. */
-    .thumbs { margin-inline: -1.5rem; }
+       text-narrow/image-wide rhythm. The 4.5rem overhang makes the
+       card 47rem (752px), 1.237× the 38rem measure, breaking 48px past
+       the 41rem page box on each side.
+       FIT CONTRACT (verified at exactly 68rem = 1088px): .ebody spans
+       240→848; the card spans 168→920, leaving 168px clear to each
+       screen edge — no viewport overflow at ≥68rem (hover's ~4.5px
+       scale still leaves 163px). The left edge passes the dates'
+       right-align line (x=208) by 40px, which is safe: dates sit at
+       entry TOP, images at entry BOTTOM — never side by side. */
+    .thumbs { margin-inline: -4.5rem; }
     /* the card overhangs the measure; its caption returns to the text
        grid — image breaks the grid, words respect it */
-    .thumbs figcaption { margin-inline: 1.5rem; }
+    .thumbs figcaption { margin-inline: 4.5rem; }
   }
 
   /* ——— Micro-interactions + custom cursor (desktop fine-pointers only;
@@ -598,7 +612,7 @@
 
       <article class="entry">
         <span class="when"><time datetime="2026-03">March</time>–<time datetime="2026-05">May 2026</time></span>
-        <div class="ebody"><h3 class="et"><a href="https://www.myfoodapp.xyz/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo: concept, design, code, Play Store Early Access.<figure class="thumbs"><img src="assets/thumb-myfood.png?v=3" alt="MyFood — daily food-group balance screen" width="1312" height="820" loading="lazy"><figcaption>Daily balance — live in Play Store Early Access.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="https://www.myfoodapp.xyz/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo: concept, design, code, Play Store Early Access.<figure class="thumbs"><img src="assets/thumb-myfood.png?v=4" alt="MyFood — daily food-group balance screen" width="1504" height="940" loading="lazy"><figcaption>Daily balance — live in Play Store Early Access.</figcaption></figure></div>
       </article>
 
       <article class="entry compact">
@@ -618,17 +632,17 @@
 
       <article class="entry">
         <span class="when"><time datetime="2024">2024</time>–<time datetime="2025">25</time></span>
-        <div class="ebody"><h3 class="et">ICICI Lombard — the IL TakeCare revamp (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around research with 54+ participants. Customer support calls fell 37% — my favorite kind of design metric, the phone that doesn't ring. Also built the company's first design system, cutting handoff time by 30%. (First time; Vantage is my second.)<figure class="thumbs"><!-- FILLER: replace with real IL TakeCare art from her deck --><img src="assets/thumb-icici.png?v=3" alt="IL TakeCare — case study on request" width="1312" height="820" loading="lazy"></figure></div>
+        <div class="ebody"><h3 class="et">ICICI Lombard — the IL TakeCare revamp (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around research with 54+ participants. Customer support calls fell 37% — my favorite kind of design metric, the phone that doesn't ring. Also built the company's first design system, cutting handoff time by 30%. (First time; Vantage is my second.)<figure class="thumbs"><!-- FILLER: replace with real IL TakeCare art from her deck --><img src="assets/thumb-icici.png?v=4" alt="IL TakeCare — case study on request" width="1504" height="940" loading="lazy"></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2023">2023</time>–<time datetime="2024">24</time></span>
-        <div class="ebody"><h3 class="et">Lenskart — the Home pod (Sr. Product Designer)</h3> — Led the Home design pod through a full homepage revamp: overall conversions up 10%, home-to-listing journeys up 14%, and a new 15-page Explore section that converted to order 40% better than home. Also streamlined Lenskart at Home booking, cutting drop-offs 30%.<figure class="thumbs"><img src="assets/thumb-lenskart.png?v=3" alt="Lenskart app — redesigned Home and Explore" width="1312" height="736" loading="lazy"><figcaption>The Explore section — 15 new pages, +40% to order vs home.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et">Lenskart — the Home pod (Sr. Product Designer)</h3> — Led the Home design pod through a full homepage revamp: overall conversions up 10%, home-to-listing journeys up 14%, and a new 15-page Explore section that converted to order 40% better than home. Also streamlined Lenskart at Home booking, cutting drop-offs 30%.<figure class="thumbs"><img src="assets/thumb-lenskart.png?v=4" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"><figcaption>The Explore section — 15 new pages, +40% to order vs home.</figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2021">2021</time>–<time datetime="2023">23</time></span>
-        <div class="ebody"><h3 class="et">Axis Bank — service pages &amp; One View (Product Designer, via THEM Consulting)</h3> — Led design of the mobile app's service pages: service calls down 70%, task completion time down 45%. Shipped "One View," which hit 40% adoption in its first month.<figure class="thumbs"><img src="assets/thumb-axis-oneview.png?v=3" alt="Axis One View — unified accounts view" width="1312" height="820" loading="lazy"><figcaption>One View — every account in one place; 40% adoption in month one.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et">Axis Bank — service pages &amp; One View (Product Designer, via THEM Consulting)</h3> — Led design of the mobile app's service pages: service calls down 70%, task completion time down 45%. Shipped "One View," which hit 40% adoption in its first month.<figure class="thumbs"><img src="assets/thumb-axis-oneview.png?v=4" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"><figcaption>One View — every account in one place; 40% adoption in month one.</figcaption></figure></div>
       </article>
 
       <article class="entry compact">

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="locked">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IL TakeCare — Avantika Pidiha</title>
-<meta name="description" content="ICICI Lombard's IL TakeCare app revamp — a case study by Avantika Pidiha. Shared on request.">
+<title>MyFood — Avantika Pidiha</title>
+<meta name="description" content="MyFood — a nutrition app that reframes calorie-counting as food-group balance. Designed, built and shipped solo by Avantika Pidiha.">
 <meta name="theme-color" content="#ffffff">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="../assets/ap-monogram-128.png">
@@ -268,21 +268,59 @@
     </nav>
   </div>
 
-  <section id="gate" aria-labelledby="gate-h">
-    <img class="monogram" src="../assets/ap-monogram-128.png" alt="" width="128" height="127">
-    <h1 id="gate-h">This case study is password-protected.</h1>
-    <p>It's client work, so I share it on request. If you have the password, it opens here — the page decrypts in your browser and nothing is sent anywhere.</p>
-    <form id="unlock" autocomplete="off" novalidate>
-      <label for="pw">Password</label>
-      <input id="pw" type="password" placeholder="Password" autocapitalize="none" spellcheck="false" required>
-      <button type="submit">Open</button>
-    </form>
-    <p class="msg" id="msg" aria-live="polite"></p>
-    <p class="ask">Don't have it? <a href="mailto:avantikapidiha28@gmail.com?subject=IL%20TakeCare%20case%20study">Email me</a> and I'll send it the same day.</p>
-    <noscript><p>This page needs JavaScript to decrypt the case study.</p></noscript>
-  </section>
+  <main id="cs"><div class="hero">
+  <span class="kicker">MyFood · Android · Mar–May 2026</span>
+  <h1>Khana kya banaun?</h1>
+  <p class="dek">"What should I cook?" is the question every Indian household asks around six in the evening. MyFood answers it: a day's meals balanced by food group, the recipe for each, and one place for the links I save from YouTube and Instagram. I designed it, built it and shipped it alone. It's live in Play Store Early Access.</p>
+  <dl class="glance">
+    <div><dt>Role</dt><dd>Everything: concept, design, code, release</dd></div>
+    <div><dt>When</dt><dd>Mar – May 2026</dd></div>
+    <div><dt>Status</dt><dd>Play Store Early Access · <a href="https://www.myfoodapp.xyz/">myfoodapp.xyz</a></dd></div>
+    <div><dt>Built with</dt><dd>Claude Code, Lovable, Vercel, Capacitor, Android Studio</dd></div>
+  </dl>
+</div>
 
-  <main id="cs"></main>
+<section>
+  <h2><span class="num">01</span>Food groups, not calories</h2>
+  <p>The nutrition apps I'd used treat food as arithmetic: calories in, calories out, a number to chase. That isn't how anyone cooks. A household cooks by balance: a grain, a dal, a vegetable, something from dairy, and the rest follows. So MyFood counts food groups instead of calories. The home screen answers the question at a glance: today's balance out of nine groups, the day's three meals, and a recipe behind each one.</p>
+  <figure class="thumbs">
+    <img src="img/fig-home.webp" loading="lazy" alt="Two MyFood screens: the setup question 'What do you eat?' with Vegetarian and Vegetarian plus Eggs options, and the home screen with a week strip, today's balance showing four of nine food groups, and breakfast, lunch and dinner cards with a View recipe action" width="1504" height="940">
+    <figcaption><span class="tag">Setup · Home</span>Setup asks one question. Home answers the other: today's balance out of nine groups, and the day's three meals.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="num">02</span>Recipes, and the videos people actually cook from</h2>
+  <p>A recipe here is the dish plus the way people really learn it. Each one carries its serving size, the calories and macros per serving, and a rail of videos for that dish, because nobody in my family has cooked from a text recipe in years. The recipe list filters by what you're after (high protein, low calorie, my own), and saving a link from YouTube or Instagram files it under the dish. That's the "my" in MyFood: the plan is generated, but the recipes are yours.</p>
+  <figure class="thumbs">
+    <img src="img/fig-recipes.webp" loading="lazy" alt="Three MyFood screens: the recipe list with calorie and protein per dish and filters, a recipe detail for Dal Paneer Combo with per-serving nutrition and a rail of YouTube videos, and the add-recipe screen" width="1504" height="940">
+    <figcaption><span class="tag">Recipes</span>The list, a dish with its videos, and the add screen where a saved link becomes a recipe.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="num">03</span>I didn't learn to code. I learned to orchestrate.</h2>
+  <p>ChatGPT gave me the roadmap: connect GitHub, deploy on Vercel, set up Capacitor, build in Android Studio. Good for direction, not much use when things broke. Lovable got a rough working model up in two hours; as the codebase grew it overwrote changes, burned credits and struggled to debug. Claude Code could read the whole codebase and explain why things were breaking.</p>
+  <p>No single tool could build the app. The loop that could: Claude plans, Lovable implements, Vercel deploys, Claude reviews and plans again. The glue was a planning doc, one .md file that became the contract between tools that don't talk to each other. It's the same idea I now run at OverseeAI, where the design system's DESIGN.md and tokens are the spec that coding agents build to. I learned it here first, on a meal planner.</p>
+  <figure class="thumbs">
+    <img src="img/fig-loop.webp" loading="lazy" alt="Diagram of the build loop: Claude Code plans, Lovable implements, Vercel deploys, Claude Code reviews and plans again, with a plan.md file in the centre as the contract between the tools" width="1504" height="940">
+    <figcaption><span class="tag">The loop</span>Four tools, one planning doc, and a person deciding when to override all of them.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="num">04</span>The eggs</h2>
+  <p>At one point the planner was recommending eggs three times a day, for everyone. Technically correct: it was optimising for B12 in a vegetarian-leaning diet. Completely useless as a product. No prompt fixes that. A product decision does.</p>
+  <p class="callout">The real skill wasn't prompting. It wasn't debugging. It was knowing when to override all of them with a product decision.</p>
+  <p>That doesn't change when the code is generated. The model was right and the product was wrong, and someone has to know the difference.</p>
+</section>
+
+<section>
+  <h2><span class="num">05</span>Where it is</h2>
+  <p>The app is live on the Play Store in Early Access, and the web build is at <a href="https://www.myfoodapp.xyz/">myfoodapp.xyz</a>. The build story is on <a href="https://www.linkedin.com/feed/update/urn:li:activity:7451188277711319041/">LinkedIn</a>, where it started.</p>
+  <p>And the question that started it all? App toh ban gayi. Now I just send the links to my cook.</p>
+</section>
+</main>
 
   <footer>
     <img class="monogram" src="../assets/ap-monogram-128.png" alt="AP monogram" width="128" height="127" loading="lazy">
@@ -297,7 +335,7 @@
 
 </div>
 
-<script type="application/json" id="payload">{"v":1,"kdf":"PBKDF2-SHA256","it":310000,"salt":"DFJ0u5cVV3ZcYY4u+2l0Kw==","html":"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"}</script>
+
 <script>
 /* Unlock: PBKDF2-SHA256 → AES-256-GCM, all WebCrypto, all client-side.
    The HTML and every image are separate ciphertexts under one key. */
@@ -325,7 +363,7 @@
     const html = new TextDecoder().decode(await open(key, b64(p.html)));
     cs.innerHTML = html;
     root.classList.remove('locked');
-    document.title = (cs.querySelector('h1')?.textContent || 'IL TakeCare') + ' — Avantika Pidiha';
+    document.title = (cs.querySelector('h1')?.textContent || 'MyFood') + ' — Avantika Pidiha';
     // stream the images in: fetch → decrypt → blob URL, in document order
     for (const img of cs.querySelectorAll('img[data-enc]')) {
       fetch(img.dataset.enc).then(r => r.arrayBuffer())
@@ -345,7 +383,7 @@
     try {
       const key = await deriveKey(password);
       await reveal(key);
-      try { sessionStorage.setItem('il-takecare', password); } catch (e) {}
+      try { sessionStorage.setItem('myfood', password); } catch (e) {}
     } catch (e) {
       if (!quiet) {
         msg.textContent = 'That password didn\'t work.'; msg.className = 'msg err';
@@ -357,7 +395,7 @@
 
   form.addEventListener('submit', e => { e.preventDefault(); if (pw.value) attempt(pw.value, false); });
   pw.addEventListener('input', () => { pw.removeAttribute('aria-invalid'); if (msg.classList.contains('err')) { msg.textContent = ''; msg.className = 'msg'; } });
-  try { const saved = sessionStorage.getItem('il-takecare'); if (saved) attempt(saved, true); } catch (e) {}
+  try { const saved = sessionStorage.getItem('myfood'); if (saved) attempt(saved, true); } catch (e) {}
 })();
 
 /* Trailing coral dot — same as the landing page; link detection is

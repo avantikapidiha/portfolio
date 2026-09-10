@@ -808,6 +808,18 @@
     .read-next .layout { grid-template-columns: 220px 1fr; gap: 1.4rem; }
   }
 
+  /* Thesis marker: any coined phrase gets the italic serif — the second
+     job Instrument Serif does on the site beyond her name. Bumps a hair
+     in weight and size so it reads as the coinage it is. */
+  .thesis {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.06em;
+    color: var(--strong);
+    letter-spacing: -0.005em;
+  }
+
   @media print {
     :root { --paper: #ffffff; }
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
@@ -894,7 +906,7 @@
       <div class="tags"><span class="tag">ICICI Lombard</span><span class="tag">Insurance app</span><span class="tag">First design system</span></div>
       <span class="kicker">Sr. Product Designer · Feb 2024 – Apr 2025</span>
       <h1>The phone that doesn't ring</h1>
-      <p class="dek">I redesigned ICICI Lombard's flagship insurance app around research with 14 users and 38 stakeholders. After launch, customer service calls fell 37% — my favourite kind of design metric, the phone that doesn't ring. In the same run I built the company's first design system, standardising every UI pattern and cutting handoff time by 30%.</p>
+      <p class="dek">I redesigned ICICI Lombard's flagship insurance app around research with 14 users and 38 stakeholders. After launch, customer service calls fell 37% — my favourite kind of design metric, <em class="thesis">the phone that doesn't ring</em>. In the same run I built the company's first design system, standardising every UI pattern and cutting handoff time by 30%.</p>
       <figure class="cover">
         <img src="../assets/thumb-icici.png?v=5" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="eager" fetchpriority="high">
       </figure>

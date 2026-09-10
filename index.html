@@ -228,7 +228,8 @@
 
   /* Coinage marker: any phrase Avantika owns as a coined name — set in
      Instrument Serif italic once, DM Sans on repeat. Same idiom as the
-     case-page teaser dek. */
+     case-page teaser dek. When wrapped in a link, inherit the link's
+     coral colour instead of overriding it. */
   .thesis {
     font-family: var(--display);
     font-style: italic;
@@ -237,6 +238,7 @@
     color: var(--strong);
     letter-spacing: -0.002em;
   }
+  a .thesis { color: inherit; }
 
   /* ——— Sections & rhythm ——— */
   /* the 4.25rem floor keeps era-level separation above the 4rem
@@ -823,7 +825,7 @@
 
     <section class="process">
       <h2>How I work</h2>
-      <p>AI sits inside every step of my process now, not off to the side of it. <a href="process/">Where the AI actually sits</a> is the whole method: Figma over MCP, prototypes in HTML, everything in GitHub, the reviews I run against my own work, and the parts that are still people. This website is one of the things it made.</p>
+      <p>AI sits inside every step of my process now, not off to the side of it. <a href="process/"><em class="thesis">Where the AI actually sits</em></a> is the whole method: Figma over MCP, prototypes in HTML, everything in GitHub, the reviews I run against my own work, and the parts that are still people. This website is one of the things it made.</p>
     </section>
 
     <section class="now">

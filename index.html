@@ -329,6 +329,31 @@
      capture time (cards2.html in the project scratch), not styled here,
      so the page treats all four identically. */
 
+  /* ——— Kind words ———
+     The four recommendations carried over from the old Framer site,
+     verbatim. Deliberately undecorated: the quote sits in the page
+     voice one step up in size, and the attribution borrows the
+     timeline's date treatment so the section needs no new furniture. */
+  .words figure { margin: 0; }
+  .words figure + figure { margin-top: 2.1rem; }
+  .words blockquote {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .words figcaption { margin-top: 0.6rem; font-size: 0.8125rem; color: var(--soft); }
+  .words figcaption b {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 0.1rem;
+  }
+
   /* ——— About & footer ——— */
   .about p + p { margin-top: 1.1em; }
   /* the close: after the whole scroll, the reader lands on the ask —
@@ -567,6 +592,8 @@
         </svg>
         <p class="role">Founding Product Designer, OverseeAI</p>
         <nav class="site-nav" aria-label="Contact">
+          <a href="process/">How I work</a>
+          <span class="sep" aria-hidden="true">·</span>
           <a href="https://linkedin.com/in/avantikapidiha">LinkedIn</a>
           <span class="sep" aria-hidden="true">·</span>
           <a href="./resume.pdf">Resume</a>
@@ -583,6 +610,11 @@
       <p>I'm the founding product designer at OverseeAI, where I design an enterprise agentic platform for insurance teams — AI agents run the work; human experts stay in control. I own design end to end: the product, the design system, and the language.</p>
       <p>My focus is what happens after AI does the work — how an expert verifies it, trusts it, and signs off on it. And I build design systems machines can read: the Figma library, DESIGN.md, and token files are the spec, and AI coding agents read them on every build.</p>
       <p>Before OverseeAI I shipped consumer products at scale. My redesigns cut customer service calls 37% at ICICI Lombard and 70% at Axis Bank, and lifted Lenskart's home-to-listing conversion 14%. OverseeAI hired that track record to build its design function from zero.</p>
+    </section>
+
+    <section class="process">
+      <h2>How I work</h2>
+      <p>AI sits inside every step of my process now, not off to the side of it. <a href="process/">Where the AI actually sits</a> is the whole method: Figma over MCP, prototypes in HTML, everything in GitHub, the reviews I run against my own work, and the parts that are still people. This website is one of the things it made.</p>
     </section>
 
     <section class="now">
@@ -656,6 +688,31 @@
 
     </section>
 
+    <section class="words">
+      <h2>Kind words</h2>
+
+      <figure>
+        <blockquote><p>“I was working with Avantika on the transformation of the IL TakeCare app at ICICI Lombard. She brought a user-first mindset and strong design thinking to a complex initiative.”</p></blockquote>
+        <figcaption><b>Saurabh Lohani</b>Lead Product Manager, ICICI Lombard</figcaption>
+      </figure>
+
+      <figure>
+        <blockquote><p>“She makes a genuine effort to understand every piece of feedback, no matter how small, and integrates it meaningfully into her work. Her openness to iteration and continuous improvement makes her a joy to work with.”</p></blockquote>
+        <figcaption><b>Prabhu Babu</b>Lead Product Designer, Lenskart</figcaption>
+      </figure>
+
+      <figure>
+        <blockquote><p>“I highly recommend Avantika for her expertise, dedication, and collaborative spirit in delivering efficient and impactful product designs.”</p></blockquote>
+        <figcaption><b>Vijay Chandola</b>Head of Product, Axis Bank</figcaption>
+      </figure>
+
+      <figure>
+        <blockquote><p>“I can confidently say that as a product designer, she has an exceptional caliber in critical design thinking that shapes the value proposition of the product.”</p></blockquote>
+        <figcaption><b>Akhilesh Naidu</b>Lead Product Designer, Omatochi</figcaption>
+      </figure>
+
+    </section>
+
     <section class="about">
       <h2>About</h2>
       <p>The kit: Figma, Claude Code, Cursor, Lovable, Stitch, Lottie. The newer skills: design-to-agent handoff (DESIGN.md and tokens), agent and skill authoring, evaluation design, non-deterministic UX.</p>
@@ -668,6 +725,8 @@
   <footer>
     <img class="monogram" src="assets/ap-monogram-128.png" alt="AP monogram" width="128" height="127" loading="lazy">
     <nav class="site-nav" aria-label="Footer">
+      <a href="process/">How I work</a>
+      <span class="sep" aria-hidden="true">·</span>
       <a href="https://linkedin.com/in/avantikapidiha">LinkedIn</a>
       <span class="sep" aria-hidden="true">·</span>
       <a href="./resume.pdf">Resume</a>

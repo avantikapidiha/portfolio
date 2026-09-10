@@ -399,16 +399,38 @@
      verbatim. Deliberately undecorated: the quote sits in the page
      voice one step up in size, and the attribution borrows the
      timeline's date treatment so the section needs no new furniture. */
-  .words figure { margin: 0; }
-  .words figure + figure { margin-top: 2.1rem; }
+  .words figure { margin: 0; position: relative; }
+  .words figure + figure {
+    margin-top: 2.1rem;
+    padding-top: 2.1rem;
+    border-top: 1px solid var(--hairline);
+  }
   .words blockquote {
     margin: 0;
     font-size: 1.0625rem;
     line-height: 1.6;
     color: var(--ink);
     text-wrap: pretty;
+    position: relative;
   }
-  .words figcaption { margin-top: 0.6rem; font-size: 0.8125rem; color: var(--soft); }
+  /* A large coral opening quote glyph hung to the left of each quote.
+     Reads as "someone actually said this" without shouting; sits in the
+     margin at desktop, right above the text on phones. */
+  .words blockquote::before {
+    content: "\201C";
+    position: absolute;
+    top: -0.35em; left: -0.15em;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 3.6em;
+    line-height: 1;
+    color: var(--coral);
+    opacity: 0.55;
+    pointer-events: none;
+    user-select: none;
+  }
+  .words blockquote p:first-child { padding-left: 0.3rem; }
+  .words figcaption { margin-top: 0.6rem; font-size: 0.8125rem; color: var(--soft); padding-left: 0.3rem; }
   .words figcaption b {
     display: block;
     font-size: 0.75rem;
@@ -417,6 +439,12 @@
     text-transform: uppercase;
     color: var(--faint);
     margin-bottom: 0.1rem;
+  }
+  @media (min-width: 68rem) {
+    /* on desktop, hang the quote glyph in the left margin so the text
+       stays flush with the reading measure */
+    .words blockquote::before { left: -2.2rem; top: -0.2em; font-size: 4.2em; }
+    .words blockquote p:first-child, .words figcaption { padding-left: 0; }
   }
 
   /* ——— About & footer ——— */

@@ -764,11 +764,30 @@
   }
 
   @media print {
-    body { font-size: 10.5pt; line-height: 1.5; }
-    .site-nav, .cursor, #gate { display: none; }
-    .thumbs img, .card, .flow, .quotes blockquote, .baseline, .ifthen, .defs { break-inside: avoid; }
-    .meta { position: static; }
-    a { color: var(--ink); }
+    :root { --paper: #ffffff; }
+    body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
+    /* chrome and hover-only affordances vanish on paper */
+    .top, .site-nav, .rail, .to-top, .cursor, #gate { display: none; }
+    .thumbs img, .cover img, .card, .flow, .quotes blockquote, .baseline, .ifthen, .defs, .read-next, .meta, .hero { break-inside: avoid; }
+    .meta { position: static; page-break-inside: avoid; margin-inline: 0; }
+    .hero h1 { font-size: 22pt; page-break-after: avoid; }
+    .hero .kicker { font-size: 8pt; margin-bottom: 0.6rem; }
+    .hero .kicker::before { display: none; }  /* the coral rule doesn't print */
+    .tags { display: none; }                  /* pills read awkwardly on paper */
+    .cover img { max-height: 260pt; object-fit: cover; }
+    #cs h2 { font-size: 14pt; page-break-after: avoid; }
+    .read-next { border-top: 1px solid #ddd; margin-top: 1.5rem; padding-top: 1rem; }
+    .read-next .headline { font-size: 12pt; }
+    footer { padding-bottom: 0; }
+    footer .mark { display: none; }
+    a { color: var(--ink); text-decoration-color: rgb(61 56 51 / 0.35); }
+    /* external + PDF links expand their href inline so the paper carries the reference */
+    main a[href^="http"]::after, footer a[href^="http"]::after,
+    #cs a[href^="http"]::after, #teaser a[href^="http"]::after,
+    footer a[href$=".pdf"]::after {
+      content: " (" attr(href) ")";
+      font-size: 0.82em; color: var(--soft); letter-spacing: 0; text-transform: none;
+    }
     @page { margin: 1.8cm; }
   }
 </style>

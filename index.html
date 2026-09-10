@@ -6,7 +6,7 @@
 <title>Avantika Pidiha</title>
 <meta name="description" content="Founding Product Designer at OverseeAI. Designing agentic products with humans in control, and the design systems, tokens, and specs AI agents build to.">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" type="image/png" href="assets/ap-monogram-128.png">
+<link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="canonical" href="https://www.avantikapidiha.com/">
 <!-- STAGING ONLY: remove this noindex line when DNS flips to avantikapidiha.com (launch checklist item) -->
 <meta name="robots" content="noindex">
@@ -382,12 +382,19 @@
     padding-block: 1.6rem clamp(3rem, 8vh, 5rem);
     border-top: 1px solid var(--hairline);
   }
-  .monogram {
+  /* Site mark: the coral sparkle she already uses inline. On the landing
+     page it appears once, in the footer, above the closing nav — small,
+     warm, wordless. Not a monogram, not a logo, just her mark. */
+  .mark {
     display: block;
-    width: 48px;
-    height: auto;
+    width: 28px;
+    height: 28px;
+    color: var(--coral);
     margin-bottom: 1.1rem;
   }
+  .mark svg { display: block; width: 100%; height: 100%; }
+  .mark-link { display: inline-block; text-decoration: none; }
+  .mark-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; text-decoration: none; }
 
   /* ——— The one desktop enhancement: arch joins the name row;
          dates & labels hang left, entry images widen past the measure ——— */
@@ -491,8 +498,8 @@
     .name-block:hover .squiggle path { animation: draw 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
 
     /* the maker's mark says bye */
-    .monogram { transition: transform 200ms ease-out; }
-    .monogram:hover { animation: wiggle 500ms ease-in-out; }
+    .mark { transition: transform 200ms ease-out; }
+    .mark:hover { animation: wiggle 500ms ease-in-out; }
   }
   @keyframes twinkle {
     0%, 100% { transform: translateY(-0.55em) rotate(18deg) scale(1); }
@@ -565,7 +572,7 @@
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
     header { padding-top: 0; }
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
-    .arch, .squiggle, .sparkle, .monogram, .thumbs, .cursor { display: none; }
+    .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor { display: none; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
     .now p { background: none; border-radius: 0; padding: 0; margin-inline: 0; font-size: 12pt; }
@@ -735,7 +742,7 @@
   </main>
 
   <footer>
-    <img class="monogram" src="assets/ap-monogram-128.png" alt="AP monogram" width="128" height="127" loading="lazy">
+    <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
     <nav class="site-nav" aria-label="Footer">
       <a href="process/">How I work</a>
       <span class="sep" aria-hidden="true">·</span>

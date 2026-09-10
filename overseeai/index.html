@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Slower on purpose — Avantika Pidiha</title>
 <meta name="description" content="OverseeAI's Ratebook Workbench — a case study by Avantika Pidiha. Shared on request.">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1815" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://www.avantikapidiha.com/overseeai/">
 <!-- STAGING ONLY: gated pages keep noindex for good; public case pages drop it at the DNS flip -->
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:type" content="article">
@@ -679,6 +681,22 @@
   /* h1 numeric wrap: the case titles never break awkwardly on a lone digit */
   .hero h1 { text-wrap: balance; }
 
+  /* Thesis marker: the one coined phrase in the dek gets the italic serif —
+     the second job Instrument Serif does on the site beyond her name.
+     Bumps a hair in weight and size so it reads as the coinage it is. */
+  .hero .dek .thesis {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.08em;
+    color: var(--strong);
+    letter-spacing: -0.005em;
+  }
+
+  /* Anchor landings breathe: any deep link to a section h2 lands 3rem
+     below the browser top instead of jammed against it. */
+  h2, .hero h1, #cs h2, #teaser .hero h1 { scroll-margin-top: 2.5rem; }
+
   @media print {
     body { font-size: 10.5pt; line-height: 1.5; }
     .site-nav, .cursor, #gate { display: none; }
@@ -717,7 +735,7 @@
       <div class="tags"><span class="tag">OverseeAI</span><span class="tag">Agentic UX</span><span class="tag">Vantage design system</span><span class="tag">Human in the loop</span></div>
       <span class="kicker">Founding Product Designer · May 2026 – now</span>
       <h1>Slower on purpose</h1>
-      <p class="dek">The Ratebook Workbench is OverseeAI's core product — an agentic tool where insurance teams create, verify, and compare ratebooks. The first version never stopped, so I put two gates in it: the machine asks before it runs, and an analyst decides every flagged cell before anything is certified. Nothing has shipped externally yet, which is why this case study claims no results.</p>
+      <p class="dek">The Ratebook Workbench is OverseeAI's core product — an agentic tool where insurance teams create, verify, and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it: the machine asks before it runs, and an analyst decides every flagged cell before anything is certified. Nothing has shipped externally yet, which is why this case study claims no results.</p>
       <figure class="cover">
         <img src="../assets/thumb-overseeai.webp?v=1" alt="Ratebook Workbench — the table verification worklist" width="1504" height="940" loading="lazy">
       </figure>

@@ -13,7 +13,7 @@
 <meta property="og:description" content="Three projects on Axis Bank's mobile app — a case study by Avantika Pidiha. Shared on request.">
 <meta property="og:image" content="https://www.avantikapidiha.com/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="../assets/ap-monogram-128.png">
+<link rel="icon" type="image/svg+xml" href="../assets/mark.svg">
 <link rel="preload" href="../fonts/instrumentserif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/dmsans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -91,18 +91,25 @@
   a:hover { text-decoration-color: var(--terracotta); }
   :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; text-decoration: none; }
 
-  /* ——— Top bar: the way back, in her name ——— */
+  /* ——— Top bar: the way back — sparkle mark + a small caps hint ——— */
   .top {
-    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
-    padding-top: clamp(1.5rem, 5vh, 3rem);
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    padding-top: clamp(1.25rem, 4vh, 2.4rem);
     padding-bottom: 0.9rem;
     border-bottom: 1px solid var(--surface-line);
   }
   .home {
-    font-family: var(--display); font-style: italic; font-size: 1.375rem; line-height: 1.2;
-    color: var(--strong); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    padding: 0.35rem 0.35rem 0.35rem 0;
+    color: var(--faint); text-decoration: none;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+    transition: color 150ms ease-out;
   }
-  .home .arrow { display: inline-block; margin-right: 0.35em; transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .home:hover { color: var(--accent); }
+  .home .mark { width: 22px; height: 22px; color: var(--coral); display: inline-block; transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .home .mark svg { display: block; width: 100%; height: 100%; }
+  .home:hover .mark { transform: rotate(-20deg) scale(1.1); }
+  .home .arrow { display: inline-block; transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); }
   .home:hover .arrow { transform: translateX(-3px); }
   .caps, .site-nav a, .kicker, dt, .tag, .label {
     font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint);
@@ -117,10 +124,14 @@
   .site-nav a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   .site-nav .sep { color: var(--faint); user-select: none; }
 
-  /* ——— Gate (stripped from public builds) ——— */
-  #gate { margin-top: clamp(3.5rem, 14vh, 7rem); max-width: 27rem; }
-  #gate .monogram { width: 44px; height: auto; display: block; margin-bottom: 1.4rem; }
-  #gate h1 { font-size: 1.35rem; font-weight: 600; line-height: 1.3; color: var(--strong); letter-spacing: -0.005em; }
+  /* ——— Gate (stripped from public builds) — now sits BELOW the public teaser ——— */
+  #gate { margin-top: clamp(2.5rem, 8vh, 4rem); max-width: 32rem;
+    padding: 1.4rem 1.4rem 1.5rem; border: 1px solid var(--surface-line); border-radius: var(--radius);
+    background: var(--surface);
+  }
+  #gate .mark { width: 22px; height: 22px; color: var(--coral); display: block; margin-bottom: 0.9rem; }
+  #gate .mark svg { display: block; width: 100%; height: 100%; }
+  #gate h1 { font-size: 1.2rem; font-weight: 600; line-height: 1.3; color: var(--strong); letter-spacing: -0.005em; }
   #gate p { margin-top: 0.7rem; color: var(--ink); }
   #gate form { display: flex; gap: 0.5rem; margin-top: 1.4rem; }
   #gate label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
@@ -421,9 +432,54 @@
     padding-block: 1.6rem clamp(3rem, 8vh, 5rem);
     border-top: 1px solid var(--hairline);
   }
-  footer .monogram { display: block; width: 48px; height: auto; margin-bottom: 1.1rem; }
+  footer .mark { display: block; width: 28px; height: 28px; color: var(--coral); margin-bottom: 1.1rem; }
+  footer .mark svg { display: block; width: 100%; height: 100%; }
   footer .site-nav a { color: var(--accent); }
   .next { margin-top: 1.4rem; font-size: 0.9375rem; color: var(--soft); }
+
+  /* ——— Right-hand rail: Jenny-style persistent nav on desktop ———
+     Fixed to the right margin, scrolls with the reader while the case
+     study rolls past. Small caps DM Sans, no backdrop, quiet enough
+     that it doesn't fight the images that overhang into the same margin.
+     Hidden below 68rem (mobile relies on the top bar + footer). */
+  .rail { display: none; }
+  @media (min-width: 68rem) {
+    .rail {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 0.9rem;
+      position: fixed; right: clamp(0.9rem, 2.4vw, 1.6rem); top: 1.4rem;
+      z-index: 30; pointer-events: none;
+    }
+    .rail > * { pointer-events: auto; }
+    .rail .mark { width: 22px; height: 22px; color: var(--coral); display: block; margin-bottom: 0.35rem; transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
+    .rail .mark svg { display: block; width: 100%; height: 100%; }
+    .rail a { text-decoration: none; color: var(--faint); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1; transition: color 150ms ease-out; }
+    .rail a:hover { color: var(--accent); }
+    .rail a[aria-current="page"] { color: var(--strong); }
+    .rail .mark-link:hover .mark { transform: rotate(-18deg) scale(1.1); }
+    .rail .mark-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
+  }
+
+  /* ——— Public teaser (hero + cover + meta + one-line body). Visible while the
+     page is locked; hidden after unlock so the encrypted payload owns the view. */
+  html:not(.locked) #teaser { display: none; }
+  #teaser { margin-top: clamp(2rem, 6vh, 3.5rem); }
+  #teaser .teaser-body { margin-top: 1.4rem; }
+  #teaser .teaser-body p { color: var(--soft); font-size: 0.9875rem; }
+  #teaser .cover img {
+    background: var(--blush); /* wash while the reader waits — matches the artifact card ecosystem */
+  }
+  @media (min-width: 68rem) {
+    #gate { margin-inline: 0; }
+  }
+  @media (min-width: 80rem) {
+    /* on the widest breakpoint the meta card hangs in the left margin; the gate
+       aligns with the body column just below the teaser */
+    #teaser .cs-grid { display: grid; grid-template-columns: 15rem minmax(0, var(--measure)); column-gap: 3rem; margin-left: -18rem; }
+    #teaser .meta { grid-template-columns: 1fr; gap: 0; margin-top: 0.35rem; position: sticky; top: 1.5rem; align-self: start; }
+    #teaser .meta > div + div { margin-top: 0.95rem; padding-top: 0.95rem; border-top: 1px solid var(--surface-line); }
+    #teaser .meta .wide { grid-column: 1; }
+    #teaser .teaser-body { margin-top: 0; }
+  }
 
   /* ——— Desktop enhancement ——— */
   @media (min-width: 48rem) {
@@ -465,8 +521,8 @@
   @media (hover: hover) and (pointer: fine) {
     .thumbs img { transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 260ms cubic-bezier(0.23, 1, 0.32, 1); }
     .thumbs img:hover { transform: translateY(-5px) scale(1.012); box-shadow: 0 2px 4px rgb(61 56 51 / 0.05), 0 18px 40px rgb(61 56 51 / 0.10); }
-    .monogram { transition: transform 200ms ease-out; }
-    .monogram:hover { animation: wiggle 500ms ease-in-out; }
+    footer .mark { transition: transform 200ms ease-out; }
+    footer .mark:hover { animation: wiggle 500ms ease-in-out; }
     .flow .chip { transition: background-color 150ms ease-out; }
     .flow .chip:hover { background: var(--blush); }
     .flow .chip.new:hover { background: #d7ecd5; }
@@ -520,16 +576,60 @@
 <div class="page">
 
   <div class="top">
-    <a class="home" href="../"><span class="arrow" aria-hidden="true">←</span>Avantika Pidiha</a>
+    <a class="home" href="../" aria-label="Back to Avantika's work">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
+      <span class="arrow" aria-hidden="true">←</span><span>Index</span>
+    </a>
     <nav class="site-nav" aria-label="Contact">
       <a href="mailto:avantikapidiha28@gmail.com">Email</a>
     </nav>
   </div>
 
+  <nav class="rail" aria-label="Site">
+    <a class="mark-link" href="../" aria-label="Home">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
+    </a>
+    <a href="../">Work</a>
+    <a href="../process/">Writing</a>
+    <a href="../resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</a>
+    <a href="mailto:avantikapidiha28@gmail.com">Email</a>
+  </nav>
+
+  <div id="teaser">
+    <div class="hero">
+      <div class="tags"><span class="tag">Axis Bank</span><span class="tag">Service pages</span><span class="tag">One View</span><span class="tag">Fixed deposits</span></div>
+      <span class="kicker">Product Designer via THEM Consulting · Jul 2021 – Jan 2023</span>
+      <h1>Fewer calls, one list, longer deposits</h1>
+      <p class="dek">Three projects over eighteen months. I led design and implementation of the mobile app's service pages — customer service calls fell 70%, task-completion time 45%. I shipped One View, the unified accounts screen, which hit 40% adoption in its first month. And the FD booking flow redesign lifted deposit amounts 5%.</p>
+      <figure class="cover">
+        <img src="../assets/thumb-axis-oneview.png?v=4" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy">
+      </figure>
+    </div>
+    <div class="cs-grid">
+      <aside class="meta" aria-label="At a glance">
+        <div><dt>Role</dt><dd>Product Designer, via THEM Consulting</dd></div>
+        <div><dt>When</dt><dd>Jul 2021 – Jan 2023</dd></div>
+        <div><dt>Team</dt><dd>Axis mobile pod — product, engineering, THEM Consulting</dd></div>
+        <div><dt>Status</dt><dd class="status">Shipped</dd></div>
+        <div class="wide"><dt>Impact</dt>
+          <div class="impact">
+            <div><span>Service-page calls</span><b>−70%</b></div>
+            <div><span>Task-completion time</span><b>−45%</b></div>
+            <div><span>One View adoption (month 1)</span><b>40%</b></div>
+            <div><span>FD deposit amounts</span><b>+5%</b></div>
+          </div>
+        </div>
+      </aside>
+      <div class="teaser-body">
+        <p>Three case studies inside — the service-page overhaul, One View, and the FD flow — plus the trade-offs I made deciding where to stop.</p>
+      </div>
+    </div>
+  </div>
+
   <section id="gate" aria-labelledby="gate-h">
-    <img class="monogram" src="../assets/ap-monogram-128.png" alt="" width="128" height="127">
-    <h1 id="gate-h">This case study is password-protected.</h1>
-    <p>It's work I did in-house at Axis Bank, so I share it on request. If you have the password, it opens here — the page decrypts in your browser and nothing is sent anywhere.</p>
+    <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
+    <h1 id="gate-h">The rest opens with a password.</h1>
+    <p>Client work at Axis Bank, so it stays private. It decrypts in your browser and nothing is sent anywhere.</p>
     <form id="unlock" autocomplete="off" novalidate>
       <label for="pw">Password</label>
       <input id="pw" type="password" placeholder="Password" autocapitalize="none" spellcheck="false" required>
@@ -543,7 +643,7 @@
   <main id="cs"></main>
 
   <footer>
-    <img class="monogram" src="../assets/ap-monogram-128.png" alt="AP monogram" width="128" height="127" loading="lazy">
+    <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
     <nav class="site-nav" aria-label="Footer">
       <a href="https://linkedin.com/in/avantikapidiha" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <span class="sep" aria-hidden="true">·</span>

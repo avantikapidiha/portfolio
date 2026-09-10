@@ -352,7 +352,6 @@
   .qa h3::before { content: "“"; color: var(--coral); margin-right: 0.1em; }
   .qa h3::after { content: "”"; color: var(--coral); margin-left: 0.1em; }
 
-
   /* ——— Mini demos: a pattern you can feel in five seconds ———
      The page source carries MARKUP ONLY (the linter forbids script and style in
      a page fragment). Behaviour lives in the script at the bottom of this file
@@ -593,6 +592,93 @@
   .read-next .alt a { color: var(--faint); text-decoration-color: rgb(61 56 51 / 0.22); }
   .read-next .alt a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
+  /* ——— Polish pass 2026-09-10 — micro-interactions + design-science
+     Small moves that make the page feel considered without adding chrome.
+     Every animation is gated by prefers-reduced-motion below. */
+
+  /* Tag pills: subtle hover lift + coral-warm hairline */
+  .tags .tag {
+    transition: transform 180ms cubic-bezier(0.23,1,0.32,1),
+                border-color 180ms ease-out,
+                background-color 180ms ease-out,
+                color 180ms ease-out;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tags .tag:hover {
+      transform: translateY(-1px);
+      border-color: rgb(197 88 24 / 0.35);
+      background: #fff8f3;
+      color: var(--strong);
+    }
+  }
+
+  /* Impact rows: hover state — a faint warm wash + a coral marker slides in */
+  .meta .impact div {
+    position: relative;
+    padding-inline: 0.5rem;
+    margin-inline: -0.5rem;
+    border-radius: 6px;
+    transition: background-color 180ms ease-out;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .meta .impact div:hover { background: #fff8f3; }
+    .meta .impact div::before {
+      content: "";
+      position: absolute; left: -0.15rem; top: 0.55rem; bottom: 0.55rem;
+      width: 2px; border-radius: 2px; background: var(--coral);
+      opacity: 0; transform: scaleY(0.3); transform-origin: center;
+      transition: opacity 200ms ease-out, transform 220ms cubic-bezier(0.23,1,0.32,1);
+    }
+    .meta .impact div:hover::before { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* Rail aria-current: a coral dot before the current section */
+  @media (min-width: 68rem) {
+    .rail a[aria-current="page"] {
+      position: relative; padding-right: 0.85rem;
+    }
+    .rail a[aria-current="page"]::after {
+      content: "";
+      position: absolute; right: 0; top: 50%;
+      width: 6px; height: 6px; margin-top: -3px;
+      border-radius: 50%; background: var(--coral);
+    }
+  }
+
+  /* Read-next: the whole line reads as one target on hover */
+  .read-next .headline {
+    padding: 0.15rem 0;
+    transition: transform 260ms cubic-bezier(0.23,1,0.32,1);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .read-next:hover .headline .go { color: var(--terracotta); }
+  }
+
+  /* Cover: warm shadow-lift on hover — matches the artifact-card language */
+  @media (hover: hover) and (pointer: fine) {
+    .cover img {
+      transition: transform 320ms cubic-bezier(0.23,1,0.32,1),
+                  box-shadow 320ms cubic-bezier(0.23,1,0.32,1);
+    }
+    .cover:hover img {
+      transform: translateY(-3px);
+      box-shadow: 0 2px 6px rgb(61 56 51 / 0.06), 0 22px 48px rgb(61 56 51 / 0.10);
+    }
+  }
+
+
+  /* Kicker: a small coral bookend so the label reads as a chapter opener */
+  .hero .kicker { display: inline-flex; align-items: baseline; gap: 0.6em; }
+  .hero .kicker::before {
+    content: "";
+    display: inline-block; width: 1.8em; height: 1px;
+    background: var(--coral); opacity: 0.7;
+    vertical-align: middle;
+  }
+
+  /* h1 numeric wrap: the case titles never break awkwardly on a lone digit */
+  .hero h1 { text-wrap: balance; }
+
   @media print {
     body { font-size: 10.5pt; line-height: 1.5; }
     .site-nav, .cursor, #gate { display: none; }
@@ -671,7 +757,6 @@
   </section>
 
   <main id="cs"></main>
-
 
   <section class="read-next" aria-label="Read next">
     <span class="label">Read next</span>
@@ -852,6 +937,28 @@
   });
   const loop = () => { cx += (x - cx) * 0.22; cy += (y - cy) * 0.22; el.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(loop); };
   loop();
+})();
+</script>
+<script>
+/* Impact-row reveal — a staged scroll-into-view. Adds html.reveals so the
+   CSS knows to hide rows before they animate in; without JS or IO the rows
+   stay visible. Reduced-motion opts out entirely. Delegated so late-arriving
+   rows (post-unlock) get observed too. */
+(() => {
+  if (!('IntersectionObserver' in window)) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('reveals');
+  const io = new IntersectionObserver(entries => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  }, { threshold: 0.3, rootMargin: '0px 0px -6% 0px' });
+  const observe = root => (root || document).querySelectorAll('.meta .impact div:not(.in)').forEach(el => io.observe(el));
+  observe();
+  const cs = document.getElementById('cs');
+  if (cs) new MutationObserver(() => observe(cs)).observe(cs, { childList: true, subtree: true });
 })();
 </script>
 </body>

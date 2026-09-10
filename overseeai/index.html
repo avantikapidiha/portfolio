@@ -697,6 +697,60 @@
      below the browser top instead of jammed against it. */
   h2, .hero h1, #cs h2, #teaser .hero h1 { scroll-margin-top: 2.5rem; }
 
+
+  /* ——— Dark mode: a warm dark, not stark black. All values flip through
+     the same tokens the rest of the site reads; components don't change.
+     Cover images with baked cream/wash backgrounds stay warm — an
+     intentional 'photos on a dark shelf' contrast rather than trying to
+     recomp every artifact. ——— */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:    #17140f;   /* deep warm ground — matches ink family at low value */
+      --ink:      #e8e0d0;   /* body — 13.6:1 on ground */
+      --strong:   #f5efe0;   /* titles — 16.7:1 */
+      --soft:     #b1a897;   /* secondary — 7.6:1 */
+      --faint:    #918876;   /* dates & labels — 5.1:1 */
+      --coral:    #ff8e6c;   /* brightened — marks only */
+      --terracotta: #ff9d75;
+      --accent:   #ffb894;   /* link text on dark — ~9.1:1 */
+      --sage:     #1c2b1c;   /* deep sage wash */
+      --blush:    #2c1a12;   /* deep blush wash */
+      --hairline: rgb(232 224 208 / 0.14);
+    }
+    ::selection { background: rgb(255 142 108 / 0.32); color: var(--strong); }
+    /* small hardcoded-color fixups so the page stays coherent */
+  }
+
+  /* Dark-mode case-page tokens (extras on top of the shared block above) */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --lavender:     #221d2b;
+      --mint:         #172319;
+      --sky:          #172029;
+      --hairline-soft: rgb(232 224 208 / 0.09);
+      --surface:      #201c15;
+      --surface-line: rgb(232 224 208 / 0.10);
+      --lift:         0 1px 2px rgb(0 0 0 / 0.35), 0 10px 26px rgb(0 0 0 / 0.30);
+    }
+    /* Gate + demo primary button: cream face, dark text (readable) */
+    #gate button { color: var(--paper); }
+    #gate input { background: rgb(255 255 255 / 0.04); color: var(--strong); border-color: rgb(232 224 208 / 0.22); }
+    #gate input:hover { border-color: rgb(232 224 208 / 0.42); }
+    .demo .dbtn { background: rgb(255 255 255 / 0.04); color: var(--strong); border-color: var(--surface-line); }
+    .demo .dbtn.primary { color: var(--paper); }
+    .demo .dhead, .demo .dfoot { background: rgb(255 255 255 / 0.03); }
+    /* the callout mark disc keeps its cream face — reads as a coin against
+       the deep-blush card */
+    .callout::before { background-color: #f5efe0; }
+    /* the .flow.chip.new is hardcoded sage green — on dark, brighten it a hair */
+    .flow .chip.new { background: rgb(154 210 148 / 0.14); color: #a8d097; }
+    .flow .chip.new:hover { background: rgb(154 210 148 / 0.22); }
+    /* tag pill hover: warm coral wash instead of the light one */
+    .tags .tag:hover { background: rgb(255 142 108 / 0.09); }
+    /* impact-row hover flip */
+    .meta .impact div:hover { background: rgb(255 142 108 / 0.08); }
+  }
+
   @media print {
     body { font-size: 10.5pt; line-height: 1.5; }
     .site-nav, .cursor, #gate { display: none; }

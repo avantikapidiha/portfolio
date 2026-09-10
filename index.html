@@ -603,6 +603,30 @@
      below the browser top instead of jammed against it. */
   h2, .hero h1, #cs h2, #teaser .hero h1 { scroll-margin-top: 2.5rem; }
 
+
+  /* ——— Dark mode: a warm dark, not stark black. All values flip through
+     the same tokens the rest of the site reads; components don't change.
+     Cover images with baked cream/wash backgrounds stay warm — an
+     intentional 'photos on a dark shelf' contrast rather than trying to
+     recomp every artifact. ——— */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:    #17140f;   /* deep warm ground — matches ink family at low value */
+      --ink:      #e8e0d0;   /* body — 13.6:1 on ground */
+      --strong:   #f5efe0;   /* titles — 16.7:1 */
+      --soft:     #b1a897;   /* secondary — 7.6:1 */
+      --faint:    #918876;   /* dates & labels — 5.1:1 */
+      --coral:    #ff8e6c;   /* brightened — marks only */
+      --terracotta: #ff9d75;
+      --accent:   #ffb894;   /* link text on dark — ~9.1:1 */
+      --sage:     #1c2b1c;   /* deep sage wash */
+      --blush:    #2c1a12;   /* deep blush wash */
+      --hairline: rgb(232 224 208 / 0.14);
+    }
+    ::selection { background: rgb(255 142 108 / 0.32); color: var(--strong); }
+    /* small hardcoded-color fixups so the page stays coherent */
+  }
+
   @media print {
     :root { --paper: #ffffff; }
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }

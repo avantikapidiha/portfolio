@@ -341,6 +341,62 @@
   .qa h3::before { content: "“"; color: var(--coral); margin-right: 0.1em; }
   .qa h3::after { content: "”"; color: var(--coral); margin-left: 0.1em; }
 
+
+  /* ——— Mini demos: a pattern you can feel in five seconds ———
+     The page source carries MARKUP ONLY (the linter forbids script and style in
+     a page fragment). Behaviour lives in the script at the bottom of this file
+     and is fully delegated, so a demo works whether it shipped in the HTML or
+     arrived after the gate unlocked. */
+  .demo {
+    margin-top: 1.7rem; border: 1px solid var(--surface-line); border-radius: var(--radius);
+    background: var(--surface); overflow: hidden;
+  }
+  .demo .dhead {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    padding: 0.8rem 1.15rem; border-bottom: 1px solid var(--surface-line); background: #fff;
+  }
+  .demo .dhead .label { display: inline; }
+  .demo .dhead b { font-weight: 600; font-size: 0.9375rem; color: var(--strong); }
+  .demo .dbody { padding: 1.15rem; }
+  .demo .dline { font-size: 0.9375rem; line-height: 1.55; color: var(--ink); }
+  .demo .dact { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .demo .dbtn {
+    font: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1.1;
+    padding: 0.62rem 0.9rem; border-radius: 10px; border: 1px solid var(--surface-line);
+    background: #fff; color: var(--strong); cursor: pointer;
+    transition: background-color 140ms ease-out, border-color 140ms ease-out, opacity 140ms ease-out;
+  }
+  .demo .dbtn:hover { border-color: rgb(61 56 51 / 0.3); }
+  .demo .dbtn.primary { background: var(--strong); border-color: var(--strong); color: #fff; }
+  .demo .dbtn.primary:hover { background: var(--terracotta); border-color: var(--terracotta); }
+  .demo .dbtn.ghost { background: none; border-color: transparent; color: var(--soft); }
+  .demo .dbtn[disabled] { opacity: 0.42; cursor: default; }
+  .demo .dbtn[disabled]:hover { border-color: var(--surface-line); background: #fff; }
+  .demo .dbtn.ghost[disabled]:hover { background: none; border-color: transparent; }
+  .demo .dstate { margin-top: 0.9rem; font-size: 0.8125rem; line-height: 1.5; color: var(--faint); }
+  .demo .bar { height: 4px; border-radius: 999px; background: rgb(61 56 51 / 0.1); margin-top: 0.9rem; overflow: hidden; }
+  .demo .bar i { display: block; height: 100%; width: 0; background: var(--coral); transition: width 1.4s linear; }
+  .demo .drows { list-style: none; padding: 0; margin: 0; }
+  .demo .drows li {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.72rem 1.15rem; border-bottom: 1px solid var(--surface-line);
+    transition: background-color 160ms ease-out;
+  }
+  .demo .drows li:last-child { border-bottom: 0; }
+  .demo .dinfo { flex: 1 1 auto; min-width: 0; }
+  .demo .drows li > .dbtn { flex: none; }
+  .demo .dcell { display: block; font-size: 0.875rem; font-weight: 500; color: var(--strong); }
+  .demo .dsig { display: block; margin-top: 0.1rem; font-size: 0.8125rem; color: var(--faint); }
+  .demo .dvals { display: block; margin-top: 0.1rem; font-size: 0.8125rem; color: var(--soft); font-variant-numeric: tabular-nums; }
+  .demo .drows li.done { background: rgb(61 56 51 / 0.025); }
+  .demo .drows li.done .dcell { color: var(--soft); font-weight: 400; }
+  .demo .dfoot {
+    display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;
+    padding: 0.85rem 1.15rem; border-top: 1px solid var(--surface-line); background: #fff;
+  }
+  .demo .dcount { font-size: 0.8125rem; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .demo .dfoot .dact { margin-top: 0; }
+
   /* ——— Figures: the landing page's artifact-card slot ——— */
   .thumbs { margin: 1.8rem 0 0; }
   .thumbs img {
@@ -647,6 +703,68 @@
   form.addEventListener('submit', e => { e.preventDefault(); if (pw.value) attempt(pw.value, false); });
   pw.addEventListener('input', () => { pw.removeAttribute('aria-invalid'); if (msg.classList.contains('err')) { msg.textContent = ''; msg.className = 'msg'; } });
   try { const saved = sessionStorage.getItem(KEY); if (saved) attempt(saved, true); } catch (e) {}
+})();
+
+/* Mini demos. Markup lives in the page source; the behaviour is here and fully
+   delegated, so a demo works whether it shipped in the HTML or arrived after
+   the gate unlocked. State is read off the DOM, so there is nothing to init. */
+(() => {
+  const txt = (el, s) => { if (el) el.textContent = s; };
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.demo [data-act]');
+    if (!btn || btn.disabled) return;
+    const demo = btn.closest('.demo');
+    const act = btn.dataset.act;
+
+    if (demo.dataset.demo === 'consent') {
+      const state = demo.querySelector('.dstate');
+      const fill = demo.querySelector('.bar i');
+      const go = demo.querySelector('[data-act="go"]');
+      if (act === 'go') {
+        go.disabled = true;
+        txt(state, 'Extracting. This is the only part the machine does on its own.');
+        if (fill) requestAnimationFrame(() => { fill.style.width = '100%'; });
+        clearTimeout(demo._t);
+        demo._t = setTimeout(() => txt(state, '12 tables extracted. 5 cells flagged for a decision.'), 1500);
+      } else if (act === 'reset') {
+        clearTimeout(demo._t);
+        go.disabled = false;
+        if (fill) { fill.style.transition = 'none'; fill.style.width = '0'; requestAnimationFrame(() => { fill.style.transition = ''; }); }
+        txt(state, 'Waiting for you. Nothing has run yet.');
+      }
+      return;
+    }
+
+    if (demo.dataset.demo === 'lock') {
+      const rows = [...demo.querySelectorAll('.drows li')];
+      const count = demo.querySelector('.dcount');
+      const certify = demo.querySelector('[data-act="certify"]');
+      const sync = () => {
+        const n = rows.filter(r => r.classList.contains('done')).length;
+        txt(count, n + ' of ' + rows.length + ' decided');
+        certify.disabled = n < rows.length;
+        certify.textContent = 'Certify table';
+      };
+      if (act === 'decide') {
+        btn.closest('li').classList.add('done');
+        btn.textContent = 'Decided';
+        btn.disabled = true;
+        sync();
+      } else if (act === 'certify') {
+        certify.textContent = 'Certified';
+        certify.disabled = true;
+        txt(count, 'Every flagged factor now carries a decision with a name on it.');
+      } else if (act === 'reset') {
+        rows.forEach(r => {
+          r.classList.remove('done');
+          const b = r.querySelector('.dbtn');
+          b.disabled = false;
+          b.textContent = b.dataset.label || 'Resolve';
+        });
+        sync();
+      }
+    }
+  });
 })();
 
 /* The named pointer — a Figma live-cursor: the arrow plus a coral tag that

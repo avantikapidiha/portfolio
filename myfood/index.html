@@ -737,6 +737,21 @@
     .to-top { transition: none; }
   }
 
+  /* Skip-to-content: hidden until keyboard focus, then a warm pill in
+     the top-left. First tab on any page should land here. */
+  .skip {
+    position: absolute;
+    left: -9999px; top: 0.75rem; z-index: 1000;
+    padding: 0.55rem 0.9rem;
+    background: var(--strong); color: var(--paper);
+    font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.06em;
+    border-radius: 8px; text-decoration: none;
+    box-shadow: 0 4px 12px rgb(61 56 51 / 0.18);
+  }
+  .skip:focus, .skip:focus-visible {
+    left: 0.75rem; outline: 2px solid var(--coral); outline-offset: 2px;
+  }
+
   @media print {
     :root { --paper: #ffffff; }
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
@@ -767,6 +782,7 @@
 </style>
 </head>
 <body>
+  <a class="skip" href="#cs">Skip to content</a>
 <div class="page">
 
   <div class="top">

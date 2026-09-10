@@ -949,6 +949,18 @@
 </div>
 
 <script>
+/* Console signature — a tiny hello for the designer / developer who
+   opens View Source. Coral serif greeting + a one-line about the stack
+   + how to reach her. Not decorative on the page; only visible in devtools. */
+(() => {
+  const style = 'font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:34px;color:#e56749;line-height:1;';
+  const meta = 'font-family:"DM Sans",-apple-system,sans-serif;font-size:12px;color:#6b6259;line-height:1.55;';
+  try {
+    console.log('%chi.', style);
+    console.log('%cHand-written HTML, no framework, no build step.\nInstrument Serif + DM Sans, self-hosted.\nCase studies decrypt in the browser — the password never reaches a server, because there is no server.\n\nSay hi: avantikapidiha28@gmail.com', meta);
+  } catch (e) { /* IE and locked-down consoles */ }
+})();
+
 /* The named pointer — a Figma live-cursor: the arrow plus a coral tag that
    trails it. On a link the tag says what the link does. Desktop fine-pointers
    only; sits out entirely under reduced-motion or without JS, which is also

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" class="locked">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A homepage that pulled its weight — Avantika Pidiha</title>
-<meta name="description" content="Lenskart's homepage revamp — a case study by Avantika Pidiha. Shared on request.">
+<title>Where the AI actually sits — Avantika Pidiha</title>
+<meta name="description" content="How Avantika Pidiha designs with AI: Figma over MCP, HTML prototypes, GitHub, and the parts that are still people.">
 <meta name="theme-color" content="#ffffff">
 <!-- STAGING ONLY: gated pages keep noindex for good; public case pages drop it at the DNS flip -->
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A homepage that pulled its weight — Avantika Pidiha">
-<meta property="og:description" content="Lenskart's homepage revamp — a case study by Avantika Pidiha. Shared on request.">
+<meta property="og:title" content="Where the AI actually sits — Avantika Pidiha">
+<meta property="og:description" content="How Avantika Pidiha designs with AI: Figma over MCP, HTML prototypes, GitHub, and the parts that are still people.">
 <meta property="og:image" content="https://www.avantikapidiha.com/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="../assets/ap-monogram-128.png">
@@ -402,21 +402,107 @@
     </nav>
   </div>
 
-  <section id="gate" aria-labelledby="gate-h">
-    <img class="monogram" src="../assets/ap-monogram-128.png" alt="" width="128" height="127">
-    <h1 id="gate-h">This case study is password-protected.</h1>
-    <p>It's work I did in-house at Lenskart, so I share it on request. If you have the password, it opens here — the page decrypts in your browser and nothing is sent anywhere.</p>
-    <form id="unlock" autocomplete="off" novalidate>
-      <label for="pw">Password</label>
-      <input id="pw" type="password" placeholder="Password" autocapitalize="none" spellcheck="false" required>
-      <button type="submit">Open</button>
-    </form>
-    <p class="msg" id="msg" aria-live="polite"></p>
-    <p class="ask">Don't have it? <a href="mailto:avantikapidiha28@gmail.com?subject=A%20homepage%20that%20pulled%20its%20weight%20case%20study">Email me</a> and I'll send it the same day.</p>
-    <noscript><p>This page needs JavaScript to decrypt the case study.</p></noscript>
-  </section>
+  <main id="cs"><div class="hero">
+  <span class="kicker">Practice · AI-native product design · 2025–now</span>
+  <h1>Where the AI actually sits</h1>
+  <p class="dek">Every designer says they use AI now. This is the specific place it sits in my work: which artefact it touches, what it produces, what I check afterwards, and the parts I still do myself.</p>
+</div>
 
-  <main id="cs"></main>
+<div class="cs-grid">
+  <aside class="meta" aria-label="At a glance">
+    <div><dt>Tools</dt><dd>Figma and its MCP server · Claude Code · Cursor · Lovable · Stitch · Lottie</dd></div>
+    <div><dt>Written for machines</dt><dd>DESIGN.md · design tokens · a voice spec shipped as a skill</dd></div>
+    <div><dt>Where it lives</dt><dd>GitHub. Prototypes, specs and token files, versioned like code</dd></div>
+    <div><dt>This page</dt><dd>Made the way it describes</dd></div>
+  </aside>
+
+  <div class="cs-body">
+    <section>
+      <span class="label">01 · The stack</span>
+      <h2>What each piece is actually for</h2>
+      <p>Naming tools is not a process. This is the job each one does, and the reason it is in the list.</p>
+      <dl class="defs wide">
+        <div><dt>Figma, over MCP</dt><dd>Still the record, but now a readable one. An agent can pull frames, variables and component properties out of the file, and write new frames back into it.</dd></div>
+        <div><dt>HTML</dt><dd>Where the flow gets decided. A prototype in code answers what a frame cannot: what happens on the third tap, what the empty state feels like, whether the copy fits.</dd></div>
+        <div><dt>Claude Code</dt><dd>Reads the repository, writes the prototype, drives the Figma calls, and reviews its own output when I tell it to.</dd></div>
+        <div><dt>GitHub</dt><dd>Everything lands here. Prototypes, specs, token files, this website. Versioned, reviewable, and readable by whatever builds next.</dd></div>
+        <div><dt>DESIGN.md and tokens</dt><dd>The spec, in a form a coding agent consumes on every build. Handoff stopped being a phase, because nothing ships off-system.</dd></div>
+        <div><dt>Skills</dt><dd>Rules the model has to follow. The voice system is one: product, agent and status tiers, so screen copy is generated to the spec rather than written and then corrected.</dd></div>
+      </dl>
+    </section>
+
+    <section>
+      <span class="label">02 · The loop</span>
+      <h2>I almost never start from a blank page</h2>
+      <p>Work starts as an artefact plus a link. An existing prototype and the frame it came from. A page in the live product. A repository I can read. I design against something that already exists, because the thing that usually breaks a design is not the idea. It is the data underneath it.</p>
+      <p>So I go to the source system rather than to the document describing it. If the question is how something behaves, I open it and do the thing.</p>
+      <div class="flow">
+        <div class="head"><span class="label">The loop</span><b>the artefact is the brief</b></div>
+        <div class="chain"><span class="chip">artefact + link</span><span class="arr">→</span><span class="chip">HTML prototype</span><span class="arr">→</span><span class="chip">put it in front of people</span><span class="arr">→</span><span class="chip">back-port to Figma</span><span class="arr">→</span><span class="chip">tokens and DESIGN.md</span><span class="arr">→</span><span class="chip new">an agent builds it</span></div>
+      </div>
+      <p>The order matters. The prototype is where the flow gets settled; the frames catch up afterwards, once there is something worth recording.</p>
+      <blockquote class="pull"><p>If doing this is easier and faster for you in HTML, then just do it there. We can update the Figma later.</p><cite>Me, to Claude, most weeks</cite></blockquote>
+    </section>
+
+    <section>
+      <span class="label">03 · Figma over MCP</span>
+      <h2>The design file became something you can query</h2>
+      <p>Most people use the Figma MCP server one way, to generate code from a frame. I use it three ways, and the other two are where the value is.</p>
+      <dl class="defs wide">
+        <div><dt>Reading</dt><dd>Pull the real component names, variant properties and variable bindings out of the file, so a prototype is built from what exists rather than from a screenshot of it.</dd></div>
+        <div><dt>Writing</dt><dd>Build native frames from a prototype we have already agreed on, so the record catches up with the decision instead of blocking it.</dd></div>
+        <div><dt>Auditing</dt><dd>Check that a frame is bound to tokens rather than to pasted hex values. That failure is invisible until the day a theme changes, and then it is everywhere.</dd></div>
+      </dl>
+      <p>I also watch what it costs. I have gone back over a session to count how many MCP calls it burned, because a workflow that is elegant and slow does not survive a deadline.</p>
+    </section>
+
+    <section>
+      <span class="label">04 · The room</span>
+      <h2>The research is not generated</h2>
+      <p>The redesign that cut customer service calls at ICICI Lombard was built on sessions with 14 users and 38 stakeholders. I wrote the scripts and moderated them. I still write the run-book, still moderate, still sit through the silence while someone fails to find the thing I was certain was obvious.</p>
+      <p>What AI does here is the work around the room. A first pass at the script. The tidy-up of a transcript. A sweep of tags across sessions, and then an argument with me about what the tags actually mean. The findings stay mine, because the room was.</p>
+      <p class="callout">A model can tell you what people said. It cannot tell you what they meant, because it was not there when they hesitated. Every study I have run turned on something that happened between the questions.</p>
+    </section>
+
+    <section>
+      <span class="label">05 · Review</span>
+      <h2>I make it argue against me</h2>
+      <p>The most useful instruction I give a model is to attack the work. Before I defend anything, I run an adversarial pass over it: a set of language rules, a hierarchy model, a page like this one. The prompt is a question rather than a request. Will these rules fail, and where?</p>
+      <p>It is the cheapest critique available and the only one with no ego in it. Most of what comes back is noise. The one paragraph that is not is worth the pass.</p>
+      <p>The case studies on this site went through it. Each was written, then read by three separate critics, one for facts, one for the decisions, one for voice, and rewritten against what they found. Then a linter checked the markup, the image dimensions, the sentence lengths and the spellings before anything shipped.</p>
+    </section>
+
+    <section>
+      <span class="label">06 · A record</span>
+      <h2>Things I made this way</h2>
+      <dl class="defs wide">
+        <div><dt>Sep 2026</dt><dd>This website. Designed in Figma, built in HTML, hosted on GitHub Pages. The case studies are encrypted in your browser, so the password never reaches a server, because there is no server. The screens inside them came out of Figma over MCP and were composed into cards by a script.</dd></div>
+        <div><dt>May 2026</dt><dd><a href="../myfood/">MyFood</a>. Concept, design, code and the Play Store release, alone. No single tool could build it, so the planning document became the contract between tools that do not talk to each other.</dd></div>
+        <div><dt>2026</dt><dd>A voice system in three tiers, product, agent and status, shipped as a skill. Screen copy is now generated to the spec, with no separate copywriting pass.</dd></div>
+        <div><dt>2026</dt><dd>Vantage, a design system in versioned releases: 25+ components, and DESIGN.md and the token files as the build contract that coding agents read.</dd></div>
+        <div><dt>2025</dt><dd>A session at NIFT Mumbai on UX audits, user research and AI-assisted design. Explaining the workflow to people who had never seen it is the fastest way to find the parts you cannot yet justify.</dd></div>
+        <div><dt>2025–26</dt><dd>A deliberate year out, retraining on AI-assisted design and systems thinking. Everything above comes from that year onwards.</dd></div>
+      </dl>
+      <figure class="thumbs">
+        <img src="img/fig-gate.webp" loading="lazy" alt="Two panels side by side: the password gate on a case study, reading 'This case study is password-protected', and a panel headed 'What the server actually stores' showing a block of base64 ciphertext" width="1504" height="940">
+        <figcaption><span class="tag">The gate · the payload</span>Left, the case study without the password. Right, what GitHub actually holds. There is no back end to ask.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <span class="label">07 · Limits</span>
+      <h2>What it does not do</h2>
+      <ul class="learnings">
+        <li><strong>It does not decide.</strong> Almost every correction I make to generated work removes something. Fewer steps, fewer labels, fewer words. Subtraction is a judgement about what matters, and nothing in the model has a stake in the answer.</li>
+        <li><strong>It does not sit in the room.</strong> See 04.</li>
+        <li><strong>It does not know what the business will not fund.</strong> The constraint that kills a design is usually political, and it is never written down anywhere the model can read.</li>
+        <li><strong>It does not name things well.</strong> Naming is structure, not decoration. What a thing is called decides what people believe it does, and that call has stayed mine every time.</li>
+      </ul>
+      <p>None of this is an experiment. It is how the work gets made now, on a deadline, with my name on the result. The page you are reading was made this way, and so was everything it links to.</p>
+    </section>
+  </div>
+</div>
+</main>
 
   <footer>
     <img class="monogram" src="../assets/ap-monogram-128.png" alt="AP monogram" width="128" height="127" loading="lazy">
@@ -431,7 +517,7 @@
 
 </div>
 
-<script type="application/json" id="payload">{"v":1,"kdf":"PBKDF2-SHA256","it":310000,"salt":"SiRjOu8Ci65vFQYCuP5GSg==","html":"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"}</script>
+
 <script>
 /* Unlock: PBKDF2-SHA256 → AES-256-GCM, all WebCrypto, all client-side.
    The HTML and every image are separate ciphertexts under one key. */
@@ -446,7 +532,7 @@
   if (!payloadEl) return;                       // public / preview build: content is already in place
   const p = JSON.parse(payloadEl.textContent);
   const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-  const KEY = 'lenskart';
+  const KEY = 'process';
 
   async function deriveKey(password) {
     const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
@@ -460,7 +546,7 @@
     const html = new TextDecoder().decode(await open(key, b64(p.html)));
     cs.innerHTML = html;
     root.classList.remove('locked');
-    document.title = (cs.querySelector('h1')?.textContent || "A homepage that pulled its weight") + ' — Avantika Pidiha';
+    document.title = (cs.querySelector('h1')?.textContent || "Where the AI actually sits") + ' — Avantika Pidiha';
     for (const img of cs.querySelectorAll('img[data-enc]')) {
       fetch(img.dataset.enc).then(r => r.arrayBuffer())
         .then(buf => open(key, new Uint8Array(buf)))

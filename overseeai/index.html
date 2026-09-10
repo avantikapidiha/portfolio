@@ -212,6 +212,13 @@
   .meta .wide { grid-column: 1 / -1; }
   .meta .status::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #3f8a52; margin-right: 0.45em; vertical-align: 1px; }
   .meta .status.wip::before { background: var(--coral); }
+  @media (prefers-reduced-motion: no-preference) {
+    .meta .status.wip::before { animation: wip-pulse 2.6s ease-in-out infinite; }
+    @keyframes wip-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.15); opacity: 0.6; }
+    }
+  }
   /* the impact table: hairline rows, label left, value right — the one place
      on a case page where numbers are allowed to line up and be scanned. */
   .meta .impact { display: grid; gap: 0; }

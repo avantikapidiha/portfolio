@@ -299,12 +299,22 @@
   /* a card that opens a case study is wrapped in a block link — the
      hover lift finally means what it implies */
   .thumbs a { display: block; text-decoration: none; }
-  .thumbs a:focus-visible { border-radius: 12px; }
+  .thumbs a:focus-visible { border-radius: 16px; }
   .thumbs img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 12px;
+    /* 2026-09-10 UI pass: every artifact card on the site now sits in the same
+       object — 16px radius, a hairline edge and a soft lift — so a card here and
+       the cover on the case page it opens read as the same thing. */
+    border-radius: 16px;
+    border: 1px solid rgb(61 56 51 / 0.10);
+    box-shadow: 0 1px 2px rgb(61 56 51 / 0.04), 0 8px 24px rgb(61 56 51 / 0.06);
+    transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 260ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .thumbs a:hover img {
+    transform: translateY(-4px);
+    box-shadow: 0 2px 4px rgb(61 56 51 / 0.05), 0 18px 40px rgb(61 56 51 / 0.10);
   }
   .thumbs .pair {
     display: grid;
@@ -463,17 +473,10 @@
          phones never pay for any of this). The global reduced-motion
          kill switch below still silences every transition/animation. ——— */
   @media (hover: hover) and (pointer: fine) {
-    /* her sparkle as the cursor; a deeper, larger one over links */
-    html {
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="%23e56749" stroke="white" stroke-width="1.2"/></svg>') 11 11, auto;
-    }
-    a { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="%23c05818" stroke="white" stroke-width="1.2"/></svg>') 13 13, pointer; }
-
-    /* artifact cards breathe up to meet the pointer */
-    .thumbs img {
-      transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .thumbs img:hover { transform: translateY(-5px) scale(1.012); }
+    /* the star cursor is gone (2026-09-10): the page had a coral star for the
+       pointer and coral stars in the type, and the two read as one idiom too
+       many. The named pointer built by the script below replaces it. Card
+       hover lift now lives with the card rule itself. */
 
     /* the arch leans in */
     .arch img { transition: transform 350ms cubic-bezier(0.23, 1, 0.32, 1); }
@@ -501,24 +504,24 @@
     65%      { transform: rotate(4deg); }
   }
 
-  /* trailing dot (created by the script below; desktop only) */
-  .cursor-dot {
-    position: fixed; top: 0; left: 0;
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: var(--coral);
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0;
-    translate: -50% -50%;
-    transition: opacity 200ms ease-out, width 180ms ease-out, height 180ms ease-out,
-                background-color 180ms ease-out, border-color 180ms ease-out;
-    will-change: transform;
+  /* The named pointer (created by the script below; desktop only).
+     A Figma live-cursor: the arrow plus a coral name tag that trails it, and
+     on a link the tag says what the link will do. The system cursor is hidden
+     only once the script is actually running (html.np), so a JS-less or
+     reduced-motion visit keeps a real cursor. */
+  html.np, html.np a, html.np button { cursor: none; }
+  .cursor {
+    position: fixed; top: 0; left: 0; z-index: 999;
+    pointer-events: none; opacity: 0; will-change: transform;
+    transition: opacity 180ms ease-out;
   }
-  .cursor-dot.is-link {
-    width: 30px; height: 30px;
-    background: transparent;
-    border: 1.5px solid var(--coral);
+  .cursor svg { display: block; width: 22px; height: 22px; filter: drop-shadow(0 1px 2px rgb(61 56 51 / 0.25)); }
+  .cursor .lbl {
+    position: absolute; left: 15px; top: 17px;
+    display: block; padding: 0.2rem 0.5rem 0.16rem; border-radius: 7px;
+    background: var(--coral); color: #fff; white-space: nowrap;
+    font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em;
+    box-shadow: 0 1px 3px rgb(61 56 51 / 0.2);
   }
 
   /* ——— One orchestrated page-load reveal (motion lives only here) ——— */
@@ -558,7 +561,7 @@
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
     header { padding-top: 0; }
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
-    .arch, .squiggle, .sparkle, .monogram, .thumbs, .cursor-dot { display: none; }
+    .arch, .squiggle, .sparkle, .monogram, .thumbs, .cursor { display: none; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
     .now p { background: none; border-radius: 0; padding: 0; margin-inline: 0; font-size: 12pt; }
@@ -738,32 +741,45 @@
 </div>
 
 <script>
-/* Trailing coral dot — the page's one piece of JS. Desktop fine-pointers
-   only; sits out entirely under reduced-motion or without JS. */
+/* The named pointer — a Figma live-cursor: the arrow plus a coral tag that
+   trails it. On a link the tag says what the link does. Desktop fine-pointers
+   only; sits out entirely under reduced-motion or without JS, which is also
+   why the system cursor is only hidden (html.np) once this is running. */
 (() => {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const dot = document.createElement('div');
-  dot.className = 'cursor-dot';
-  dot.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(dot);
+  const el = document.createElement('div');
+  el.className = 'cursor';
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5.5 3.2 L5.5 20.4 L9.9 16.4 L12.6 21.6 L15.2 20.3 L12.6 15.3 L18 15.1 Z" fill="#e56749" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg><span class="lbl">avantika</span>';
+  const lbl = el.querySelector('.lbl');
+  document.body.appendChild(el);
+  document.documentElement.classList.add('np');
   let x = -100, y = -100, cx = -100, cy = -100, seen = false;
   addEventListener('pointermove', e => {
     x = e.clientX; y = e.clientY;
-    if (!seen) { cx = x; cy = y; seen = true; dot.style.opacity = 1; }
+    if (!seen) { cx = x; cy = y; seen = true; el.style.opacity = 1; }
   }, { passive: true });
-  document.documentElement.addEventListener('mouseleave', () => { dot.style.opacity = 0; });
-  document.documentElement.addEventListener('mouseenter', () => { if (seen) dot.style.opacity = 1; });
+  document.documentElement.addEventListener('mouseleave', () => { el.style.opacity = 0; });
+  document.documentElement.addEventListener('mouseenter', () => { if (seen) el.style.opacity = 1; });
+  const verb = node => {
+    if (node.tagName === 'BUTTON') return 'open';
+    const h = node.getAttribute('href') || '';
+    if (h.startsWith('mailto:')) return 'email';
+    if (/\.pdf($|\?)/i.test(h)) return 'resume';
+    if (/^https?:/i.test(h)) return 'visit';
+    return 'read';
+  };
+  document.addEventListener('mouseover', e => {
+    const node = e.target.closest('a, button');
+    lbl.textContent = node ? verb(node) : 'avantika';
+  });
   const loop = () => {
-    cx += (x - cx) * 0.16; cy += (y - cy) * 0.16;
-    dot.style.transform = `translate(${cx}px, ${cy}px)`;
+    cx += (x - cx) * 0.22; cy += (y - cy) * 0.22;
+    el.style.transform = `translate(${cx}px, ${cy}px)`;
     requestAnimationFrame(loop);
   };
   loop();
-  for (const el of document.querySelectorAll('a')) {
-    el.addEventListener('mouseenter', () => dot.classList.add('is-link'));
-    el.addEventListener('mouseleave', () => dot.classList.remove('is-link'));
-  }
 })();
 </script>
 </body>

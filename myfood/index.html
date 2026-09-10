@@ -51,9 +51,16 @@
     --sky:    #e6eef6;
     --hairline: rgb(61 56 51 / 0.16);
     --hairline-soft: rgb(61 56 51 / 0.09);
+    /* card surfaces (2026-09-10 UI pass). The reference this was cut against
+       puts white cards on a cream ground; the ground here stays white, so the
+       relationship is inverted — warm cards on white — which keeps her
+       identity and still lets every card read as an object. */
+    --surface: #faf8f4;
+    --surface-line: rgb(61 56 51 / 0.10);
+    --lift: 0 1px 2px rgb(61 56 51 / 0.04), 0 8px 24px rgb(61 56 51 / 0.06);
     --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
     --measure: 38rem;
-    --radius: 14px;
+    --radius: 16px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
@@ -88,6 +95,8 @@
   .top {
     display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
     padding-top: clamp(1.5rem, 5vh, 3rem);
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--surface-line);
   }
   .home {
     font-family: var(--display); font-style: italic; font-size: 1.375rem; line-height: 1.2;
@@ -151,26 +160,45 @@
   .hero .dek + p { margin-top: 0.9rem; }
   .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
   .tags .tag {
-    display: inline-block; padding: 0.3rem 0.6rem 0.28rem; border-radius: 999px;
-    background: rgb(61 56 51 / 0.06); letter-spacing: 0.12em; font-size: 0.6875rem;
+    display: inline-block; padding: 0.34rem 0.68rem 0.3rem; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--surface-line);
+    letter-spacing: 0.12em; font-size: 0.6875rem;
+  }
+
+  /* the cover: the same artifact card the landing page links from, so the card
+     you clicked becomes the page's header image. 16:10, 1504×940, like every
+     other figure on the site. */
+  .cover { margin-top: 1.9rem; }
+  .cover img {
+    display: block; width: 100%; height: auto;
+    border-radius: var(--radius); border: 1px solid var(--surface-line);
+    background: var(--surface); box-shadow: var(--lift);
   }
 
   /* the meta card: the reference's sticky card, in our voice. Phone = a 2-col dl
      right under the hero; 80rem+ = hangs in the left margin and sticks. */
   .meta {
-    margin-top: 2rem; padding: 1.25rem 1.3rem 1.1rem; border: 1px solid var(--hairline-soft); border-radius: var(--radius);
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; font-size: 0.9375rem; line-height: 1.5;
-    background: #fff;
+    margin-top: 2rem; padding: 1.35rem 1.4rem 1.25rem;
+    border: 1px solid var(--surface-line); border-radius: var(--radius);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.15rem 1.4rem; font-size: 0.9375rem; line-height: 1.5;
+    background: var(--surface);
   }
   .meta > div { min-width: 0; }
-  .meta dt { margin-bottom: 0.3rem; }
+  .meta dt { margin-bottom: 0.32rem; font-size: 0.6875rem; letter-spacing: 0.15em; }
   .meta dd { color: var(--ink); }
   .meta .wide { grid-column: 1 / -1; }
   .meta .status::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #3f8a52; margin-right: 0.45em; vertical-align: 1px; }
   .meta .status.wip::before { background: var(--coral); }
-  .meta .impact { display: grid; gap: 0.35rem; }
-  .meta .impact div { display: flex; justify-content: space-between; gap: 0.75rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--hairline-soft); }
-  .meta .impact div:last-child { border-bottom: 0; }
+  /* the impact table: hairline rows, label left, value right — the one place
+     on a case page where numbers are allowed to line up and be scanned. */
+  .meta .impact { display: grid; gap: 0; }
+  .meta .impact div {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--surface-line);
+  }
+  .meta .impact div:first-child { padding-top: 0.15rem; }
+  .meta .impact div:last-child { border-bottom: 0; padding-bottom: 0; }
+  .meta .impact span { color: var(--soft); font-size: 0.875rem; line-height: 1.4; }
   .meta .impact b { font-weight: 600; color: var(--strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
   .meta ul { list-style: none; padding: 0; }
   .meta li + li { margin-top: 0.15rem; }
@@ -196,9 +224,20 @@
   #cs strong { font-weight: 600; color: var(--strong); }
   #cs .lead { font-size: 1.15em; line-height: 1.55; color: var(--strong); }
 
-  /* the key insight / the reframe: her blush wash, like Now on the landing page */
+  /* the key insight / the reframe: her blush wash, now a proper card with a
+     mark on it, so the one paragraph that owns a cost looks like an object on
+     the page rather than a highlighted sentence. */
   .callout {
-    background: var(--blush); border-radius: 12px; padding: 1.05rem 1.25rem; margin: 1.4rem -0.75rem 0;
+    position: relative;
+    background: var(--blush); border-radius: var(--radius);
+    padding: 1.4rem 1.4rem 1.3rem; margin: 1.6rem -0.75rem 0;
+    font-size: 1.0625em; line-height: 1.58; color: var(--strong);
+  }
+  .callout::before {
+    content: ""; display: block; width: 32px; height: 32px; margin-bottom: 0.85rem;
+    border-radius: 50%; background-color: #fff;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z' fill='%23e56749'/></svg>");
+    background-size: 15px 15px; background-position: center; background-repeat: no-repeat;
   }
   .callout.sage { background: var(--sage); }
   .callout.lavender { background: var(--lavender); }
@@ -206,7 +245,7 @@
   .callout .who { display: block; margin-top: 0.5rem; font-size: 0.8125rem; color: var(--soft); }
 
   /* cards: hairline boxes for hypotheses, triads, layers, persona */
-  .card { border: 1px solid var(--hairline-soft); border-radius: var(--radius); padding: 1.1rem 1.2rem; margin-top: 1.4rem; background: #fff; }
+  .card { border: 1px solid var(--surface-line); border-radius: var(--radius); padding: 1.2rem 1.3rem; margin-top: 1.4rem; background: var(--surface); }
   .card .label { display: block; margin-bottom: 0.45rem; }
   #cs .card h3 { margin: 0 0 0.4rem; }
   .card p { font-size: 1rem; }
@@ -216,9 +255,14 @@
   .triad .card { margin-top: 0; }
   .triad .card h3 { font-size: 1rem; }
   .triad .card p { font-size: 0.9375rem; line-height: 1.55; }
-  .triad .mark { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--coral); margin-bottom: 0.7rem; }
-  .triad .card:nth-child(2) .mark { background: #7aa27e; }
-  .triad .card:nth-child(3) .mark { background: #8a7bb5; }
+  /* the mark is a chip, not a dot: a 28px disc the card hangs off, the same
+     move the callout makes one size up */
+  .triad .mark {
+    display: block; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--blush); margin-bottom: 0.8rem;
+  }
+  .triad .card:nth-child(2) .mark { background: var(--sage); }
+  .triad .card:nth-child(3) .mark { background: var(--lavender); }
 
   /* numbers: receipts strip (outcomes) and the funnel (boxed, divided) */
   .receipts, .metrics {
@@ -298,15 +342,23 @@
   .qa h3::after { content: "”"; color: var(--coral); margin-left: 0.1em; }
 
   /* ——— Figures: the landing page's artifact-card slot ——— */
-  .thumbs { margin: 1.5rem 0 0; }
+  .thumbs { margin: 1.8rem 0 0; }
   .thumbs img {
-    display: block; width: 100%; height: auto; border-radius: 12px;
+    display: block; width: 100%; height: auto;
+    border-radius: var(--radius); border: 1px solid var(--surface-line);
     background: var(--blush);              /* the card's wash shows while the bytes decrypt */
+    box-shadow: var(--lift);
   }
   .thumbs .pair { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 1rem; }
   .thumbs .pair img { height: 100%; object-fit: cover; }
-  .thumbs figcaption { margin-top: 0.6rem; font-size: 0.8125rem; line-height: 1.5; color: var(--faint); font-variant-numeric: tabular-nums; }
-  .thumbs figcaption .tag { margin-right: 0.5em; letter-spacing: 0.12em; }
+  /* caption as a line of its own furniture: the tag is a pill, the sentence
+     sits under it rather than running on from it */
+  .thumbs figcaption { margin-top: 0.85rem; font-size: 0.8125rem; line-height: 1.55; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .thumbs figcaption .tag {
+    display: block; width: fit-content; margin: 0 0 0.4rem; padding: 0.28rem 0.6rem 0.24rem;
+    border-radius: 999px; background: var(--surface); border: 1px solid var(--surface-line);
+    letter-spacing: 0.12em; font-size: 0.6875rem;
+  }
 
   footer {
     margin-top: clamp(3.5rem, 10vh, 5.5rem);
@@ -332,6 +384,7 @@
     .top { padding-top: clamp(2rem, 6vh, 3.5rem); }
     #cs { margin-top: clamp(3rem, 10vh, 5.5rem); }
     .callout { margin-inline: -1.25rem; }
+    .cover { margin-inline: -3rem; }
     .thumbs { margin-inline: -4.5rem; }
     .thumbs figcaption { margin-inline: 4.5rem; }
     #cs section { margin-top: clamp(3.5rem, 9vh, 5rem); }
@@ -341,8 +394,11 @@
   @media (min-width: 80rem) {
     /* the meta card leaves the column and hangs in the left margin, sticking as you read */
     .cs-grid { display: grid; grid-template-columns: 15rem minmax(0, var(--measure)); column-gap: 3rem; margin-left: -18rem; }
-    .meta { grid-template-columns: 1fr; gap: 1rem; margin-top: 0.35rem; position: sticky; top: 1.5rem; align-self: start; max-height: calc(100vh - 3rem); overflow: auto; }
+    .meta { grid-template-columns: 1fr; gap: 0; margin-top: 0.35rem; position: sticky; top: 1.5rem; align-self: start; max-height: calc(100vh - 3rem); overflow: auto; }
     .meta .wide { grid-column: 1; }
+    /* stacked in the margin, the groups need rules between them or the card
+       reads as one long list */
+    .meta > div + div { margin-top: 0.95rem; padding-top: 0.95rem; border-top: 1px solid var(--surface-line); }
     .cs-body > section:first-child { margin-top: 0; }
     /* with the rail on the left, figures overhang to the right only */
     .thumbs { margin-inline: 0 -4.5rem; }
@@ -351,11 +407,8 @@
 
   /* ——— Micro-interactions + custom cursor (desktop fine-pointers only) ——— */
   @media (hover: hover) and (pointer: fine) {
-    html { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="%23e56749" stroke="white" stroke-width="1.2"/></svg>') 11 11, auto; }
-    a, button { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="%23c05818" stroke="white" stroke-width="1.2"/></svg>') 13 13, pointer; }
-    input { cursor: text; }
-    .thumbs img { transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); }
-    .thumbs img:hover { transform: translateY(-5px) scale(1.012); }
+    .thumbs img { transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 260ms cubic-bezier(0.23, 1, 0.32, 1); }
+    .thumbs img:hover { transform: translateY(-5px) scale(1.012); box-shadow: 0 2px 4px rgb(61 56 51 / 0.05), 0 18px 40px rgb(61 56 51 / 0.10); }
     .monogram { transition: transform 200ms ease-out; }
     .monogram:hover { animation: wiggle 500ms ease-in-out; }
     .flow .chip { transition: background-color 150ms ease-out; }
@@ -363,13 +416,24 @@
     .flow .chip.new:hover { background: #d7ecd5; }
   }
   @keyframes wiggle { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(-5deg); } 65% { transform: rotate(4deg); } }
-  .cursor-dot {
-    position: fixed; top: 0; left: 0; width: 9px; height: 9px; border-radius: 50%;
-    background: var(--coral); pointer-events: none; z-index: 999; opacity: 0; translate: -50% -50%;
-    transition: opacity 200ms ease-out, width 180ms ease-out, height 180ms ease-out, background-color 180ms ease-out, border-color 180ms ease-out;
-    will-change: transform;
+  /* The named pointer. A Figma live-cursor: the arrow plus a coral name tag
+     that trails it, and on a link the tag says what the link will do. The
+     system cursor is hidden only once the script is actually running (html.np),
+     so a JS-less or reduced-motion visit keeps a real cursor. */
+  html.np, html.np a, html.np button, html.np input { cursor: none; }
+  .cursor {
+    position: fixed; top: 0; left: 0; z-index: 999;
+    pointer-events: none; opacity: 0; will-change: transform;
+    transition: opacity 180ms ease-out;
   }
-  .cursor-dot.is-link { width: 30px; height: 30px; background: transparent; border: 1.5px solid var(--coral); }
+  .cursor svg { display: block; width: 22px; height: 22px; filter: drop-shadow(0 1px 2px rgb(61 56 51 / 0.25)); }
+  .cursor .lbl {
+    position: absolute; left: 15px; top: 17px;
+    display: block; padding: 0.2rem 0.5rem 0.16rem; border-radius: 7px;
+    background: var(--coral); color: #fff; white-space: nowrap;
+    font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em;
+    box-shadow: 0 1px 3px rgb(61 56 51 / 0.2);
+  }
 
   @media (prefers-reduced-motion: no-preference) {
     .top, #gate, #cs, footer { animation: settle 0.45s ease-out both; }
@@ -384,7 +448,7 @@
   }
   @media print {
     body { font-size: 10.5pt; line-height: 1.5; }
-    .site-nav, .cursor-dot, #gate { display: none; }
+    .site-nav, .cursor, #gate { display: none; }
     .thumbs img, .card, .flow, .quotes blockquote, .baseline, .ifthen, .defs { break-inside: avoid; }
     .meta { position: static; }
     a { color: var(--ink); }
@@ -403,9 +467,14 @@
   </div>
 
   <main id="cs"><div class="hero">
+  <div class="tags"><span class="tag">Solo build</span><span class="tag">Android</span><span class="tag">Nutrition</span></div>
   <span class="kicker">MyFood · Android · Mar–May 2026</span>
   <h1>Khana kya banaun?</h1>
   <p class="dek">"What should I cook?" is the question every Indian household asks around six in the evening. MyFood answers it: a day's meals balanced by food group, the recipe for each, and one place for the links I save from YouTube and Instagram. I designed it, built it and shipped it alone. It's live in Play Store Early Access.</p>
+  <figure class="cover">
+    <img src="img/fig-home.webp" loading="lazy" alt="Two MyFood screens: the setup question 'What do you eat?' with Vegetarian and Vegetarian plus Eggs options, and the home screen with a week strip, today's balance showing four of nine food groups, and breakfast, lunch and dinner cards with a View recipe action" width="1504" height="940">
+    <figcaption><span class="tag">Setup · Home</span>Setup asks one question. Home answers the other: today's balance out of nine groups, and the day's three meals.</figcaption>
+  </figure>
 </div>
 
 <div class="cs-grid">
@@ -421,10 +490,6 @@
       <span class="label">01 · The idea</span>
       <h2>Food groups, not calories</h2>
       <p>The nutrition apps I'd used treat food as arithmetic: calories in, calories out, a number to chase. That isn't how anyone cooks. A household cooks by balance: a grain, a dal, a vegetable, something from dairy, and the rest follows. So MyFood counts food groups instead of calories. Setup asks one question, what you eat. The home answers the other at a glance: today's balance out of nine groups, the day's three meals, and a recipe behind each one.</p>
-      <figure class="thumbs">
-        <img src="img/fig-home.webp" loading="lazy" alt="Two MyFood screens: the setup question 'What do you eat?' with Vegetarian and Vegetarian plus Eggs options, and the home screen with a week strip, today's balance showing four of nine food groups, and breakfast, lunch and dinner cards with a View recipe action" width="1504" height="940">
-        <figcaption><span class="tag">Setup · Home</span>Setup asks one question. Home answers the other: today's balance out of nine groups, and the day's three meals.</figcaption>
-      </figure>
     </section>
 
     <section>
@@ -542,20 +607,38 @@
   try { const saved = sessionStorage.getItem(KEY); if (saved) attempt(saved, true); } catch (e) {}
 })();
 
-/* Trailing coral dot — same as the landing page; link detection is
-   delegated so links that arrive after unlock light it up too. */
+/* The named pointer — a Figma live-cursor: the arrow plus a coral tag that
+   trails it. On a link the tag says what the link does. Link detection is
+   delegated, so links that arrive after unlock get their verb too. The system
+   cursor is only hidden (html.np) once this is actually running. */
 (() => {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const dot = document.createElement('div');
-  dot.className = 'cursor-dot'; dot.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(dot);
+  const el = document.createElement('div');
+  el.className = 'cursor';
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5.5 3.2 L5.5 20.4 L9.9 16.4 L12.6 21.6 L15.2 20.3 L12.6 15.3 L18 15.1 Z" fill="#e56749" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg><span class="lbl">avantika</span>';
+  const lbl = el.querySelector('.lbl');
+  document.body.appendChild(el);
+  document.documentElement.classList.add('np');
   let x = -100, y = -100, cx = -100, cy = -100, seen = false;
-  addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; if (!seen) { cx = x; cy = y; seen = true; dot.style.opacity = 1; } }, { passive: true });
-  document.documentElement.addEventListener('mouseleave', () => { dot.style.opacity = 0; });
-  document.documentElement.addEventListener('mouseenter', () => { if (seen) dot.style.opacity = 1; });
-  document.addEventListener('mouseover', e => { dot.classList.toggle('is-link', !!e.target.closest('a, button')); });
-  const loop = () => { cx += (x - cx) * 0.16; cy += (y - cy) * 0.16; dot.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(loop); };
+  addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; if (!seen) { cx = x; cy = y; seen = true; el.style.opacity = 1; } }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', () => { el.style.opacity = 0; });
+  document.documentElement.addEventListener('mouseenter', () => { if (seen) el.style.opacity = 1; });
+  const verb = node => {
+    if (node.tagName === 'BUTTON') return 'open';
+    const h = node.getAttribute('href') || '';
+    if (h.startsWith('mailto:')) return 'email';
+    if (/\.pdf($|\?)/i.test(h)) return 'resume';
+    if (/^https?:/i.test(h)) return 'visit';
+    if (h === '../' || h === './' || h === '/') return 'back';
+    return 'read';
+  };
+  document.addEventListener('mouseover', e => {
+    const node = e.target.closest('a, button');
+    lbl.textContent = node ? verb(node) : 'avantika';
+  });
+  const loop = () => { cx += (x - cx) * 0.22; cy += (y - cy) * 0.22; el.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(loop); };
   loop();
 })();
 </script>

@@ -508,7 +508,7 @@
     const html = new TextDecoder().decode(await open(key, b64(p.html)));
     cs.innerHTML = html;
     root.classList.remove('locked');
-    document.title = (cs.querySelector('h1')?.textContent || 'Khana kya banaun?') + ' — Avantika Pidiha';
+    document.title = (cs.querySelector('h1')?.textContent || "Khana kya banaun?") + ' — Avantika Pidiha';
     for (const img of cs.querySelectorAll('img[data-enc]')) {
       fetch(img.dataset.enc).then(r => r.arrayBuffer())
         .then(buf => open(key, new Uint8Array(buf)))

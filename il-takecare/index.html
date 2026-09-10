@@ -778,6 +778,28 @@
     left: 0.75rem; outline: 2px solid var(--coral); outline-offset: 2px;
   }
 
+  /* Read-next thumbnail: a small card of the next case's cover sits
+     to the left of the headline on desktop, above it on phones. */
+  .read-next .layout { display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: start; }
+  .read-next .thumb { margin: 0; }
+  .read-next .thumb img {
+    display: block; width: 100%; height: auto;
+    border-radius: 10px; border: 1px solid var(--surface-line);
+    background: var(--surface);
+    box-shadow: 0 1px 2px rgb(61 56 51 / 0.04), 0 6px 18px rgb(61 56 51 / 0.06);
+    transition: transform 260ms cubic-bezier(0.23,1,0.32,1), box-shadow 260ms;
+    max-width: 220px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .read-next a:hover .thumb img {
+      transform: translateY(-3px);
+      box-shadow: 0 2px 4px rgb(61 56 51 / 0.05), 0 14px 30px rgb(61 56 51 / 0.10);
+    }
+  }
+  @media (min-width: 48rem) {
+    .read-next .layout { grid-template-columns: 220px 1fr; gap: 1.4rem; }
+  }
+
   @media print {
     :root { --paper: #ffffff; }
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
@@ -879,9 +901,14 @@
 
   <section class="read-next" aria-label="Read next">
     <span class="label">Read next</span>
-    <p class="headline"><a href="../overseeai/">Slower on purpose<span class="go" aria-hidden="true">→</span></a></p>
-    <p class="why">OverseeAI's core product. Different design problem: not how does the user do the task, but how does an expert supervise it. May 2026 – now.</p>
-    <p class="alt">Or head <a href="../">back to the index</a>.</p>
+    <div class="layout">
+      <a href="../overseeai/" class="thumb"><img src="../assets/thumb-overseeai.webp?v=1" alt="Ratebook Workbench cover" width="1504" height="940" loading="lazy"></a>
+      <div>
+        <p class="headline"><a href="../overseeai/">Slower on purpose<span class="go" aria-hidden="true">→</span></a></p>
+        <p class="why">OverseeAI's core product. Different design problem: not how does the user do the task, but how does an expert supervise it. May 2026 – now.</p>
+        <p class="alt">Or head <a href="../">back to the index</a>.</p>
+      </div>
+    </div>
   </section>
 
 

@@ -737,6 +737,23 @@
     .to-top { transition: none; }
   }
 
+  /* TOC inside the meta card: small ordered list of section anchors.
+     Sits with the meta on desktop's sticky column so the reader can
+     always see where they are in the essay. */
+  .toc { display: block; margin-top: 0.5rem; }
+  .toc a {
+    display: block;
+    padding: 0.42rem 0;
+    color: var(--soft);
+    text-decoration: none;
+    font-size: 0.875rem; line-height: 1.35;
+    border-bottom: 1px solid var(--surface-line);
+    transition: color 150ms ease-out, padding-left 220ms cubic-bezier(0.23,1,0.32,1);
+    font-variant-numeric: tabular-nums;
+  }
+  .toc a:last-child { border-bottom: 0; }
+  .toc a:hover { color: var(--accent); padding-left: 0.35rem; }
+
   /* Skip-to-content: hidden until keyboard focus, then a warm pill in
      the top-left. First tab on any page should land here. */
   .skip {
@@ -822,10 +839,22 @@
     <div><dt>Written for machines</dt><dd>DESIGN.md · design tokens · a voice spec shipped as a skill</dd></div>
     <div><dt>Where it lives</dt><dd>GitHub. Prototypes, specs and token files, versioned like code</dd></div>
     <div><dt>This page</dt><dd>Made the way it describes</dd></div>
+    <div class="wide">
+      <dt>In this piece</dt>
+      <nav class="toc" aria-label="Sections">
+        <a href="#the-stack">01 · The stack</a>
+        <a href="#the-loop">02 · The loop</a>
+        <a href="#figma-over-mcp">03 · Figma over MCP</a>
+        <a href="#the-room">04 · The room</a>
+        <a href="#review">05 · Review</a>
+        <a href="#a-record">06 · A record</a>
+        <a href="#limits">07 · Limits</a>
+      </nav>
+    </div>
   </aside>
 
   <div class="cs-body">
-    <section>
+    <section id="the-stack">
       <span class="label">01 · The stack</span>
       <h2>What each piece is actually for</h2>
       <p>Naming tools is not a process. This is the job each one does, and the reason it is in the list.</p>
@@ -839,7 +868,7 @@
       </dl>
     </section>
 
-    <section>
+    <section id="the-loop">
       <span class="label">02 · The loop</span>
       <h2>I almost never start from a blank page</h2>
       <p>Work starts as an artefact plus a link. An existing prototype and the frame it came from. A page in the live product. A repository I can read. I design against something that already exists, because the thing that usually breaks a design is not the idea. It is the data underneath it.</p>
@@ -852,7 +881,7 @@
       <blockquote class="pull"><p>If doing this is easier and faster for you in HTML, then just do it there. We can update the Figma later.</p><cite>Me, to Claude, most weeks</cite></blockquote>
     </section>
 
-    <section>
+    <section id="figma-over-mcp">
       <span class="label">03 · Figma over MCP</span>
       <h2>The design file became something you can query</h2>
       <p>Most people use the Figma MCP server one way, to generate code from a frame. I use it three ways, and the other two are where the value is.</p>
@@ -864,7 +893,7 @@
       <p>I also watch what it costs. I have gone back over a session to count how many MCP calls it burned, because a workflow that is elegant and slow does not survive a deadline.</p>
     </section>
 
-    <section>
+    <section id="the-room">
       <span class="label">04 · The room</span>
       <h2>The research is not generated</h2>
       <p>The redesign that cut customer service calls at ICICI Lombard was built on sessions with 14 users and 38 stakeholders. I wrote the scripts and moderated them. I still write the run-book, still moderate, still sit through the silence while someone fails to find the thing I was certain was obvious.</p>
@@ -872,7 +901,7 @@
       <p class="callout">A model can tell you what people said. It cannot tell you what they meant, because it was not there when they hesitated. Every study I have run turned on something that happened between the questions.</p>
     </section>
 
-    <section>
+    <section id="review">
       <span class="label">05 · Review</span>
       <h2>I make it argue against me</h2>
       <p>The most useful instruction I give a model is to attack the work. Before I defend anything, I run an adversarial pass over it: a set of language rules, a hierarchy model, a page like this one. The prompt is a question rather than a request. Will these rules fail, and where?</p>
@@ -880,7 +909,7 @@
       <p>The case studies on this site went through it. Each was written, then read by three separate critics, one for facts, one for the decisions, one for voice, and rewritten against what they found. Then a linter checked the markup, the image dimensions, the sentence lengths and the spellings before anything shipped.</p>
     </section>
 
-    <section>
+    <section id="a-record">
       <span class="label">06 · A record</span>
       <h2>Things I made this way</h2>
       <dl class="defs wide">
@@ -893,7 +922,7 @@
       </dl>
     </section>
 
-    <section>
+    <section id="limits">
       <span class="label">07 · Limits</span>
       <h2>What it does not do</h2>
       <ul class="learnings">

@@ -713,6 +713,30 @@
     .meta .impact div:hover { background: rgb(255 142 108 / 0.08); }
   }
 
+
+  /* ——— Back to top: only on phones (desktop has the persistent rail).
+     A small warm pill; appears past 50% scroll; scrolls smoothly on tap. */
+  .to-top {
+    position: fixed; right: 1rem; bottom: 1rem;
+    display: none;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--surface-line);
+    color: var(--strong); text-decoration: none;
+    align-items: center; justify-content: center;
+    box-shadow: var(--lift);
+    opacity: 0; transform: translateY(6px);
+    transition: opacity 220ms ease-out, transform 220ms cubic-bezier(0.23,1,0.32,1), border-color 150ms ease-out, color 150ms ease-out;
+    z-index: 40;
+    font-family: "DM Sans", sans-serif; font-size: 1.15rem; line-height: 1;
+  }
+  .to-top.show { display: flex; opacity: 1; transform: none; }
+  .to-top:hover { border-color: var(--coral); color: var(--coral); }
+  .to-top:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  @media (min-width: 68rem) { .to-top { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    .to-top { transition: none; }
+  }
+
   @media print {
     body { font-size: 10.5pt; line-height: 1.5; }
     .site-nav, .cursor, #gate { display: none; }
@@ -817,6 +841,9 @@
     <p class="why">The MyFood build taught me a loop. This is that loop, plus how I run it inside a company now.</p>
     <p class="alt">Or head <a href="../">back to the index</a>.</p>
   </section>
+
+
+  <a class="to-top" href="#top" aria-label="Back to top">↑</a>
 
   <footer>
     <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
@@ -1038,6 +1065,28 @@
     if (/\.pdf($|\?)/i.test(href)) return;
     prefetch(href);
   }, { passive: true, capture: true });
+})();
+</script>
+<script>
+/* Back to top — appears past half-viewport scroll on mobile; smooth-scroll
+   on tap. Guarded by prefers-reduced-motion for instant jump. */
+(() => {
+  const btn = document.querySelector('.to-top');
+  if (!btn) return;
+  let ticking = false;
+  const check = () => {
+    ticking = false;
+    btn.classList.toggle('show', window.scrollY > window.innerHeight * 0.5);
+  };
+  addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true; requestAnimationFrame(check);
+  }, { passive: true });
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+  });
 })();
 </script>
 </body>

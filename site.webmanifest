@@ -1,0 +1,24 @@
+{
+  "name": "Avantika Pidiha — Founding Product Designer, OverseeAI",
+  "short_name": "Avantika",
+  "description": "Designing agentic products with humans in control, and the design systems, tokens, and specs AI agents build to.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#fbf8f2",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

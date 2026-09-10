@@ -562,6 +562,37 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
+
+  /* ——— Read next: hand-off row at the bottom of every case page.
+     Serial reading path through the portfolio; visible in both the
+     locked (teaser + gate) and unlocked (full body) flows. */
+  .read-next {
+    margin-top: clamp(2.5rem, 8vh, 4.5rem);
+    padding: 1.6rem 0 0;
+    border-top: 1px solid var(--surface-line);
+  }
+  .read-next .label { display: block; margin-bottom: 0.55rem; }
+  .read-next .headline {
+    font-size: 1.15rem; font-weight: 600; line-height: 1.35;
+    color: var(--strong); margin: 0; letter-spacing: -0.005em;
+  }
+  .read-next .headline a {
+    color: inherit;
+    text-decoration-color: var(--surface-line);
+    text-decoration-thickness: 1px; text-underline-offset: 0.22em;
+    transition: color 150ms ease-out, text-decoration-color 150ms ease-out;
+  }
+  .read-next .headline a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+  .read-next .headline .go {
+    display: inline-block; margin-left: 0.15em;
+    color: var(--coral); transition: transform 220ms cubic-bezier(0.23,1,0.32,1);
+  }
+  .read-next .headline a:hover .go { transform: translateX(4px); }
+  .read-next .why { margin-top: 0.5rem; font-size: 0.9875rem; color: var(--soft); }
+  .read-next .alt { margin-top: 0.85rem; font-size: 0.8125rem; color: var(--faint); letter-spacing: 0.02em; }
+  .read-next .alt a { color: var(--faint); text-decoration-color: rgb(61 56 51 / 0.22); }
+  .read-next .alt a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
   @media print {
     body { font-size: 10.5pt; line-height: 1.5; }
     .site-nav, .cursor, #gate { display: none; }
@@ -640,6 +671,14 @@
   </section>
 
   <main id="cs"></main>
+
+
+  <section class="read-next" aria-label="Read next">
+    <span class="label">Read next</span>
+    <p class="headline"><a href="../process/">Where the AI actually sits<span class="go" aria-hidden="true">→</span></a></p>
+    <p class="why">How I design with AI inside every step, not off to the side. The method behind everything you just read.</p>
+    <p class="alt">Or head <a href="../">back to the index</a>.</p>
+  </section>
 
   <footer>
     <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>

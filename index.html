@@ -231,6 +231,26 @@
     color: var(--faint);
     margin-bottom: 1.1rem;
   }
+  /* Era H2s open with a short coral rule — a chapter mark echoing the
+     one on the case-page kickers. Not decorative; a shared idiom. */
+  .timeline h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7em;
+  }
+  .timeline h2::before {
+    content: "";
+    flex: none;
+    display: inline-block;
+    width: 1.8em; height: 1px;
+    background: var(--coral); opacity: 0.75;
+  }
+  @media (min-width: 68rem) {
+    /* at desktop the timeline h2 hangs left with the era title on its own row;
+       keep the bookend inline to the label */
+    .timeline h2 { display: block; }
+    .timeline h2::before { display: inline-block; margin-right: 0.7em; vertical-align: 0.28em; }
+  }
 
   /* ——— Intro ——— */
   .intro p + p { margin-top: 1.1em; }
@@ -496,6 +516,9 @@
     /* the name's sparkle twinkles, the squiggle redraws */
     .name-block:hover .sparkle-name { animation: twinkle 700ms ease-in-out; }
     .name-block:hover .squiggle path { animation: draw 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+    /* the Now sparkle picks up the same wiggle the footer mark uses —
+       small, warm, only if the reader hovers the section */
+    .now h2:hover .sparkle-now { animation: wiggle 700ms ease-in-out; }
 
     /* the maker's mark says bye */
     .mark { transition: transform 200ms ease-out; }
@@ -797,6 +820,32 @@
     requestAnimationFrame(loop);
   };
   loop();
+})();
+
+/* Hover-prefetch — the reader looks at a case link, we quietly warm the
+   next page's HTML. First click lands instantly. Skips external, mailto,
+   PDF and same-page anchors; only fires once per href. */
+(() => {
+  if (!('connection' in navigator) || navigator.connection.saveData) return;
+  const seen = new Set();
+  const prefetch = href => {
+    if (seen.has(href)) return;
+    seen.add(href);
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.as = 'document';
+    link.href = href;
+    document.head.appendChild(link);
+  };
+  document.addEventListener('mouseover', e => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+    if (/^https?:/i.test(href)) return;
+    if (/\.pdf($|\?)/i.test(href)) return;
+    prefetch(href);
+  }, { passive: true, capture: true });
 })();
 </script>
 </body>

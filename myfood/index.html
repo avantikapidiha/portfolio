@@ -953,5 +953,32 @@
   if (cs) new MutationObserver(() => observe(cs)).observe(cs, { childList: true, subtree: true });
 })();
 </script>
+<script>
+/* Hover-prefetch — the reader looks at a link, we quietly warm the next
+   page's HTML. First click lands instantly. Skips external, mailto, PDF,
+   and same-page anchors; only fires once per href. */
+(() => {
+  if (!('connection' in navigator) || navigator.connection.saveData) return;
+  const seen = new Set();
+  const prefetch = href => {
+    if (seen.has(href)) return;
+    seen.add(href);
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.as = 'document';
+    link.href = href;
+    document.head.appendChild(link);
+  };
+  document.addEventListener('mouseover', e => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+    if (/^https?:/i.test(href)) return;
+    if (/\.pdf($|\?)/i.test(href)) return;
+    prefetch(href);
+  }, { passive: true, capture: true });
+})();
+</script>
 </body>
 </html>

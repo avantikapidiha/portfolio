@@ -687,14 +687,15 @@
   /* h1 numeric wrap: the case titles never break awkwardly on a lone digit */
   .hero h1 { text-wrap: balance; }
 
-  /* Thesis marker: the one coined phrase in the dek gets the italic serif —
-     the second job Instrument Serif does on the site beyond her name.
-     Bumps a hair in weight and size so it reads as the coinage it is. */
-  .hero .dek .thesis {
+  /* Thesis marker: any coined phrase gets the italic serif — the second
+     job Instrument Serif does on the site beyond her name. Bumps a hair
+     in weight and size so it reads as the coinage it is. Applies inside
+     the dek, the teaser-body, and any timeline entry. */
+  .thesis {
     font-family: var(--display);
     font-style: italic;
     font-weight: 400;
-    font-size: 1.08em;
+    font-size: 1.06em;
     color: var(--strong);
     letter-spacing: -0.005em;
   }
@@ -903,7 +904,7 @@
         </div>
       </aside>
       <div class="teaser-body">
-        <p>Inside: the decision cards that replace open-ended chat, the go-gates before consequential extraction, the three-altitude review mode, and Vantage — the design system AI agents build to.</p>
+        <p>Inside: the decision cards that replace open-ended chat, the go-gates before consequential extraction, the three-altitude review mode, and <em class="thesis">Vantage</em> — the design system AI agents build to.</p>
       </div>
     </div>
   </div>

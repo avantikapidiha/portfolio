@@ -668,6 +668,16 @@
     @keyframes draw {
       to { stroke-dashoffset: 0; }
     }
+    /* the sparkle at the end of the name pops in with a warm rotate —
+       a beat before the squiggle underlines the name */
+    .sparkle-name {
+      animation: sparkle-arrive 1.1s cubic-bezier(0.35, 1.4, 0.4, 1) 0.35s both;
+    }
+    @keyframes sparkle-arrive {
+      0%   { opacity: 0; transform: translateY(-0.55em) rotate(-32deg) scale(0.2); }
+      60%  { opacity: 1; transform: translateY(-0.55em) rotate(34deg) scale(1.22); }
+      100% { opacity: 1; transform: translateY(-0.55em) rotate(18deg) scale(1); }
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {

@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Where the AI actually sits — Avantika Pidiha</title>
 <meta name="description" content="How Avantika Pidiha designs with AI: Figma over MCP, HTML prototypes, GitHub, and the parts that are still people.">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1815" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://www.avantikapidiha.com/process/">
 <!-- STAGING ONLY: gated pages keep noindex for good; public case pages drop it at the DNS flip -->
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:type" content="article">
@@ -652,6 +654,10 @@
 
   /* h1 numeric wrap: the case titles never break awkwardly on a lone digit */
   .hero h1 { text-wrap: balance; }
+
+  /* Anchor landings breathe: any deep link to a section h2 lands 3rem
+     below the browser top instead of jammed against it. */
+  h2, .hero h1, #cs h2, #teaser .hero h1 { scroll-margin-top: 2.5rem; }
 
   @media print {
     body { font-size: 10.5pt; line-height: 1.5; }

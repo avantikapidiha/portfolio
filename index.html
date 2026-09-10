@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Avantika Pidiha</title>
 <meta name="description" content="Founding Product Designer at OverseeAI. Designing agentic products with humans in control, and the design systems, tokens, and specs AI agents build to.">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1815" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="canonical" href="https://www.avantikapidiha.com/">
 <!-- STAGING ONLY: remove this noindex line when DNS flips to avantikapidiha.com (launch checklist item) -->
@@ -265,6 +266,14 @@
     border-radius: 12px;
     padding: 1.05rem 1.25rem;
     margin-inline: -0.75rem;        /* phone: a deliberate 12px overhang, clear of the viewport edge */
+  }
+  .now .stamp {
+    display: block;
+    margin-top: 0.6rem;
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
   }
 
   /* ——— Timeline ——— */
@@ -590,6 +599,10 @@
   }
 
   /* ——— Print: a tidy leave-behind — marks rest, words carry it ——— */
+  /* Anchor landings breathe: any deep link to a section h2 lands 3rem
+     below the browser top instead of jammed against it. */
+  h2, .hero h1, #cs h2, #teaser .hero h1 { scroll-margin-top: 2.5rem; }
+
   @media print {
     :root { --paper: #ffffff; }
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
@@ -613,6 +626,29 @@
     @page { margin: 1.8cm; }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Avantika Pidiha",
+  "url": "https://www.avantikapidiha.com/",
+  "image": "https://www.avantikapidiha.com/assets/og-portrait.jpg",
+  "jobTitle": "Founding Product Designer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "OverseeAI"
+  },
+  "description": "Founding Product Designer at OverseeAI. Designing agentic products with humans in control, and the design systems, tokens, and specs AI agents build to.",
+  "sameAs": [
+    "https://linkedin.com/in/avantikapidiha"
+  ],
+  "email": "mailto:avantikapidiha28@gmail.com",
+  "alumniOf": [
+    { "@type": "EducationalOrganization", "name": "Unitedworld Institute of Design" },
+    { "@type": "EducationalOrganization", "name": "Harvard Business School Online" }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="page">
@@ -656,8 +692,8 @@
 
     <section class="now">
       <h2><span class="sparkle sparkle-now" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>Now</h2>
-      <!-- PLACEHOLDER: Avantika keeps this current -->
-      <p>Currently at OverseeAI: expanding Vantage past its first 25 components · building the compare workflow for ratebooks · v2 of the voice system.</p>
+      <!-- PLACEHOLDER: Avantika keeps this current — update the datestamp when you edit the sentence -->
+      <p>Currently at OverseeAI: expanding Vantage past its first 25 components · building the compare workflow for ratebooks · v2 of the voice system. <time class="stamp" datetime="2026-09-10">Updated 10 Sep 2026</time></p>
     </section>
 
     <section class="timeline">

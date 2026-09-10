@@ -424,6 +424,18 @@
   .mark svg { display: block; width: 100%; height: 100%; }
   .mark-link { display: inline-block; text-decoration: none; }
   .mark-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; text-decoration: none; }
+  /* Colophon: a small credit line in the footer — evidence for the
+     "designs the spec machines build to" positioning, not decoration. */
+  .colophon {
+    margin-top: 1.4rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    max-width: 32rem;
+    line-height: 1.6;
+  }
 
   /* ——— The one desktop enhancement: arch joins the name row;
          dates & labels hang left, entry images widen past the measure ——— */
@@ -835,6 +847,7 @@
       <span class="sep" aria-hidden="true">·</span>
       <a href="mailto:avantikapidiha28@gmail.com">Email</a>
     </nav>
+    <p class="colophon">Hand-written HTML, no framework, no build step. Instrument Serif &amp; DM Sans, self-hosted.</p>
   </footer>
 
 </div>

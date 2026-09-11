@@ -1017,7 +1017,8 @@
     try {
       const key = await deriveKey(password);
       await reveal(key);
-      try { sessionStorage.setItem(KEY, password); } catch (e) {}
+      /* OverseeAI: never persist the password (see the removeItem below);
+         the reader re-enters on every visit. */
     } catch (e) {
       if (!quiet) {
         msg.textContent = 'That password didn\'t work.'; msg.className = 'msg err';
@@ -1029,7 +1030,10 @@
 
   form.addEventListener('submit', e => { e.preventDefault(); if (pw.value) attempt(pw.value, false); });
   pw.addEventListener('input', () => { pw.removeAttribute('aria-invalid'); if (msg.classList.contains('err')) { msg.textContent = ''; msg.className = 'msg'; } });
-  try { const saved = sessionStorage.getItem(KEY); if (saved) attempt(saved, true); } catch (e) {}
+  /* OverseeAI is early-stage — always ask for the password fresh. Do not
+     auto-attempt a cached password from sessionStorage, and clear any
+     previously-stored one so past sessions can't unlock silently. */
+  try { sessionStorage.removeItem(KEY); } catch (e) {}
 })();
 
 /* Mini demos. Markup lives in the page source; the behaviour is here and fully

@@ -245,6 +245,11 @@
      desktop entry gap on short viewports — hierarchy never inverts */
   main > section { position: relative; margin-top: clamp(3rem, 8vh, 4.5rem); }
   main > section + section { margin-top: clamp(4.25rem, 9vh, 5.5rem); }
+  /* Between two timeline eras: a bigger break than a normal section boundary
+     so the reader feels the shift from OverseeAI → Reset year → Consumer
+     scale. Also the small coral kicker rule on the incoming h2 has more air
+     to open a chapter. */
+  main > section.timeline + section.timeline { margin-top: clamp(5.5rem, 12vh, 7rem); }
 
   h2 {
     font-size: 0.75rem;
@@ -300,8 +305,11 @@
 
   /* ——— Timeline ——— */
   /* roomy, Jenny-style: full-width entry images need clear air before
-     the next date label; the rhythm stays uniform across all entries */
-  .entry + .entry { margin-top: 3rem; }
+     the next date label; the rhythm stays uniform across all entries.
+     Entries that carry a .thumbs figure get extra breath so the artifact
+     card doesn't crowd the next entry. */
+  .entry + .entry { margin-top: 3.5rem; }
+  .entry:has(.thumbs) + .entry { margin-top: 4.5rem; }
   .when {
     display: block;
     font-style: normal;
@@ -346,7 +354,7 @@
      no border, no shadows.
      .filler is the inline-SVG placeholder variant (ICICI, always solo);
      it obeys the same box rules as a real image. */
-  .thumbs { margin: 1.5rem 0 0; position: relative; }
+  .thumbs { margin: 2rem 0 0; position: relative; }
   /* a card that opens a case study is wrapped in a block link — the
      hover lift finally means what it implies. A small coral "open"
      chip fades in on hover, top-right corner of the card, so the
@@ -573,7 +581,8 @@
       padding-top: 0.45em;  /* optically align cap-height with the run-in title's first line */
     }
     /* extra air at desktop: the images are at their largest here */
-    .entry + .entry { margin-top: 4rem; }
+    .entry + .entry { margin-top: 4.5rem; }
+    .entry:has(.thumbs) + .entry { margin-top: 5.5rem; }
     .entry + .entry.compact { margin-top: 2.25rem; }
     .entry.compact + .entry.compact { margin-top: 1.4rem; }
 

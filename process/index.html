@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#17140f" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://www.avantikapidiha.com/process/">
-<!-- STAGING ONLY: gated pages keep noindex for good; public case pages drop it at the DNS flip -->
-<meta name="robots" content="noindex, nofollow">
+<!-- STAGING ONLY: remove this noindex line when DNS flips to avantikapidiha.com (launch checklist item) -->
+<meta name="robots" content="noindex">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Where the AI actually sits — Avantika Pidiha">
 <meta property="og:description" content="How Avantika Pidiha designs with AI: Figma over MCP, HTML prototypes, GitHub, and the parts that are still people.">
@@ -136,12 +136,28 @@
   .site-nav a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   .site-nav .sep { color: var(--faint); user-select: none; }
 
-  /* ——— Gate (stripped from public builds) ——— */
-  #gate { margin-top: clamp(3.5rem, 14vh, 7rem); max-width: 27rem; }
-  #gate .monogram { width: 44px; height: auto; display: block; margin-bottom: 1.4rem; }
-  #gate h1 { font-size: 1.35rem; font-weight: 600; line-height: 1.3; color: var(--strong); letter-spacing: -0.005em; }
-  #gate p { margin-top: 0.7rem; color: var(--ink); }
-  #gate form { display: flex; gap: 0.5rem; margin-top: 1.4rem; }
+  /* ——— Gate (stripped from public builds) — now sits BELOW the public teaser ——— */
+  #gate {
+    margin: clamp(2.5rem, 8vh, 4rem) auto 0;
+    max-width: 34rem;
+    padding: 2rem 2rem 2.2rem;
+    border: 1px solid var(--surface-line); border-radius: var(--radius);
+    background: var(--surface);
+    text-align: left;
+  }
+  #gate .mark { width: 32px; height: 32px; color: var(--coral); display: block; margin-bottom: 1.2rem; }
+  #gate .mark svg { display: block; width: 100%; height: 100%; }
+  #gate h1 {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.55rem, 1.05rem + 1.9vw, 1.9rem);
+    line-height: 1.1;
+    color: var(--strong);
+    letter-spacing: -0.005em;
+  }
+  #gate p { margin-top: 0.85rem; color: var(--ink); font-size: 1.0rem; line-height: 1.55; }
+  #gate form { display: flex; gap: 0.55rem; margin-top: 1.6rem; }
   #gate label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   #gate input {
     flex: 1 1 auto; min-width: 0; min-height: 46px; padding: 0.55rem 0.9rem;
@@ -208,6 +224,15 @@
   .meta .wide { grid-column: 1 / -1; }
   .meta .status::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #3f8a52; margin-right: 0.45em; vertical-align: 1px; }
   .meta .status.wip::before { background: var(--coral); }
+  @media (prefers-reduced-motion: no-preference) {
+    /* a work-in-progress dot that breathes — the only looping animation on
+       the site, and only on a page that is genuinely still moving */
+    .meta .status.wip::before { animation: wip-pulse 2.6s ease-in-out infinite; }
+    @keyframes wip-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.15); opacity: 0.6; }
+    }
+  }
   /* the impact table: hairline rows, label left, value right — the one place
      on a case page where numbers are allowed to line up and be scanned. */
   .meta .impact { display: grid; gap: 0; }
@@ -464,6 +489,28 @@
     .rail a[aria-current="page"] { color: var(--strong); }
     .rail .mark-link:hover .mark { transform: rotate(-18deg) scale(1.1); }
     .rail .mark-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
+  }
+
+  /* ——— Public teaser (hero + cover + meta + one-line body). Visible while the
+     page is locked; hidden after unlock so the encrypted payload owns the view. */
+  html:not(.locked) #teaser { display: none; }
+  #teaser { margin-top: clamp(2rem, 6vh, 3.5rem); }
+  #teaser .teaser-body { margin-top: 1.4rem; }
+  #teaser .teaser-body p { color: var(--soft); font-size: 0.9875rem; }
+  #teaser .cover img {
+    background: var(--blush); /* wash while the reader waits — matches the artifact card ecosystem */
+  }
+  @media (min-width: 68rem) {
+    #gate { margin-inline: 0; }
+  }
+  @media (min-width: 80rem) {
+    /* on the widest breakpoint the meta card hangs in the left margin; the gate
+       aligns with the body column just below the teaser */
+    #teaser .cs-grid { display: grid; grid-template-columns: 15rem minmax(0, var(--measure)); column-gap: 3rem; margin-left: -18rem; }
+    #teaser .meta { grid-template-columns: 1fr; gap: 0; margin-top: 0.35rem; position: sticky; top: 1.5rem; align-self: start; }
+    #teaser .meta > div + div { margin-top: 0.95rem; padding-top: 0.95rem; border-top: 1px solid var(--surface-line); }
+    #teaser .meta .wide { grid-column: 1; }
+    #teaser .teaser-body { margin-top: 0; }
   }
 
   /* ——— Desktop enhancement ——— */
@@ -1035,6 +1082,7 @@
   </footer>
 
 </div>
+
 
 <script>
 /* Unlock: PBKDF2-SHA256 → AES-256-GCM, all WebCrypto, all client-side.

@@ -334,6 +334,81 @@
   .desk .postcard span { font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
   .desk .postcard:hover span { color: var(--accent); }
 
+  /* ——— Selected work: the reference's card grid. Two-up from 48rem,
+     breaking out of the reading column to a 1300px box at 68rem; a pastel
+     card with a framed phone rising out of its bottom edge, one or two
+     pieces of the product floating over it, an arrow badge, then the title,
+     one line with the number in bold, and the tags. ——— */
+  .work h2 { position: static; display: flex; align-items: baseline; gap: 0.7em; margin-bottom: 1.2rem; }
+  .work h2::before { content: ""; flex: none; display: inline-block; width: 1.8em; height: 1px; background: var(--coral); opacity: 0.75; }
+  .work .cards { display: grid; gap: 2rem; }
+  .card { min-width: 0; }
+  .card .art {
+    position: relative; display: block; overflow: hidden;
+    border-radius: 20px; background: var(--surface);
+    aspect-ratio: 1504 / 940;
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgb(61 56 51 / 0.04), 0 10px 30px rgb(61 56 51 / 0.06);
+    transition: transform 320ms cubic-bezier(0.23,1,0.32,1), box-shadow 320ms cubic-bezier(0.23,1,0.32,1);
+  }
+  .card .shot { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .card .fl { position: absolute; height: auto; pointer-events: none; transition: transform 420ms cubic-bezier(0.23,1,0.32,1); }
+  .card .arrow {
+    position: absolute; right: 1rem; bottom: 1rem;
+    width: 46px; height: 46px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #fff; color: var(--strong);
+    font-size: 1.25rem; line-height: 1;
+    box-shadow: 0 1px 2px rgb(61 56 51 / 0.06), 0 6px 16px rgb(61 56 51 / 0.12);
+    transition: transform 260ms cubic-bezier(0.23,1,0.32,1), background-color 150ms ease-out, color 150ms ease-out;
+  }
+  .card h3 { margin-top: 1.1rem; font-size: 1.25rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.008em; color: var(--strong); text-wrap: balance; }
+  .card h3 a { color: inherit; text-decoration: none; }
+  .card h3 a:hover { color: var(--accent); }
+  .card p { margin-top: 0.45rem; font-size: 0.9875rem; line-height: 1.55; color: var(--soft); }
+  .card p b { font-weight: 600; color: var(--strong); }
+  .card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+  .card .tags span {
+    font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--soft); background: var(--surface); border: 1px solid rgb(61 56 51 / 0.10);
+    border-radius: 6px; padding: 0.3rem 0.55rem 0.26rem;
+  }
+  .card .tags .lock { color: var(--faint); border-style: dashed; }
+  /* floater positions in % of the art box; the phone is centred, ~49% wide,
+     so its edges sit at ~25% and ~75% — floaters overlap those edges */
+  .card .f1 { width: 30%; left: 6%; top: 34%; transform: rotate(-6deg); }
+  .card .f2 { width: 22%; right: 7%; bottom: 14%; transform: rotate(5deg); }
+  .card:nth-child(1) .f1 { width: 30%; left: 6%; top: 54%; transform: rotate(-4deg); }
+  .card:nth-child(1) .f2 { width: 20%; right: 8%; bottom: 24%; transform: rotate(5deg); }
+  .card:nth-child(2) .f1 { width: 32%; left: 5%; top: 30%; }
+  .card:nth-child(2) .f2 { width: 15%; right: 9%; bottom: 16%; }
+  .card:nth-child(3) .f1 { width: 22%; left: 8%; top: 36%; transform: rotate(-7deg); }
+  .card:nth-child(3) .f2 { width: 19%; right: 8%; bottom: 18%; transform: rotate(6deg); }
+  .card:nth-child(4) .f1 { width: 26%; left: 6%; top: 28%; transform: rotate(-5deg); }
+  .card:nth-child(4) .f2 { width: 22%; right: 7%; bottom: 16%; transform: rotate(5deg); }
+  .card:nth-child(5) .f1 { width: 30%; left: 7%; top: 30%; transform: rotate(-4deg); }
+  .card:nth-child(5) .f2 { width: 25%; right: 7%; bottom: 20%; transform: rotate(4deg); }
+  @media (hover: hover) and (pointer: fine) {
+    .card .art:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgb(61 56 51 / 0.05), 0 22px 48px rgb(61 56 51 / 0.12); }
+    .card .art:hover .f1 { transform: rotate(-3deg) translate(-4px, -8px); }
+    .card .art:hover .f2 { transform: rotate(2deg) translate(4px, -6px); }
+    .card:nth-child(1) .art:hover .f1 { transform: rotate(-2deg) translate(-4px, -8px); }
+    .card .art:hover .arrow { transform: translate(2px, -2px); background: var(--strong); color: var(--paper); }
+  }
+  @media (min-width: 48rem) {
+    .work .cards { grid-template-columns: 1fr 1fr; gap: 1.6rem 1.75rem; }
+  }
+  @media (min-width: 68rem) {
+    .work .cards {
+      position: relative; left: 50%; transform: translateX(-50%);
+      width: min(94vw, 1300px);
+      gap: 2.2rem 2.1rem;
+    }
+    .card .art { border-radius: 24px; }
+    .card h3 { font-size: 1.45rem; }
+    .card p { font-size: 1.0625rem; }
+  }
+
   /* ——— Sections & rhythm ——— */
   /* the 4.25rem floor keeps era-level separation above the 4rem
      desktop entry gap on short viewports — hierarchy never inverts */
@@ -862,7 +937,8 @@
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
     header { padding-top: 0; }
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
-    .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .mode, .cta { display: none; }
+    .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .mode, .cta, .card .art { display: none; }
+    .work .cards { display: block; } .card + .card { margin-top: 1rem; }
     .process p, .words figure { background: none; border-radius: 0; padding: 0; margin-inline: 0; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
@@ -961,6 +1037,73 @@
       <p>Before OverseeAI I shipped consumer products at scale. My redesigns cut customer service calls 37% at <a href="il-takecare/">ICICI Lombard</a> and 70% at <a href="axis/">Axis Bank</a>, and lifted <a href="lenskart/">Lenskart</a>'s home-to-listing conversion 14%. OverseeAI hired that track record to build its design function from zero.</p>
     </section>
 
+    <section class="work" id="work" aria-label="Selected work">
+      <h2>Selected work</h2>
+      <div class="cards">
+
+        <article class="card">
+          <a class="art" href="overseeai/" aria-label="Open case study: Ratebook Workbench, slower on purpose">
+            <img class="shot" src="assets/thumb-overseeai.webp?v=8" alt="" width="1504" height="940" loading="lazy">
+            <img class="fl f1" src="assets/fl-oa-cell.png" alt="" width="468" height="147" loading="lazy">
+            <img class="fl f2" src="assets/fl-oa-resolve.png" alt="" width="308" height="180" loading="lazy">
+            <span class="arrow" aria-hidden="true">&#8599;</span>
+          </a>
+          <h3><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3>
+          <p>An agentic workbench where insurance teams create, verify and compare ratebooks. The machine asks before it runs, and <b>an analyst decides every flagged cell</b> before anything is certified.</p>
+          <div class="tags"><span>Agentic AI</span><span>Human in the loop</span><span class="lock">Password</span></div>
+        </article>
+
+        <article class="card">
+          <a class="art" href="il-takecare/" aria-label="Open case study: ICICI Lombard, the phone that doesn't ring">
+            <img class="shot" src="assets/thumb-icici.webp?v=8" alt="" width="1504" height="940" loading="lazy">
+            <img class="fl f1" src="assets/fl-icici-policy.png" alt="" width="448" height="216" loading="lazy">
+            <img class="fl f2" src="assets/fl-icici-claim.png" alt="" width="248" height="243" loading="lazy">
+            <span class="arrow" aria-hidden="true">&#8599;</span>
+          </a>
+          <h3><a href="il-takecare/">ICICI Lombard &mdash; the phone that doesn&rsquo;t ring</a></h3>
+          <p>The flagship insurance app, redesigned around research with 14 users and 38 stakeholders. <b>Customer service calls fell 37%</b>, and the company got its first design system.</p>
+          <div class="tags"><span>Insurance</span><span>Design system</span><span class="lock">Password</span></div>
+        </article>
+
+        <article class="card">
+          <a class="art" href="lenskart/" aria-label="Open case study: Lenskart, a homepage that pulled its weight">
+            <img class="shot" src="assets/thumb-lenskart.webp?v=8" alt="" width="1504" height="940" loading="lazy">
+            <img class="fl f1" src="assets/fl-lens-switch.png" alt="" width="308" height="257" loading="lazy">
+            <img class="fl f2" src="assets/fl-lens-profit.png" alt="" width="278" height="231" loading="lazy">
+            <span class="arrow" aria-hidden="true">&#8599;</span>
+          </a>
+          <h3><a href="lenskart/">Lenskart &mdash; a homepage that pulled its weight</a></h3>
+          <p>Led the Home pod through a full homepage revamp. <b>Home-to-listing conversion up 14%</b>; the Home and Explore redesign lifted cart conversion 20%.</p>
+          <div class="tags"><span>E-commerce</span><span>Home &amp; Explore</span><span class="lock">Password</span></div>
+        </article>
+
+        <article class="card">
+          <a class="art" href="axis/" aria-label="Open case study: Axis Bank, fewer calls, one list, longer deposits">
+            <img class="shot" src="assets/thumb-axis-oneview.webp?v=8" alt="" width="1504" height="940" loading="lazy">
+            <img class="fl f1" src="assets/fl-axis-oneview.png" alt="" width="358" height="303" loading="lazy">
+            <img class="fl f2" src="assets/fl-axis-tenure.png" alt="" width="328" height="236" loading="lazy">
+            <span class="arrow" aria-hidden="true">&#8599;</span>
+          </a>
+          <h3><a href="axis/">Axis Bank &mdash; fewer calls, one list, longer deposits</a></h3>
+          <p>Three projects on the mobile app: the service pages, One View, and the fixed-deposit flow. <b>Customer service calls down 70%</b>; One View hit 40% adoption in its first month.</p>
+          <div class="tags"><span>Banking</span><span>Three projects</span><span class="lock">Password</span></div>
+        </article>
+
+        <article class="card">
+          <a class="art" href="myfood/" aria-label="Open case study: MyFood">
+            <img class="shot" src="assets/thumb-myfood.webp?v=8" alt="" width="1504" height="940" loading="lazy">
+            <img class="fl f1" src="assets/fl-food-balance.png" alt="" width="448" height="201" loading="lazy">
+            <img class="fl f2" src="assets/fl-food-breakfast.png" alt="" width="388" height="178" loading="lazy">
+            <span class="arrow" aria-hidden="true">&#8599;</span>
+          </a>
+          <h3><a href="myfood/">MyFood &mdash; khana kya banaun?</a></h3>
+          <p>A nutrition app that reframes calorie-counting as food-group balance. <b>Solo: concept, design, code</b>, and a Play Store Early Access release.</p>
+          <div class="tags"><span>Solo build</span><span>Android</span></div>
+        </article>
+
+      </div>
+    </section>
+
     <section class="process">
       <h2>How I work</h2>
       <p>AI sits inside every step of my process now, not off to the side of it. <a href="process/"><em class="thesis">Where the AI actually sits</em></a> is the whole method: Figma over MCP, prototypes in HTML, everything in GitHub, the reviews I run against my own work, and the parts that are still people. This website is one of the things it made.</p>
@@ -977,7 +1120,7 @@
 
       <article class="entry">
         <time class="when" datetime="2026">2026</time>
-        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; The core product: an agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. The machine asks before it runs, and an analyst decides every flagged cell before anything is certified. Nothing has shipped yet, which is why the case study claims no results.<figure class="thumbs"><a href="overseeai/"><img src="assets/thumb-overseeai.webp?v=7" alt="Ratebook Workbench — the filed rate pages beside the machine's reading of them, with the cells the two extractors disagree on flagged" width="1504" height="940" loading="lazy"></a><figcaption>The filed pages beside the machine&rsquo;s reading of them; every flagged cell needs a human decision before the table can be certified. <a href="overseeai/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; The core product: an agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. The machine asks before it runs, and an analyst decides every flagged cell before anything is certified. Nothing has shipped yet, which is why the case study claims no results.</div>
       </article>
 
       <article class="entry">
@@ -1002,7 +1145,7 @@
 
       <article class="entry">
         <span class="when"><time datetime="2026-03">March</time>–<time datetime="2026-05">May 2026</time></span>
-        <div class="ebody"><h3 class="et"><a href="myfood/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo: concept, design, code, Play Store Early Access.<figure class="thumbs"><a href="myfood/"><img src="assets/thumb-myfood.webp?v=7" alt="MyFood — daily food-group balance screen" width="1504" height="940" loading="lazy"></a><figcaption>Daily balance — live in Play Store Early Access. <a href="myfood/">Case study</a> · <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a></figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="myfood/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo: concept, design, code, Play Store Early Access.</div>
       </article>
 
       <article class="entry compact">
@@ -1022,17 +1165,17 @@
 
       <article class="entry">
         <span class="when"><time datetime="2024">2024</time>–<time datetime="2025">25</time></span>
-        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around research with 14 users and 38 stakeholders. Customer service calls fell 37% — my favourite kind of design metric, <em class="thesis">the phone that doesn't ring</em>. Also built the company's first design system, standardising its UI patterns and cutting handoff time by 30%. (First time; <em class="thesis">Vantage</em> is my second.)<figure class="thumbs"><a href="il-takecare/"><img src="assets/thumb-icici.webp?v=7" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <a href="il-takecare/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around research with 14 users and 38 stakeholders. Customer service calls fell 37% — my favourite kind of design metric, <em class="thesis">the phone that doesn't ring</em>. Also built the company's first design system, standardising its UI patterns and cutting handoff time by 30%. (First time; <em class="thesis">Vantage</em> is my second.)</div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2023">2023</time>–<time datetime="2024">24</time></span>
-        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home design pod through a full homepage revamp: home-to-listing conversion up 14%, and the Home and Explore redesign lifted cart conversion 20%. Also redesigned the Lenskart at Home service flow, cutting drop-offs 30%.<figure class="thumbs"><a href="lenskart/"><img src="assets/thumb-lenskart.webp?v=7" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></a><figcaption>Home and Explore — cart conversion up 20%. <a href="lenskart/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home design pod through a full homepage revamp: home-to-listing conversion up 14%, and the Home and Explore redesign lifted cart conversion 20%. Also redesigned the Lenskart at Home service flow, cutting drop-offs 30%.</div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2021">2021</time>–<time datetime="2023">23</time></span>
-        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months. Led design and implementation of the mobile app's service pages: customer service calls down 70%, task completion time down 45%. Shipped <em class="thesis">One View</em>, which hit 40% adoption in its first month. Redesigned the FD booking flow, lifting deposit amounts 5%.<figure class="thumbs"><a href="axis/"><img src="assets/thumb-axis-oneview.webp?v=7" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months. Led design and implementation of the mobile app's service pages: customer service calls down 70%, task completion time down 45%. Shipped <em class="thesis">One View</em>, which hit 40% adoption in its first month. Redesigned the FD booking flow, lifting deposit amounts 5%.</div>
       </article>
 
       <article class="entry compact">

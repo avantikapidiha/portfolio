@@ -1241,7 +1241,8 @@
     const hint = document.createElement('span'); hint.className = 'hint'; hint.textContent = 'Esc to close';
     layer.append(big, hint); document.body.appendChild(layer);
     document.documentElement.style.overflow = 'hidden';
-    requestAnimationFrame(() => requestAnimationFrame(() => layer && layer.classList.add('on')));
+    void layer.offsetWidth;                    // commit the initial state, then transition
+    layer.classList.add('on');
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 })();

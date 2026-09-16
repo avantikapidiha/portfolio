@@ -1034,11 +1034,11 @@
       <span class="label">03 · Figma over MCP</span>
       <h2>The design file became something you can query</h2>
       <p>Most people use the Figma MCP server one way, to generate code from a frame. I use it three ways, and the other two are where the value is.</p>
-      <dl class="defs wide">
-        <div><dt>Reading</dt><dd>Pull the real component names, variant properties and variable bindings out of the file, so a prototype is built from what exists rather than from a screenshot of it.</dd></div>
-        <div><dt>Writing</dt><dd>Build native frames from a prototype we have already agreed on, so the record catches up with the decision instead of blocking it.</dd></div>
-        <div><dt>Auditing</dt><dd>Check that a frame is bound to tokens rather than to pasted hex values. That failure is invisible until the day a theme changes, and then it is everywhere.</dd></div>
-      </dl>
+      <div class="triad quad">
+        <div class="card"><span class="mark"></span><span class="label">Reading</span><p>Pull real component names, variant properties and variable bindings out of the file, so a prototype is built from what exists, not from a screenshot.</p></div>
+        <div class="card"><span class="mark"></span><span class="label">Writing</span><p>Build native frames from a prototype we have already agreed on, so the record catches up with the decision instead of blocking it.</p></div>
+        <div class="card"><span class="mark"></span><span class="label">Auditing</span><p>Check that a frame is bound to tokens rather than to pasted hex values. That failure is invisible until the day a theme changes, and then it is everywhere.</p></div>
+      </div>
       <p>I also watch what it costs. I have gone back over a session to count how many MCP calls it burned, because a workflow that is elegant and slow does not survive a deadline.</p>
     </section>
 

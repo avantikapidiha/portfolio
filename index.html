@@ -66,6 +66,8 @@
     --accent: #a64310;   /* link text: coral family deepened for AA — 6.1:1 */
     --sage:   #e6f3e5;   /* her sage wash — arch fill */
     --blush:  #fef1ec;   /* her blush wash — Now block + ICICI filler */
+    --lavender: #efe9f7; /* the old site's card washes, paled to match */
+    --sand:   #f7eedc;
     --hairline: rgb(61 56 51 / 0.16);
     --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
     --measure: 38rem;
@@ -128,12 +130,14 @@
      name in the 68rem enhancement below. */
   header { padding-block: clamp(3rem, 10vh, 7rem) 0; }
   .masthead {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1.35rem;
   }
   .name-block { max-width: 100%; }
+  .desk { display: none; }
   .nb { white-space: nowrap; }   /* the name sparkle wraps with the surname, never alone */
 
   /* Arch portrait: rounded top, flat bottom — her signature shape.
@@ -163,8 +167,8 @@
     /* Instrument Serif is high-contrast and reads smaller than its
        em size — the name runs bigger than the old serif did:
        40px at 320 → ~42px at 390 → ~44px at 430; 68px at desktop */
-    font-size: clamp(2.5rem, 1.4rem + 5vw, 3.25rem);
-    line-height: 1.08;
+    font-size: clamp(2.75rem, 1.5rem + 5.6vw, 3.5rem);
+    line-height: 1.04;
     letter-spacing: 0;
     color: var(--strong);
   }
@@ -225,6 +229,12 @@
   .site-nav a { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
   .site-nav a:hover { text-decoration-color: var(--accent); }
   .site-nav .sep { color: var(--faint); user-select: none; }
+  /* at phone widths the four header links plus dots run ~355px against a
+     342px column and orphan "Email" on a second line — tighten, don't wrap */
+  @media (max-width: 26rem) {
+    header .site-nav { column-gap: 0.45rem; }
+    header .site-nav a { letter-spacing: 0.12em; padding-inline: 0.2rem; }
+  }
 
   /* Coinage marker: any phrase Avantika owns as a coined name — set in
      Instrument Serif italic once, DM Sans on repeat. Same idiom as the
@@ -239,6 +249,33 @@
     letter-spacing: -0.002em;
   }
   a .thesis { color: inherit; }
+
+  /* ——— The desk: two objects from her old hero in the right margin.
+     Books are a cut-out; the certificate is a small card, barely turned.
+     80rem+ only — narrower margins would clip them. ——— */
+  @media (min-width: 80rem) {
+    .desk {
+      display: block;
+      position: absolute;
+      left: calc(100% + 1.5rem);
+      top: 0.35rem;
+      width: 270px;
+      height: 250px;
+      pointer-events: none;
+    }
+    .desk .books {
+      position: absolute; left: 0; bottom: 0;
+      width: 228px; height: auto;
+      filter: drop-shadow(0 10px 18px rgb(61 56 51 / 0.14));
+    }
+    .desk .hbs {
+      position: absolute; right: 0; top: 0;
+      width: 108px; height: auto;
+      border-radius: 10px;
+      transform: rotate(4deg);
+      box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 14px 28px rgb(61 56 51 / 0.12);
+    }
+  }
 
   /* ——— Sections & rhythm ——— */
   /* the 4.25rem floor keeps era-level separation above the 4rem
@@ -285,6 +322,14 @@
   .intro p:first-of-type {
     font-size: 1.15em;
     line-height: 1.55;
+  }
+
+  /* ——— How I work: her sage wash — the twin of the Now block below ——— */
+  .process p {
+    background: var(--sage);
+    border-radius: 12px;
+    padding: 1.05rem 1.25rem;
+    margin-inline: -0.75rem;
   }
 
   /* ——— Now: her blush wash, kept quiet — page voice, not display ——— */
@@ -429,25 +474,32 @@
      verbatim. Deliberately undecorated: the quote sits in the page
      voice one step up in size, and the attribution borrows the
      timeline's date treatment so the section needs no new furniture. */
-  .words figure { margin: 0; position: relative; }
-  .words figure + figure {
-    margin-top: 2.1rem;
-    padding-top: 2.1rem;
-    border-top: 1px solid var(--hairline);
+  .words .grid { display: grid; gap: 0.9rem; }
+  .words figure {
+    margin: 0; position: relative;
+    padding: 1.3rem 1.35rem 1.25rem;
+    border-radius: 14px;
+    background: var(--blush);
   }
+  .words figure:nth-child(2) { background: var(--sage); }
+  .words figure:nth-child(3) { background: var(--lavender); }
+  .words figure:nth-child(4) { background: var(--sand); }
   .words blockquote {
     margin: 0;
-    font-size: 1.0625rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.55;
     color: var(--ink);
     text-wrap: pretty;
     position: relative;
+  }
+  @media (min-width: 48rem) {
+    .words .grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
   }
   /* A large coral opening quote glyph hung to the left of each quote.
      Reads as "someone actually said this" without shouting; sits in the
      margin at desktop, right above the text on phones. */
   .words blockquote::before {
-    content: "\201C";
+    content: none;
     position: absolute;
     top: -0.35em; left: -0.15em;
     font-family: var(--display);
@@ -459,8 +511,7 @@
     pointer-events: none;
     user-select: none;
   }
-  .words blockquote p:first-child { padding-left: 0.3rem; }
-  .words figcaption { margin-top: 0.6rem; font-size: 0.8125rem; color: var(--soft); padding-left: 0.3rem; }
+  .words figcaption { margin-top: 0.85rem; font-size: 0.8125rem; color: var(--soft); }
   .words figcaption b {
     display: block;
     font-size: 0.75rem;
@@ -473,8 +524,7 @@
   @media (min-width: 68rem) {
     /* on desktop, hang the quote glyph in the left margin so the text
        stays flush with the reading measure */
-    .words blockquote::before { left: -2.2rem; top: -0.2em; font-size: 4.2em; }
-    .words blockquote p:first-child, .words figcaption { padding-left: 0; }
+    .words .grid { margin-inline: -1.25rem; }  /* the cards overhang like the washes do */
   }
 
   /* ——— About & footer ——— */
@@ -524,26 +574,23 @@
   /* ——— The one desktop enhancement: arch joins the name row;
          dates & labels hang left, entry images widen past the measure ——— */
   @media (min-width: 68rem) {
+    /* The name owns the masthead at Jenny's scale — 92px on one line
+       (599px incl. sparkle in a 656px box) — with the squiggle under it.
+       Below that, the portrait sits beside the role line and the nav,
+       its flat bottom on the nav's baseline. */
     .masthead {
-      flex-direction: row;
-      align-items: flex-end;
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      grid-template-areas: "name name" "squig squig" "arch meta";
       column-gap: 1.6rem;
-      row-gap: 1.5rem;
+      row-gap: 0;
+      align-items: end;
     }
-    .name-block { flex: 1 1 9rem; }
-    /* scale contrast is what reads as designed: the name owns the
-       masthead (442.8px at 68px vs the 128px arch), and the arch is
-       big enough to hold its own beside it. 68px is the fit ceiling:
-       name-block = 608 − 128 arch − 25.6 gap = 454.4px, name measures
-       442.8px incl. sparkle — one line with 11.6px slack. */
-    h1 { font-size: 4.25rem; }  /* 68px */
-    /* arch bottom sits ON the nav caps baseline, not the invisible
-       44px tap-box bottom — the flat edge is the header's strongest
-       horizontal. 18px = (44 − 16 caps line box)/2 + descent. */
-    .arch { width: 128px; height: 160px; margin-bottom: 18px; }
-    /* tracks the phone lockup: ~90% ink coverage of "Avantika",
-       stroke ≈ 11.3% of the em — same proportions as the base */
-    .squiggle { width: 230px; margin-top: 0.4rem; }
+    h1 { grid-area: name; font-size: 5.75rem; line-height: 1; }
+    .squiggle { grid-area: squig; width: 300px; margin-top: 0.55rem; }
+    .arch { grid-area: arch; width: 128px; height: 160px; margin-top: 1.9rem; margin-bottom: 18px; }
+    .name-block { grid-area: meta; margin-top: 1.9rem; }
+    .name-block .role { margin-top: 0; }
 
     h2 {
       position: absolute;
@@ -555,8 +602,8 @@
     }
     /* the Now paragraph carries wash padding; keep the hung label
        aligned with its first text line */
-    .now h2 { top: calc(0.42em + 1.05rem); }
-    .now p { margin-inline: -1.25rem; }  /* wash overhangs; text stays on the column grid */
+    .now h2, .process h2 { top: calc(0.42em + 1.05rem); }
+    .now p, .process p { margin-inline: -1.25rem; }  /* wash overhangs; text stays on the column grid */
 
     /* Era labels are chapter heads: they stay IN FLOW above their group
        at every width. Hanging them left like Now/About would overflow
@@ -620,8 +667,8 @@
     .entry:hover .when { color: var(--accent); }
 
     /* the name's sparkle twinkles, the squiggle redraws */
-    .name-block:hover .sparkle-name { animation: twinkle 700ms ease-in-out; }
-    .name-block:hover .squiggle path { animation: draw 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+    h1:hover .sparkle-name { animation: twinkle 700ms ease-in-out; }
+    h1:hover + .squiggle path { animation: draw 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
     /* the Now sparkle picks up the same wiggle the footer mark uses —
        small, warm, only if the reader hovers the section */
     .now h2:hover .sparkle-now { animation: wiggle 700ms ease-in-out; }
@@ -728,6 +775,8 @@
       --accent:   #ffb894;   /* link text on dark — ~9.1:1 */
       --sage:     #1c2b1c;   /* deep sage wash */
       --blush:    #2c1a12;   /* deep blush wash */
+      --lavender: #221d2b;
+      --sand:     #2a2419;
       --hairline: rgb(232 224 208 / 0.14);
     }
     ::selection { background: rgb(255 142 108 / 0.32); color: var(--strong); }
@@ -754,7 +803,8 @@
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
     header { padding-top: 0; }
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
-    .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor { display: none; }
+    .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk { display: none; }
+    .process p, .words figure { background: none; border-radius: 0; padding: 0; margin-inline: 0; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
     .now p { background: none; border-radius: 0; padding: 0; margin-inline: 0; font-size: 12pt; }
@@ -805,11 +855,17 @@
       <div class="arch">
         <img src="assets/portrait-arch.png" alt="Avantika, smiling" width="440" height="550">
       </div>
+      <h1>Avantika <span class="nb">Pidiha<span class="sparkle sparkle-name" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span></span></h1>
+      <svg class="squiggle" viewBox="0 0 164 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path pathLength="1" d="M6 25 C12 24 19 20 24 15 C28 11 31 4.5 25 4 C19.5 3.6 16.5 11 22.5 15.5 C27 19 35 21.5 43 19.5 C50 17.6 54.5 14 58.5 11.5 C62 8 68 8.6 67.8 13.2 C67.6 17.8 60.5 17.6 61.8 12.2 C62.9 7.9 70 6.2 75.5 8.9 C82 12.4 88.5 16.9 98 16.4 C108 16 112 11.5 122 12.5 C131 13.4 136 18 145 16 C151 14.6 155 11 158 6.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <!-- Two things from her old hero, hers: the books she keeps, and the
+           HBS certificate the timeline names. Wide screens only; decorative. -->
+      <div class="desk" aria-hidden="true">
+        <img class="books" src="assets/desk-books.webp" alt="" width="760" height="760" loading="lazy">
+        <img class="hbs" src="assets/desk-hbs.png" alt="" width="210" height="210" loading="lazy">
+      </div>
       <div class="name-block">
-        <h1>Avantika <span class="nb">Pidiha<span class="sparkle sparkle-name" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span></span></h1>
-        <svg class="squiggle" viewBox="0 0 164 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-          <path pathLength="1" d="M6 25 C12 24 19 20 24 15 C28 11 31 4.5 25 4 C19.5 3.6 16.5 11 22.5 15.5 C27 19 35 21.5 43 19.5 C50 17.6 54.5 14 58.5 11.5 C62 8 68 8.6 67.8 13.2 C67.6 17.8 60.5 17.6 61.8 12.2 C62.9 7.9 70 6.2 75.5 8.9 C82 12.4 88.5 16.9 98 16.4 C108 16 112 11.5 122 12.5 C131 13.4 136 18 145 16 C151 14.6 155 11 158 6.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
         <p class="role">Founding Product Designer, OverseeAI</p>
         <nav class="site-nav" aria-label="Contact">
           <a href="process/">How I work</a>
@@ -915,6 +971,7 @@
 
     <section class="words">
       <h2>Kind words</h2>
+      <div class="grid">
 
       <figure>
         <blockquote><p>“I was working with Avantika on the transformation of the IL TakeCare app at ICICI Lombard. She brought a user-first mindset and strong design thinking to a complex initiative.”</p></blockquote>
@@ -936,6 +993,7 @@
         <figcaption><b>Akhilesh Naidu</b>Lead Product Designer, Omatochi</figcaption>
       </figure>
 
+      </div>
     </section>
 
     <section class="about">

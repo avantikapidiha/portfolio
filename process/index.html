@@ -313,7 +313,10 @@
   .triad .card:nth-child(4n+2) .mark { background: var(--sage); }
   .triad .card:nth-child(4n+3) .mark { background: var(--lavender); }
   .triad .card:nth-child(4n+4) .mark { background: var(--sand); }
-  @media (min-width: 48rem) { .triad.quad { grid-template-columns: 1fr 1fr; } }   /* four cards: two by two */
+  @media (min-width: 48rem) {
+    .triad.quad { grid-template-columns: 1fr 1fr; }                                  /* two across */
+    .triad.quad .card:last-child:nth-child(odd) { grid-column: 1 / -1; }             /* an odd last card takes the row */
+  }
 
   /* numbers: receipts strip (outcomes) and the funnel (boxed, divided) */
   .receipts, .metrics {

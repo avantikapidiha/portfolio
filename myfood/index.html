@@ -465,6 +465,7 @@
      One fixed layer on the page's own paper, the image contained inside it,
      Escape or a click closes. Built by the script at the foot of the page. */
   #cs .thumbs img { cursor: zoom-in; }
+  #cs .thumbs img:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
   .zoom { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: clamp(0.75rem, 3vmin, 2rem);
     background: rgb(253 252 250 / 0.96); cursor: zoom-out; opacity: 0; transition: opacity 220ms ease-out; }
   .zoom.on { opacity: 1; }
@@ -1230,7 +1231,7 @@
    opens it in a fixed layer on the paper; Escape, a click, or a scroll-wheel
    nudge closes it. Delegated, so figures that arrive after unlock work. */
 (() => {
-  let layer = null;
+  let layer = null, opener = null;
   const close = () => {
     if (!layer) return;
     const l = layer; layer = null;
@@ -1241,17 +1242,30 @@
   document.addEventListener('click', e => {
     if (layer) { close(); return; }
     const img = e.target.closest('#cs .thumbs img');
-    if (!img || img.closest('a') || !img.currentSrc) return;
+    const src = img && (img.currentSrc || img.src);
+    if (!img || img.closest('a') || !src) return;
+    opener = img;
     layer = document.createElement('div');
     layer.className = 'zoom'; layer.setAttribute('role', 'dialog'); layer.setAttribute('aria-label', img.alt || 'Figure');
-    const big = new Image(); big.src = img.currentSrc; big.alt = img.alt || '';
+    const big = new Image(); big.src = src; big.alt = img.alt || '';
     const hint = document.createElement('span'); hint.className = 'hint'; hint.textContent = 'Esc to close';
     layer.append(big, hint); document.body.appendChild(layer);
     document.documentElement.style.overflow = 'hidden';
     void layer.offsetWidth;                    // commit the initial state, then transition
     layer.classList.add('on');
   });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { const back = opener; close(); if (back) back.focus(); return; }
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('#cs .thumbs img[tabindex]')) { e.preventDefault(); e.target.click(); }
+  });
+  /* keyboard: every zoomable figure is a button; runs now and again after unlock */
+  const arm = () => document.querySelectorAll('#cs .thumbs img').forEach(i => {
+    if (i.closest('a') || i.hasAttribute('tabindex')) return;
+    i.tabIndex = 0; i.setAttribute('role', 'button'); i.setAttribute('aria-label', (i.alt || 'Figure') + '. Opens larger.');
+  });
+  arm();
+  const cs = document.getElementById('cs');
+  if (cs && 'MutationObserver' in window) new MutationObserver(arm).observe(cs, { childList: true, subtree: true });
 })();
 </script>
 <script>

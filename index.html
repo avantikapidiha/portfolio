@@ -157,28 +157,43 @@
   .cta:hover .go { transform: translateX(3px); }
   .cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
-  /* the desk on phones: a small row of three under the pill */
+  /* ——— The desk: five square tiles, things that are hers. A grid at every
+     width — three then two (centred) on phones, one row of five at desktop.
+     The tiles can be dragged into any order (the script at the foot of the
+     page) and the record plays. Clean mode hides the whole thing.
+     The phone grid has six half-columns: each tile spans two, and whichever
+     tile is fourth starts at the second half-column, so the short second
+     row sits centred — by position, so it survives re-sorting. ——— */
   .desk {
-    display: flex; align-items: flex-end; justify-content: center; gap: 1rem;
-    margin-top: 1.4rem;
+    position: relative;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;
+    width: 100%; max-width: 26rem; margin-top: 1.5rem;
+    touch-action: pan-y;   /* a quick swipe still scrolls; a hold-then-drag sorts (script) */
   }
-  .desk .obj { display: block; height: auto; }
-  .desk .racket { width: 52px; border-radius: 8px; transform: rotate(-7deg); box-shadow: 0 6px 16px rgb(61 56 51 / 0.14); }
-  .desk .books { width: 100px; filter: drop-shadow(0 6px 12px rgb(61 56 51 / 0.16)); }
-  .desk .canvas { width: 96px; border-radius: 10px; transform: rotate(5deg); box-shadow: 0 6px 16px rgb(61 56 51 / 0.16); }
-  .desk .hbs, .desk .street { display: none; }
-  .desk { gap: 0.75rem; }
-  /* the record: grooves, a navy label, the song. Drawn, so it needs no file. */
-  .desk .record {
-    position: relative; width: 64px; height: 64px; border-radius: 50%;
-    border: 0; padding: 0; cursor: pointer; flex: none;
+  .desk .obj { grid-column: span 2; }
+  .desk .obj:nth-child(4) { grid-column: 2 / span 2; }
+  .desk .obj {
+    position: relative; display: block; width: 100%; height: auto; aspect-ratio: 1;
+    margin: 0; padding: 0; border: 0; border-radius: 14px; overflow: hidden;
+    background: var(--sage);
+    box-shadow: 0 1px 2px rgb(61 56 51 / 0.06), 0 10px 24px rgb(61 56 51 / 0.12);
+    cursor: grab;
+    user-select: none; -webkit-user-select: none; -webkit-user-drag: none; -webkit-touch-callout: none;
+  }
+  .desk img.obj { object-fit: cover; }
+  .desk .books { object-fit: contain; padding: 9%; box-sizing: border-box; background: var(--sand); }
+  .desk .obj.dragging { z-index: 4; cursor: grabbing; box-shadow: 0 2px 6px rgb(61 56 51 / 0.10), 0 24px 48px rgb(61 56 51 / 0.22); }
+  /* the record: a drawn disc — grooves, a navy label, the song — on a blush tile */
+  .desk .record { background: var(--blush); display: grid; place-items: center; font: inherit; color: inherit; }
+  .desk .record .disc {
+    position: relative; width: 76%; aspect-ratio: 1; border-radius: 50%;
     background:
       radial-gradient(circle, transparent 0 21%, rgb(255 255 255 / 0.05) 21% 22%, transparent 22%),
       repeating-radial-gradient(circle at 50% 50%, #1f1d22 0 1.5px, #2b292f 1.5px 3.5px);
-    box-shadow: 0 2px 6px rgb(61 56 51 / 0.12), 0 14px 28px rgb(61 56 51 / 0.18), inset 0 0 0 1px rgb(255 255 255 / 0.06);
+    box-shadow: 0 2px 6px rgb(61 56 51 / 0.14), 0 10px 22px rgb(61 56 51 / 0.22), inset 0 0 0 1px rgb(255 255 255 / 0.06);
   }
-  .desk .record::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(135deg, rgb(255 255 255 / 0.10), transparent 45%, transparent 60%, rgb(255 255 255 / 0.06)); }
-  .desk .record:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+  .desk .record .disc::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(135deg, rgb(255 255 255 / 0.10), transparent 45%, transparent 60%, rgb(255 255 255 / 0.06)); }
+  .desk .record:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
   .desk .record .label {
     position: absolute; left: 50%; top: 50%; width: 38%; height: 38%; transform: translate(-50%, -50%);
     border-radius: 50%; background: radial-gradient(circle at 40% 35%, #3a4f86, #1e2a55 70%);
@@ -188,9 +203,12 @@
   .desk .record .label::after { content: ""; position: absolute; width: 12%; height: 12%; border-radius: 50%; background: var(--paper); }
   .desk .record .label b, .desk .record .label span { display: none; }   /* room for the words only at desktop size */
   @keyframes spin { to { transform: rotate(360deg); } }
-  .desk .record.playing { animation: spin 3.2s linear infinite; }
+  .desk .record.playing .disc { animation: spin 3.2s linear infinite; }
+  /* names the song while the record plays; hangs under the hero so nothing shifts */
   .nowplaying {
-    margin-top: 0.9rem; font-size: 0.8125rem; color: var(--soft);
+    position: absolute; left: 50%; top: 100%; transform: translateX(-50%);
+    margin-top: 0.85rem; width: max-content; max-width: 100%;
+    font-size: 0.8125rem; color: var(--soft);
     display: inline-flex; align-items: center; gap: 0.35em; flex-wrap: wrap; justify-content: center;
   }
   .nowplaying[hidden] { display: none; }   /* author display beats the hidden attribute's UA rule */
@@ -216,13 +234,15 @@
   .nb { white-space: nowrap; }   /* the name sparkle wraps with the surname, never alone */
 
   /* Arch portrait: rounded top, flat bottom — her signature shape.
-     The source (assets/portrait-arch.png, 440×550) is pre-cropped to
-     the arch's exact 0.8 ratio, so it fills edge to edge; the sage
-     wash shows only as the loading backdrop. */
+     The source (assets/portrait-hills.webp, 300×375 — her in the yellow
+     dress, the hills behind) is pre-cropped to the arch's exact 0.8
+     ratio, so it fills edge to edge; the sage wash shows only as the
+     loading backdrop. A little larger than the old headshot was: it's
+     a figure, not a face. */
   .arch {
     position: relative;
-    width: 112px;
-    height: 140px;
+    width: 120px;
+    height: 150px;
     border-radius: 50% 50% 0 0;
     overflow: hidden;
     background: var(--sage);
@@ -326,35 +346,20 @@
   }
   a .thesis { color: inherit; }
 
-  /* ——— The desk at desktop: a box the width of the viewport (capped),
-     centred on the hero; five objects pinned to its corners and its floor.
-     None may touch the name — the name spans the middle 600px, the objects
-     stay in the outer thirds. 68rem+ (a 1088px box gives them ~215px a side). */
+  /* ——— The desk at desktop: one row of six, a little wider than the text
+     column, under the pill. 68rem+ ——— */
   @media (min-width: 68rem) {
-    .desk {
-      position: absolute; inset: 0;
-      left: 50%; transform: translateX(-50%);
-      width: min(94vw, 1320px); height: 100%;
-      margin: 0; display: block; pointer-events: none;
-    }
-    .desk .obj { position: absolute; pointer-events: auto; }
-    .desk .hbs    { display: block; left: 1%; top: 4%; width: 150px; border-radius: 12px; transform: rotate(-11deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 16px 30px rgb(61 56 51 / 0.14); }
-    .desk .racket { right: 3%; top: 1%; width: 132px; border-radius: 14px; transform: rotate(8deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 16px 30px rgb(61 56 51 / 0.14); }
-    .desk .books  { left: 2%; bottom: 3%; width: 236px; transform: none; filter: drop-shadow(0 12px 20px rgb(61 56 51 / 0.16)); }
-    .desk .street { display: block; right: 3%; bottom: 4%; width: 176px; border-radius: 14px; transform: rotate(5deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 18px 34px rgb(61 56 51 / 0.16); }
-    .desk .canvas { display: none; }
-    .desk .record { display: none; }
-    .mode { position: absolute; left: 50%; bottom: -0.25rem; transform: translateX(-50%); margin: 0; }
-    .nowplaying { position: absolute; left: 50%; bottom: -2.4rem; transform: translateX(-50%); margin: 0; white-space: nowrap; }
-    html.clean .mode { position: static; transform: none; margin-top: 0.4rem; }
-  }
-  /* the fifth object needs a 1200px+ box to stay clear of the nav row */
-  @media (min-width: 80rem) {
-    .desk .canvas { display: block; left: 22%; bottom: 3%; width: 184px; border-radius: 14px; transform: rotate(-4deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 16px 30px rgb(61 56 51 / 0.14); }
-    .desk .record { display: block; right: 5%; top: 39%; width: 132px; height: 132px; }
+    /* wider than the text column: a flex item centred on the cross axis
+       may overflow both sides equally, so it escapes the 608px measure */
+    .desk { grid-template-columns: repeat(5, 1fr); gap: 1rem; width: min(94vw, 52rem); max-width: none; margin-top: 1.6rem; }
+    .desk .obj, .desk .obj:nth-child(4) { grid-column: auto; }
+    .desk .obj { border-radius: 16px; }
     .desk .record .label b, .desk .record .label span { display: block; }
     .desk .record .label b { font-size: 9px; font-weight: 600; letter-spacing: 0.06em; margin-top: -9px; }
-    .desk .record .label span { font-size: 5.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 9px; opacity: 0.9; }
+    .desk .record .label span { font-size: 5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 9px; opacity: 0.9; }
+  }
+  @media (min-width: 80rem) {
+    .desk { width: min(94vw, 56rem); }
   }
 
   /* ——— Sections & rhythm ——— */
@@ -655,14 +660,12 @@
          dates & labels hang left, entry images widen past the measure ——— */
   @media (min-width: 68rem) {
     /* The name at Jenny's scale — 92px on one line (599px incl. sparkle
-       in a 656px box) — centred, the scribble under it, the desk scattered
-       to the corners the way her old hero did. The hero is tall enough
-       for the objects to sit above and below the text without touching it. */
-    .masthead { min-height: 660px; justify-content: center; padding-block: 1rem 2.5rem; gap: 1.2rem; }
-    html.clean .masthead { min-height: 0; padding-block: 0 1rem; }
+       in a 656px box) — centred, the scribble under it, the desk in one
+       row beneath the pill. */
+    .masthead { padding-block: 1rem 0; gap: 1.2rem; }
     h1 { font-size: 5.75rem; line-height: 1; }
     .squiggle { width: 260px; margin-top: 0.1rem; }
-    .arch { width: 128px; height: 160px; margin-bottom: 0.4rem; }
+    .arch { width: 140px; height: 175px; margin-bottom: 0.4rem; }
     .role { margin-top: 0; }
 
     h2 {
@@ -742,13 +745,12 @@
     /* the name's sparkle twinkles, the squiggle redraws */
     h1:hover .sparkle-name { animation: twinkle 700ms ease-in-out; }
     h1:hover + .squiggle path { animation: draw 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
-    .desk .obj { transition: transform 300ms cubic-bezier(0.23,1,0.32,1); }
-    .desk .hbs:hover { transform: rotate(-6deg) scale(1.04); }
-    .desk .racket:hover { transform: rotate(5deg) scale(1.04); }
-    .desk .books:hover { transform: translateY(-4px); }
-    .desk .street:hover { transform: rotate(2deg) scale(1.04); }
-    .desk .canvas:hover { transform: rotate(-1deg) scale(1.04); }
-    .desk .record:hover:not(.playing) { transform: scale(1.05); }
+    /* the tiles lift under the pointer; while one is being dragged the
+       others hold still (the script slides them) */
+    .desk .obj { transition: transform 300ms cubic-bezier(0.23,1,0.32,1), box-shadow 300ms ease-out; }
+    .desk .obj:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgb(61 56 51 / 0.06), 0 16px 32px rgb(61 56 51 / 0.16); }
+    .desk.sorting .obj { transition: none; }
+    .desk.sorting .obj:not(.dragging):hover { transform: none; box-shadow: 0 1px 2px rgb(61 56 51 / 0.06), 0 10px 24px rgb(61 56 51 / 0.12); }
     /* the Now sparkle picks up the same wiggle the footer mark uses —
        small, warm, only if the reader hovers the section */
     .now h2:hover .sparkle-now { animation: wiggle 700ms ease-in-out; }
@@ -859,6 +861,8 @@
       --sand:     #2a2419;
     }
     .mode button { background: var(--surface, #201c15); border-color: rgb(232 224 208 / 0.16); }
+    .desk .obj { box-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 24px rgb(0 0 0 / 0.35); }
+    .desk .record .label::after { background: #e8e0d0; }
     .mode button[aria-pressed="true"] { background: var(--strong); color: var(--paper); border-color: var(--strong);
       --hairline: rgb(232 224 208 / 0.14);
     }
@@ -936,7 +940,7 @@
   <header>
     <div class="masthead" id="hero">
       <div class="arch">
-        <img src="assets/portrait-arch.png" alt="Avantika, smiling" width="440" height="550">
+        <img src="assets/portrait-hills.webp" alt="Avantika, in a yellow dress, in the hills" width="300" height="375">
       </div>
       <h1>Avantika <span class="nb">Pidiha<span class="sparkle sparkle-name" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span></span></h1>
       <!-- the scribble from her old site, redrawn: two loops and a tail -->
@@ -953,21 +957,20 @@
       </nav>
       <a class="cta" href="./resume.pdf" target="_blank" rel="noopener noreferrer">View resume<span class="go" aria-hidden="true">→</span></a>
 
-      <!-- The desk: things that are hers. The HBS certificate the timeline
-           names, her books, her racket, the canvas from a painting session
-           with friends, the terraces in Notting Hill she keeps going back to,
-           and a drawn record with the song that gets her up. Chaos mode shows
-           them; clean mode hides them. Wide screens scatter them around the
-           name; phones line three of them up under it. -->
-      <div class="desk">
-        <img class="obj hbs" src="assets/desk-hbs.png" alt="" width="210" height="210" loading="lazy">
-        <img class="obj racket" src="assets/desk-racket.webp" alt="" width="420" height="649" loading="lazy">
-        <img class="obj books" src="assets/desk-books.webp" alt="" width="760" height="760" loading="lazy">
-        <img class="obj street" src="assets/desk-nottinghill.webp" alt="" width="520" height="530" loading="lazy">
-        <img class="obj canvas" src="assets/desk-painting.webp" alt="" width="560" height="458" loading="lazy">
+      <!-- The desk: five square tiles, things that are hers. The court most
+           mornings start on; her books; the canvas from a painting session
+           with friends; the terraces in Notting Hill she keeps going back
+           to; and a drawn record with the song that gets her up. The tiles
+           drag into any order; the record plays. Chaos mode shows the desk,
+           clean mode hides it. -->
+      <div class="desk" role="group" aria-label="Things I like">
+        <img class="obj court"  src="assets/desk-tennis.webp"      alt="A tennis court, early in the day" width="480" height="480" loading="lazy" draggable="false">
+        <img class="obj books"  src="assets/desk-books.webp"       alt="A row of my books" width="760" height="760" loading="lazy" draggable="false">
+        <img class="obj canvas" src="assets/desk-painting.webp"    alt="A small canvas of tulips on an easel" width="560" height="458" loading="lazy" draggable="false">
+        <img class="obj street" src="assets/desk-nottinghill.webp" alt="Pastel terraces in Notting Hill" width="520" height="530" loading="lazy" draggable="false">
         <button class="obj record" type="button" aria-label="Play a 30-second preview of AOK by Tai Verdes" aria-pressed="false"
                 data-preview="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e3/69/59/e36959a6-7b06-643a-c452-501900fc6542/mzaf_8317456052580626955.plus.aac.p.m4a"
-                data-store="https://music.apple.com/us/album/aok/1567699119?i=1567699132"><span class="label"><b>AOK</b><span>Tai Verdes</span></span></button>
+                data-store="https://music.apple.com/us/album/aok/1567699119?i=1567699132"><span class="disc"><span class="label"><b>AOK</b><span>Tai Verdes</span></span></span></button>
       </div>
       <!-- names the song while the record plays; hidden otherwise -->
       <p class="nowplaying" hidden><span class="note" aria-hidden="true">&#9835;</span><b>AOK</b> &middot; Tai Verdes &middot; 30-second preview &middot; <a href="https://music.apple.com/us/album/aok/1567699119?i=1567699132" target="_blank" rel="noopener noreferrer">full song</a></p>
@@ -1141,6 +1144,107 @@
   });
 })();
 
+/* The desk sorts: press a tile and drag it into a new slot; the others slide
+   out of the way, the tile tilts with the drag and settles on release.
+   Mouse: drag straight away. Touch: hold for a beat first, so a quick swipe
+   still scrolls the page. Pure DOM order — no state, nothing remembered. */
+(() => {
+  const desk = document.querySelector('.desk');
+  if (!desk) return;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ease = 'cubic-bezier(0.23, 1, 0.32, 1)';
+  const tiles = () => Array.from(desk.querySelectorAll('.obj'));
+  const slot = el => {                       // layout position; transforms ignored
+    const d = desk.getBoundingClientRect();
+    return { left: d.left + el.offsetLeft, top: d.top + el.offsetTop };
+  };
+  let drag = null, hold = null, raf = 0;
+
+  const place = () => {
+    const s = slot(drag.el);
+    const tx = drag.x0 + (drag.x - drag.px) - s.left, ty = drag.y0 + (drag.y - drag.py) - s.top;
+    drag.el.style.transform = `translate(${tx}px, ${ty}px) rotate(${drag.tilt}deg) scale(1.04)`;
+  };
+  const tick = () => {                        // the tilt follows the hand, then eases back
+    if (!drag) return;
+    drag.vx *= 0.82;
+    drag.tilt = still ? 0 : Math.max(-7, Math.min(7, drag.vx * 9));
+    place();
+    raf = requestAnimationFrame(tick);
+  };
+  const lift = (el, e) => {
+    const r = el.getBoundingClientRect();
+    drag = { el, id: e.pointerId, px: e.clientX, py: e.clientY, x: e.clientX, y: e.clientY,
+             x0: r.left, y0: r.top, moved: false, vx: 0, lx: e.clientX, lt: performance.now(), tilt: 0 };
+    el.classList.add('dragging'); desk.classList.add('sorting');
+    try { el.setPointerCapture(e.pointerId); } catch (err) {}
+    tick();
+  };
+  const hit = (x, y) => tiles().find(t => {   // the slot under the pointer, not the sliding tile
+    if (t === drag.el) return false;
+    const s = slot(t);
+    return x >= s.left && x <= s.left + t.offsetWidth && y >= s.top && y <= s.top + t.offsetHeight;
+  });
+  const reorder = over => {
+    const list = tiles();
+    const before = new Map(list.map(t => [t, t.getBoundingClientRect()]));
+    if (list.indexOf(drag.el) < list.indexOf(over)) over.after(drag.el); else over.before(drag.el);
+    if (still) return;
+    list.forEach(t => {
+      if (t === drag.el) return;
+      t.getAnimations().forEach(a => a.cancel());
+      const a = before.get(t), b = t.getBoundingClientRect();
+      const dx = a.left - b.left, dy = a.top - b.top;
+      if (dx || dy) t.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 300, easing: ease });
+    });
+  };
+  const move = e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    drag.x = e.clientX; drag.y = e.clientY;
+    if (!drag.moved) {
+      if (Math.hypot(drag.x - drag.px, drag.y - drag.py) < 4) return;
+      drag.moved = true;
+    }
+    const now = performance.now(), dt = Math.max(1, now - drag.lt);
+    drag.vx = drag.vx * 0.5 + ((drag.x - drag.lx) / dt) * 0.5;
+    drag.lx = drag.x; drag.lt = now;
+    const over = hit(drag.x, drag.y);
+    if (over) reorder(over);
+  };
+  const drop = e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const { el, moved } = drag;
+    drag = null; cancelAnimationFrame(raf);
+    el.classList.remove('dragging'); desk.classList.remove('sorting');
+    if (moved) { el.dataset.dragged = '1'; setTimeout(() => { delete el.dataset.dragged; }, 0); }
+    const from = el.style.transform;
+    el.style.transform = '';
+    if (!still && from) el.animate([{ transform: from }, { transform: 'none' }], { duration: 340, easing: ease });
+  };
+  const endHold = () => { clearTimeout(hold); hold = null; desk.removeEventListener('pointermove', watchHold); desk.removeEventListener('pointerup', endHold); desk.removeEventListener('pointercancel', endHold); };
+  let holdFrom = null;
+  const watchHold = e => { if (Math.hypot(e.clientX - holdFrom.x, e.clientY - holdFrom.y) > 6) endHold(); };
+
+  desk.addEventListener('pointerdown', e => {
+    const el = e.target.closest('.obj');
+    if (!el || drag || hold) return;
+    if (e.pointerType === 'touch') {           // hold a beat: a quick swipe should scroll, not sort
+      holdFrom = { x: e.clientX, y: e.clientY };
+      desk.addEventListener('pointermove', watchHold); desk.addEventListener('pointerup', endHold); desk.addEventListener('pointercancel', endHold);
+      hold = setTimeout(() => { endHold(); lift(el, e); }, 220);
+      return;
+    }
+    if (e.button !== 0) return;
+    e.preventDefault();
+    lift(el, e);
+  });
+  desk.addEventListener('pointermove', move);
+  desk.addEventListener('pointerup', drop);
+  desk.addEventListener('pointercancel', drop);
+  desk.addEventListener('touchmove', e => { if (drag) e.preventDefault(); }, { passive: false });
+  desk.addEventListener('dragstart', e => e.preventDefault());
+})();
+
 /* The record: one click plays Apple's 30-second preview of the song (their
    public preview asset, linked back to the store as their terms ask); the
    record spins while it plays; a second click stops it. If the preview can't
@@ -1153,6 +1257,7 @@
   const stop = () => { rec.classList.remove('playing'); rec.setAttribute('aria-pressed', 'false'); chip.hidden = true; if (audio) { audio.pause(); try { audio.currentTime = 0; } catch (e) {} } };
   const start = () => { rec.classList.add('playing'); rec.setAttribute('aria-pressed', 'true'); chip.hidden = false; };
   rec.addEventListener('click', () => {
+    if (rec.dataset.dragged) return;           // the click that ends a drag isn't a play
     if (rec.classList.contains('playing')) return stop();
     if (!audio) {
       audio = new Audio(rec.dataset.preview);

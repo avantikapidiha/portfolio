@@ -506,8 +506,8 @@
      hover lift finally means what it implies. A small coral "open"
      chip fades in on hover, top-right corner of the card, so the
      link's affordance is unmistakable. */
-  .thumbs a { display: block; text-decoration: none; position: relative; }
-  .thumbs a:focus-visible { border-radius: 16px; }
+  .thumbs > a { display: block; text-decoration: none; position: relative; }   /* the image link only — the caption's links stay inline */
+  .thumbs > a:focus-visible { border-radius: 16px; }
   .thumbs img {
     display: block;
     width: 100%;
@@ -524,7 +524,7 @@
   }
   @media (hover: hover) and (pointer: fine) {
     /* hover: a considered lift + brighter rim + a coral hairline promotion */
-    .thumbs a:hover img {
+    .thumbs > a:hover img {
       transform: translateY(-5px) scale(1.006);
       box-shadow: 0 3px 6px rgb(61 56 51 / 0.06), 0 22px 48px rgb(61 56 51 / 0.13);
       border-color: rgb(197 88 24 / 0.35);
@@ -532,7 +532,7 @@
     /* "open" chip that appears on hover, top-right corner. Reads with the
        card's warm wash — small enough to not compete, coral edge to signal
        action. Hidden by default, no layout shift. */
-    .thumbs a::after {
+    .thumbs > a::after {
       content: "Open →";
       position: absolute; top: 0.85rem; right: 0.85rem;
       padding: 0.32rem 0.65rem 0.3rem;
@@ -546,7 +546,7 @@
       pointer-events: none;
       box-shadow: 0 2px 6px rgb(61 56 51 / 0.08);
     }
-    .thumbs a:hover::after { opacity: 1; transform: none; }
+    .thumbs > a:hover::after { opacity: 1; transform: none; }
   }
   .thumbs .pair {
     display: grid;
@@ -1163,7 +1163,7 @@
 
     <section class="about">
       <h2>About</h2>
-      <p>The kit: Figma, Claude Code, Cursor, Lovable, Stitch, Lottie. The newer skills: <em class="thesis">design-to-agent handoff</em> (DESIGN.md and tokens), agent and skill authoring, evaluation design, non-deterministic UX.</p>
+      <p>The newer skills: <em class="thesis">design-to-agent handoff</em> (DESIGN.md and tokens), agent and skill authoring, evaluation design, non-deterministic UX.</p>
       <p>Off duty: most mornings start with tennis or a run. Painting sessions with the girls, Catan, whichever park is nearest — and Notting Hill, always.</p>
       <p>I'm open to senior product design roles on agentic/AI products. If you're building one — say hi: <a class="say-hi" href="mailto:avantikapidiha28@gmail.com">avantikapidiha28@gmail.com</a></p>
     </section>

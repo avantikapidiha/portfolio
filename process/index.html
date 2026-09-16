@@ -310,9 +310,9 @@
     display: block; width: 28px; height: 28px; border-radius: 50%;
     background: var(--blush); margin-bottom: 0.8rem;
   }
-  .triad .card:nth-child(2) .mark { background: var(--sage); }
-  .triad .card:nth-child(3) .mark { background: var(--lavender); }
-  .triad .card:nth-child(4) .mark { background: var(--sand); }
+  .triad .card:nth-child(4n+2) .mark { background: var(--sage); }
+  .triad .card:nth-child(4n+3) .mark { background: var(--lavender); }
+  .triad .card:nth-child(4n+4) .mark { background: var(--sand); }
   @media (min-width: 48rem) { .triad.quad { grid-template-columns: 1fr 1fr; } }   /* four cards: two by two */
 
   /* numbers: receipts strip (outcomes) and the funnel (boxed, divided) */

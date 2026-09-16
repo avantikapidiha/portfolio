@@ -1475,8 +1475,8 @@
   };
   document.addEventListener('mouseover', e => {
     const tile = e.target.closest('.desk .obj');
-    if (tile && tile.dataset.line) {                // a desk tile: its line rides with the pointer
-      lbl.textContent = tile.dataset.line; lbl.classList.add('line'); el.classList.add('on'); return;
+    if (tile && tile.dataset.line) {                // a desk tile: its line rides with the pointer, plus the verb if it does something
+      lbl.textContent = tile.dataset.line + (tile.tagName === 'BUTTON' ? ' · ' + verb(tile) : ''); lbl.classList.add('line'); el.classList.add('on'); return;
     }
     lbl.classList.remove('line');
     const node = e.target.closest('a, button');
@@ -1485,7 +1485,9 @@
   });
   document.addEventListener('click', e => {       // a click can change what the next click does (open → close, play → stop)
     const node = e.target.closest('a, button');
-    if (node) lbl.textContent = verb(node);
+    if (!node) return;
+    const tile = node.closest('.desk .obj');
+    lbl.textContent = tile && tile.dataset.line ? tile.dataset.line + ' · ' + verb(node) : verb(node);
   });
   const loop = () => {
     cx += (x - cx) * 0.22; cy += (y - cy) * 0.22;

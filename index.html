@@ -163,10 +163,40 @@
     margin-top: 1.4rem;
   }
   .desk .obj { display: block; height: auto; }
-  .desk .hbs { width: 64px; border-radius: 8px; transform: rotate(-8deg); box-shadow: 0 6px 16px rgb(61 56 51 / 0.14); }
-  .desk .books { width: 118px; filter: drop-shadow(0 6px 12px rgb(61 56 51 / 0.16)); }
-  .desk .cat { width: 96px; border-radius: 10px; transform: rotate(5deg); box-shadow: 0 6px 16px rgb(61 56 51 / 0.16); }
-  .desk .game, .desk .postcard { display: none; }
+  .desk .racket { width: 52px; border-radius: 8px; transform: rotate(-7deg); box-shadow: 0 6px 16px rgb(61 56 51 / 0.14); }
+  .desk .books { width: 100px; filter: drop-shadow(0 6px 12px rgb(61 56 51 / 0.16)); }
+  .desk .canvas { width: 96px; border-radius: 10px; transform: rotate(5deg); box-shadow: 0 6px 16px rgb(61 56 51 / 0.16); }
+  .desk .hbs, .desk .street { display: none; }
+  .desk { gap: 0.75rem; }
+  /* the record: grooves, a navy label, the song. Drawn, so it needs no file. */
+  .desk .record {
+    position: relative; width: 64px; height: 64px; border-radius: 50%;
+    border: 0; padding: 0; cursor: pointer; flex: none;
+    background:
+      radial-gradient(circle, transparent 0 21%, rgb(255 255 255 / 0.05) 21% 22%, transparent 22%),
+      repeating-radial-gradient(circle at 50% 50%, #1f1d22 0 1.5px, #2b292f 1.5px 3.5px);
+    box-shadow: 0 2px 6px rgb(61 56 51 / 0.12), 0 14px 28px rgb(61 56 51 / 0.18), inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  }
+  .desk .record::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(135deg, rgb(255 255 255 / 0.10), transparent 45%, transparent 60%, rgb(255 255 255 / 0.06)); }
+  .desk .record:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+  .desk .record .label {
+    position: absolute; left: 50%; top: 50%; width: 38%; height: 38%; transform: translate(-50%, -50%);
+    border-radius: 50%; background: radial-gradient(circle at 40% 35%, #3a4f86, #1e2a55 70%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+    color: #e8cf9a; text-align: center;
+  }
+  .desk .record .label::after { content: ""; position: absolute; width: 12%; height: 12%; border-radius: 50%; background: var(--paper); }
+  .desk .record .label b, .desk .record .label span { display: none; }   /* room for the words only at desktop size */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .desk .record.playing { animation: spin 3.2s linear infinite; }
+  .nowplaying {
+    margin-top: 0.9rem; font-size: 0.8125rem; color: var(--soft);
+    display: inline-flex; align-items: center; gap: 0.35em; flex-wrap: wrap; justify-content: center;
+  }
+  .nowplaying[hidden] { display: none; }   /* author display beats the hidden attribute's UA rule */
+  .nowplaying .note { color: var(--coral); }
+  .nowplaying b { font-weight: 600; color: var(--strong); }
+  .nowplaying a { color: var(--accent); }
   html.clean .desk { display: none; }
 
   /* the switch: two tiles, the active one filled */
@@ -308,31 +338,24 @@
       margin: 0; display: block; pointer-events: none;
     }
     .desk .obj { position: absolute; pointer-events: auto; }
-    .desk .hbs  { left: 1%;  top: 4%;   width: 150px; border-radius: 12px; transform: rotate(-11deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 16px 30px rgb(61 56 51 / 0.14); }
-    .desk .game { display: block; right: 2%; top: 1%; width: 150px; border-radius: 12px; transform: rotate(8deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 16px 30px rgb(61 56 51 / 0.14); }
-    .desk .books { left: 2%; bottom: 3%; width: 236px; transform: none; filter: drop-shadow(0 12px 20px rgb(61 56 51 / 0.16)); }
-    .desk .cat  { right: 3%; bottom: 5%; width: 196px; border-radius: 14px; transform: rotate(6deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 18px 34px rgb(61 56 51 / 0.16); }
+    .desk .hbs    { display: block; left: 1%; top: 4%; width: 150px; border-radius: 12px; transform: rotate(-11deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 16px 30px rgb(61 56 51 / 0.14); }
+    .desk .racket { right: 3%; top: 1%; width: 132px; border-radius: 14px; transform: rotate(8deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 16px 30px rgb(61 56 51 / 0.14); }
+    .desk .books  { left: 2%; bottom: 3%; width: 236px; transform: none; filter: drop-shadow(0 12px 20px rgb(61 56 51 / 0.16)); }
+    .desk .street { display: block; right: 3%; bottom: 4%; width: 176px; border-radius: 14px; transform: rotate(5deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 18px 34px rgb(61 56 51 / 0.16); }
+    .desk .canvas { display: none; }
+    .desk .record { display: none; }
     .mode { position: absolute; left: 50%; bottom: -0.25rem; transform: translateX(-50%); margin: 0; }
+    .nowplaying { position: absolute; left: 50%; bottom: -2.4rem; transform: translateX(-50%); margin: 0; white-space: nowrap; }
     html.clean .mode { position: static; transform: none; margin-top: 0.4rem; }
   }
   /* the fifth object needs a 1200px+ box to stay clear of the nav row */
   @media (min-width: 80rem) {
-    .desk .postcard { display: flex; left: 23%; bottom: 2%; transform: rotate(-4deg); }
+    .desk .canvas { display: block; left: 22%; bottom: 3%; width: 184px; border-radius: 14px; transform: rotate(-4deg); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 16px 30px rgb(61 56 51 / 0.14); }
+    .desk .record { display: block; right: 5%; top: 39%; width: 132px; height: 132px; }
+    .desk .record .label b, .desk .record .label span { display: block; }
+    .desk .record .label b { font-size: 9px; font-weight: 600; letter-spacing: 0.06em; margin-top: -9px; }
+    .desk .record .label span { font-size: 5.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 9px; opacity: 0.9; }
   }
-
-  /* the postcard: a small card that links to the road-trip page */
-  .desk .postcard {
-    flex-direction: column; align-items: flex-start; gap: 0.15rem;
-    width: 164px; padding: 0.8rem 0.9rem 0.75rem;
-    background: #fff; color: var(--ink);
-    border: 1px solid rgb(61 56 51 / 0.12); border-radius: 12px;
-    text-decoration: none; text-align: left;
-    box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 16px 30px rgb(61 56 51 / 0.14);
-  }
-  .desk .postcard svg { width: 100%; height: auto; color: var(--coral); margin-bottom: 0.35rem; }
-  .desk .postcard b { font-size: 0.8125rem; font-weight: 600; color: var(--strong); line-height: 1.25; }
-  .desk .postcard span { font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
-  .desk .postcard:hover span { color: var(--accent); }
 
   /* ——— Sections & rhythm ——— */
   /* the 4.25rem floor keeps era-level separation above the 4rem
@@ -721,10 +744,11 @@
     h1:hover + .squiggle path { animation: draw 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
     .desk .obj { transition: transform 300ms cubic-bezier(0.23,1,0.32,1); }
     .desk .hbs:hover { transform: rotate(-6deg) scale(1.04); }
-    .desk .game:hover { transform: rotate(5deg) scale(1.04); }
+    .desk .racket:hover { transform: rotate(5deg) scale(1.04); }
     .desk .books:hover { transform: translateY(-4px); }
-    .desk .cat:hover { transform: rotate(3deg) scale(1.04); }
-    .desk .postcard:hover { transform: rotate(-2deg) translateY(-3px); }
+    .desk .street:hover { transform: rotate(2deg) scale(1.04); }
+    .desk .canvas:hover { transform: rotate(-1deg) scale(1.04); }
+    .desk .record:hover:not(.playing) { transform: scale(1.05); }
     /* the Now sparkle picks up the same wiggle the footer mark uses —
        small, warm, only if the reader hovers the section */
     .now h2:hover .sparkle-now { animation: wiggle 700ms ease-in-out; }
@@ -834,7 +858,7 @@
       --lavender: #221d2b;
       --sand:     #2a2419;
     }
-    .mode button, .desk .postcard { background: var(--surface, #201c15); border-color: rgb(232 224 208 / 0.16); }
+    .mode button { background: var(--surface, #201c15); border-color: rgb(232 224 208 / 0.16); }
     .mode button[aria-pressed="true"] { background: var(--strong); color: var(--paper); border-color: var(--strong);
       --hairline: rgb(232 224 208 / 0.14);
     }
@@ -862,7 +886,7 @@
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
     header { padding-top: 0; }
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
-    .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .mode, .cta { display: none; }
+    .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .mode, .cta, .nowplaying { display: none; }
     .process p, .words figure { background: none; border-radius: 0; padding: 0; margin-inline: 0; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
@@ -929,22 +953,24 @@
       </nav>
       <a class="cta" href="./resume.pdf" target="_blank" rel="noopener noreferrer">View resume<span class="go" aria-hidden="true">→</span></a>
 
-      <!-- The desk: things from her old hero, all hers — the HBS certificate the
-           timeline names, the 2048 she built, her books, the cat she kept, and a
-           postcard for the road trip she planned. Chaos mode shows them; clean
-           mode hides them. Wide screens scatter them around the name; phones
-           line them up under it. -->
+      <!-- The desk: things that are hers. The HBS certificate the timeline
+           names, her books, her racket, the canvas from a painting session
+           with friends, the terraces in Notting Hill she keeps going back to,
+           and a drawn record with the song that gets her up. Chaos mode shows
+           them; clean mode hides them. Wide screens scatter them around the
+           name; phones line three of them up under it. -->
       <div class="desk">
         <img class="obj hbs" src="assets/desk-hbs.png" alt="" width="210" height="210" loading="lazy">
-        <img class="obj game" src="assets/desk-2048.png" alt="" width="324" height="458" loading="lazy">
+        <img class="obj racket" src="assets/desk-racket.webp" alt="" width="420" height="649" loading="lazy">
         <img class="obj books" src="assets/desk-books.webp" alt="" width="760" height="760" loading="lazy">
-        <img class="obj cat" src="assets/desk-cat.webp" alt="" width="520" height="390" loading="lazy">
-        <a class="obj postcard" href="https://avantikapidiha.github.io/travel/" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 120 64" aria-hidden="true" focusable="false"><path d="M8 54 C 30 46, 38 18, 60 24 S 92 40, 112 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-dasharray="4 5" stroke-linecap="round"/><circle cx="8" cy="54" r="3.2" fill="currentColor"/><circle cx="112" cy="10" r="3.2" fill="currentColor"/></svg>
-          <b>Florida, by road</b>
-          <span>the itinerary</span>
-        </a>
+        <img class="obj street" src="assets/desk-nottinghill.webp" alt="" width="520" height="530" loading="lazy">
+        <img class="obj canvas" src="assets/desk-painting.webp" alt="" width="560" height="458" loading="lazy">
+        <button class="obj record" type="button" aria-label="Play a 30-second preview of AOK by Tai Verdes" aria-pressed="false"
+                data-preview="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e3/69/59/e36959a6-7b06-643a-c452-501900fc6542/mzaf_8317456052580626955.plus.aac.p.m4a"
+                data-store="https://music.apple.com/us/album/aok/1567699119?i=1567699132"><span class="label"><b>AOK</b><span>Tai Verdes</span></span></button>
       </div>
+      <!-- names the song while the record plays; hidden otherwise -->
+      <p class="nowplaying" hidden><span class="note" aria-hidden="true">&#9835;</span><b>AOK</b> &middot; Tai Verdes &middot; 30-second preview &middot; <a href="https://music.apple.com/us/album/aok/1567699119?i=1567699132" target="_blank" rel="noopener noreferrer">full song</a></p>
 
       <div class="mode" role="group" aria-label="Hero style">
         <button type="button" data-mode="chaos" aria-pressed="true" title="Chaos mode"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg><span class="vh">Chaos mode</span></button>
@@ -1072,7 +1098,7 @@
     <section class="about">
       <h2>About</h2>
       <p>The kit: Figma, Claude Code, Cursor, Lovable, Stitch, Lottie. The newer skills: <em class="thesis">design-to-agent handoff</em> (DESIGN.md and tokens), agent and skill authoring, evaluation design, non-deterministic UX.</p>
-      <p>Off duty: Catan, tennis, trip-planning, and whichever park is nearest.</p>
+      <p>Off duty: most mornings start with tennis or a run. Painting sessions with the girls, Catan, whichever park is nearest — and Notting Hill, always.</p>
       <p>I'm open to senior product design roles on agentic/AI products. If you're building one — say hi: <a class="say-hi" href="mailto:avantikapidiha28@gmail.com">avantikapidiha28@gmail.com</a></p>
     </section>
 
@@ -1112,6 +1138,30 @@
     if (!b) return;
     apply(b.dataset.mode);
     try { localStorage.setItem('hero-mode', b.dataset.mode); } catch (e) {}
+  });
+})();
+
+/* The record: one click plays Apple's 30-second preview of the song (their
+   public preview asset, linked back to the store as their terms ask); the
+   record spins while it plays; a second click stops it. If the preview can't
+   load, the click opens the song in the store instead. */
+(() => {
+  const rec = document.querySelector('.desk .record');
+  const chip = document.querySelector('.nowplaying');
+  if (!rec || !chip) return;
+  let audio = null;
+  const stop = () => { rec.classList.remove('playing'); rec.setAttribute('aria-pressed', 'false'); chip.hidden = true; if (audio) { audio.pause(); try { audio.currentTime = 0; } catch (e) {} } };
+  const start = () => { rec.classList.add('playing'); rec.setAttribute('aria-pressed', 'true'); chip.hidden = false; };
+  rec.addEventListener('click', () => {
+    if (rec.classList.contains('playing')) return stop();
+    if (!audio) {
+      audio = new Audio(rec.dataset.preview);
+      audio.preload = 'auto';
+      audio.addEventListener('ended', stop);
+      audio.addEventListener('error', () => { stop(); window.open(rec.dataset.store, '_blank', 'noopener'); });
+    }
+    const p = audio.play();
+    if (p && p.then) p.then(start).catch(() => window.open(rec.dataset.store, '_blank', 'noopener')); else start();
   });
 })();
 

@@ -136,49 +136,54 @@
   .site-nav a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   .site-nav .sep { color: var(--faint); user-select: none; }
 
-  /* ——— Gate (stripped from public builds) — now sits BELOW the public teaser ——— */
+  /* ——— Gate: the door. First thing in the column under the dek, white on the
+     paper so it reads as the one actionable object on a locked page. It says
+     what's inside, why it's locked, and takes the password — nothing else.
+     (Stripped from public builds.) ——— */
   #gate {
-    margin: clamp(2.5rem, 8vh, 4rem) auto 0;
-    max-width: 34rem;
-    padding: 2rem 2rem 2.2rem;
+    margin: 1.9rem 0 0;
+    padding: 2.1rem 2.2rem 2.2rem;
     border: 1px solid var(--surface-line); border-radius: var(--radius);
-    background: var(--surface);
+    background: #fff;
+    box-shadow: var(--lift);
     text-align: left;
   }
-  #gate .mark { width: 32px; height: 32px; color: var(--coral); display: block; margin-bottom: 1.2rem; }
+  #gate .mark { width: 30px; height: 30px; color: var(--coral); display: block; margin-bottom: 1.1rem; }
   #gate .mark svg { display: block; width: 100%; height: 100%; }
   #gate h1 {
     font-family: var(--display);
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(1.55rem, 1.05rem + 1.9vw, 1.9rem);
-    line-height: 1.1;
+    font-size: clamp(1.7rem, 1.15rem + 2.1vw, 2.15rem);
+    line-height: 1.08;
     color: var(--strong);
     letter-spacing: -0.005em;
+    text-wrap: balance;
   }
-  #gate p { margin-top: 0.85rem; color: var(--ink); font-size: 1.0rem; line-height: 1.55; }
-  #gate form { display: flex; gap: 0.55rem; margin-top: 1.6rem; }
+  #gate .inside { margin-top: 0.95rem; color: var(--ink); font-size: 1.0625rem; line-height: 1.55; }
+  #gate .why { margin-top: 0.7rem; color: var(--soft); font-size: 0.9375rem; line-height: 1.5; }
+  #gate form { display: flex; gap: 0.6rem; margin-top: 1.5rem; }
   #gate label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   #gate input {
-    flex: 1 1 auto; min-width: 0; min-height: 46px; padding: 0.55rem 0.9rem;
+    flex: 1 1 auto; min-width: 0; min-height: 50px; padding: 0.55rem 1rem;
     font: inherit; color: var(--strong); background: #fff;
-    border: 1px solid rgb(61 56 51 / 0.28); border-radius: 11px;
+    border: 1px solid rgb(61 56 51 / 0.28); border-radius: 12px;
     transition: border-color 150ms ease-out;
   }
   #gate input:hover { border-color: rgb(61 56 51 / 0.45); }
   #gate input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-color: transparent; }
   #gate input[aria-invalid="true"] { border-color: var(--terracotta); }
   #gate button {
-    min-height: 46px; padding-inline: 1.15rem; border: 0; border-radius: 11px;
+    min-height: 50px; padding-inline: 1.35rem; border: 0; border-radius: 12px;
     font: inherit; font-weight: 500; color: #fff; background: var(--strong);
     transition: background-color 150ms ease-out, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
   }
   #gate button:hover { background: var(--terracotta); }
   #gate button:active { transform: scale(0.97); }
   #gate button[disabled] { opacity: 0.6; }
-  #gate .msg { min-height: 1.6em; margin-top: 0.7rem; font-size: 0.9375rem; color: var(--soft); }
+  #gate .msg { min-height: 1.4em; margin-top: 0.5rem; font-size: 0.9375rem; color: var(--soft); }
   #gate .msg.err { color: var(--accent); }
-  #gate .ask { margin-top: 1.6rem; font-size: 0.9375rem; color: var(--soft); }
+  #gate .ask { margin-top: 0.5rem; font-size: 0.9375rem; color: var(--soft); }
   .locked #cs { display: none; }
   html:not(.locked) #gate { display: none; }
   noscript p { margin-top: 1rem; }
@@ -495,22 +500,24 @@
      page is locked; hidden after unlock so the encrypted payload owns the view. */
   html:not(.locked) #teaser { display: none; }
   #teaser { margin-top: clamp(2rem, 6vh, 3.5rem); }
-  #teaser .teaser-body { margin-top: 1.4rem; }
-  #teaser .teaser-body p { color: var(--soft); font-size: 0.9875rem; }
+  /* reading order on a locked page: the door, then a glimpse of what's behind
+     it, then the facts. On phones that is a plain stack; the DOM keeps the meta
+     first for the unlocked layout, so the stack is reordered here. */
+  #teaser .cs-grid { display: flex; flex-direction: column; }
+  #teaser .teaser-body { order: 1; margin-top: 0; }
+  #teaser .meta { order: 2; }
   #teaser .cover img {
     background: var(--blush); /* wash while the reader waits — matches the artifact card ecosystem */
   }
-  @media (min-width: 68rem) {
-    #gate { margin-inline: 0; }
-  }
   @media (min-width: 80rem) {
-    /* on the widest breakpoint the meta card hangs in the left margin; the gate
-       aligns with the body column just below the teaser */
+    /* the facts hang in the left margin beside the door, sticking as you scroll;
+       the glimpse overhangs to the right only, like every figure beside the rail */
     #teaser .cs-grid { display: grid; grid-template-columns: 15rem minmax(0, var(--measure)); column-gap: 3rem; margin-left: -18rem; }
-    #teaser .meta { grid-template-columns: 1fr; gap: 0; margin-top: 0.35rem; position: sticky; top: 1.5rem; align-self: start; }
+    #teaser .meta { order: 0; grid-column: 1; grid-template-columns: 1fr; gap: 0; margin-top: 1.9rem; position: sticky; top: 1.5rem; align-self: start; }
     #teaser .meta > div + div { margin-top: 0.95rem; padding-top: 0.95rem; border-top: 1px solid var(--surface-line); }
     #teaser .meta .wide { grid-column: 1; }
-    #teaser .teaser-body { margin-top: 0; }
+    #teaser .teaser-body { order: 0; grid-column: 2; }
+    #teaser .cover { margin-inline: 0 -3rem; }
   }
 
   /* ——— Desktop enhancement ——— */
@@ -752,6 +759,7 @@
       --lift:         0 1px 2px rgb(0 0 0 / 0.35), 0 10px 26px rgb(0 0 0 / 0.30);
     }
     /* Gate + demo primary button: cream face, dark text (readable) */
+    #gate { background: var(--surface); }
     #gate button { color: var(--paper); }
     #gate input { background: rgb(255 255 255 / 0.04); color: var(--strong); border-color: rgb(232 224 208 / 0.22); }
     #gate input:hover { border-color: rgb(232 224 208 / 0.42); }
@@ -1008,9 +1016,14 @@
 
   <section class="read-next" aria-label="Read next">
     <span class="label">Read next</span>
-    <p class="headline"><a href="../process/">Where the AI actually sits<span class="go" aria-hidden="true">→</span></a></p>
-    <p class="why">The MyFood build taught me a loop. This is that loop, plus how I run it inside a company now.</p>
-    <p class="alt">Or head <a href="../">back to the index</a>.</p>
+    <div class="layout">
+      <a href="../process/" class="thumb"><img src="../assets/thumb-process.webp?v=6" alt="Where the AI actually sits cover" width="1504" height="940" loading="lazy"></a>
+      <div>
+        <p class="headline"><a href="../process/">Where the AI actually sits<span class="go" aria-hidden="true">→</span></a></p>
+        <p class="why">The MyFood build taught me a loop. This is that loop, plus how I run it inside a company now.</p>
+        <p class="alt">Or head <a href="../">back to the index</a>.</p>
+      </div>
+    </div>
   </section>
 
 

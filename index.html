@@ -427,12 +427,7 @@
   }
 
   /* ——— How I work: her sage wash — the twin of the Now block below ——— */
-  .process p {
-    background: var(--sage);
-    border-radius: 12px;
-    padding: 1.05rem 1.25rem;
-    margin-inline: -0.75rem;
-  }
+  .process .panel { background: var(--sage); border-radius: 12px; padding: 1.05rem 1.25rem; margin-inline: -0.75rem; }
 
   /* ——— Now: her blush wash, kept quiet — page voice, not display ——— */
   .now p {
@@ -482,6 +477,28 @@
 
   /* Tier 2 — compact milestones (NIFT, Harvard, B.Des): same flat
      title voice, tighter rhythm and no image slots do the demotion. */
+  /* the numbers, shown rather than said: a row of small receipts under an
+     entry, on the case's own wash. Prose above it carries no figures. */
+  .tally { display: flex; flex-wrap: wrap; gap: 0.4rem 0.4rem; margin-top: 0.8rem; }
+  .tally span {
+    display: inline-flex; align-items: baseline; gap: 0.35em;
+    padding: 0.3rem 0.65rem 0.28rem; border-radius: 999px;
+    font-size: 0.75rem; line-height: 1.2; letter-spacing: 0.01em; color: var(--soft);
+    background: var(--sand); font-variant-numeric: tabular-nums;
+  }
+  .tally span b { font-weight: 600; color: var(--strong); font-size: 0.8125rem; }
+  .tally.blush span { background: var(--blush); }
+  .tally.lime span { background: #eef4e0; }
+  .tally.lavender span { background: var(--lavender); }
+  .tally.sky span { background: #e3eefb; }
+  /* How I work: the loop as a chain, the way the process page draws it */
+  .process .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.4rem; margin-top: 0.9rem; }
+  .process .chain .chip {
+    padding: 0.32rem 0.7rem 0.3rem; border-radius: 999px; background: rgb(255 255 255 / 0.7);
+    font-size: 0.8125rem; line-height: 1.2; color: var(--strong); white-space: nowrap;
+  }
+  .process .chain .chip.me { background: var(--coral); color: #fff; }
+  .process .chain .arr { color: rgb(61 56 51 / 0.35); font-size: 0.8125rem; }
   .entry + .entry.compact { margin-top: 2rem; }
   .entry.compact + .entry.compact { margin-top: 1.4rem; }
 
@@ -696,7 +713,7 @@
     /* the Now paragraph carries wash padding; keep the hung label
        aligned with its first text line */
     .now h2, .process h2 { top: calc(0.42em + 1.05rem); }
-    .now p, .process p { margin-inline: -1.25rem; }  /* wash overhangs; text stays on the column grid */
+    .now p, .process .panel { margin-inline: -1.25rem; }  /* wash overhangs; text stays on the column grid */
 
     /* Era labels are chapter heads: they stay IN FLOW above their group
        at every width. Hanging them left like Now/About would overflow
@@ -883,6 +900,9 @@
       --sand:     #2a2419;
     }
     .desk .obj { box-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 24px rgb(0 0 0 / 0.35); }
+    .tally.lime span { background: #232a17; }
+    .tally.sky span { background: #1a2230; }
+    .process .chain .chip { background: rgb(255 255 255 / 0.08); }
     .desk .record .label::after { background: #e8e0d0; }
     ::selection { background: rgb(255 142 108 / 0.32); color: var(--strong); }
     /* small hardcoded-color fixups so the page stays coherent */
@@ -909,7 +929,7 @@
     header { padding-top: 0; }
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
     .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .cta, .nowplaying, .deskline { display: none; }
-    .process p, .words figure { background: none; border-radius: 0; padding: 0; margin-inline: 0; }
+    .process .panel, .words figure { background: none; border-radius: 0; padding: 0; margin-inline: 0; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
     .now p { background: none; border-radius: 0; padding: 0; margin-inline: 0; font-size: 12pt; }
@@ -1055,7 +1075,10 @@
 
     <section class="process">
       <h2>How I work</h2>
-      <p>AI sits inside every step of my process now, not off to the side of it. <a href="process/"><em class="thesis">Where the AI actually sits</em></a> is the whole method: Figma over MCP, prototypes in HTML, everything in GitHub, the reviews I run against my own work, and the parts that are still people. This website is one of the things it made.</p>
+      <div class="panel">
+      <p>AI sits inside every step, not off to the side. The loop, and the parts that are still people, are in <a href="process/"><em class="thesis">Where the AI actually sits</em></a>. This website came out of it.</p>
+      <div class="chain" aria-label="The loop"><span class="chip">artefact + link</span><span class="arr" aria-hidden="true">→</span><span class="chip">HTML prototype</span><span class="arr" aria-hidden="true">→</span><span class="chip">in front of people</span><span class="arr" aria-hidden="true">→</span><span class="chip">back-port to Figma</span><span class="arr" aria-hidden="true">→</span><span class="chip">tokens + DESIGN.md</span><span class="arr" aria-hidden="true">→</span><span class="chip">an agent builds it</span><span class="arr" aria-hidden="true">→</span><span class="chip me">and round</span></div>
+      </div>
     </section>
 
     <section class="now">
@@ -1079,7 +1102,7 @@
 
       <article class="entry">
         <time class="when" datetime="2026">2026</time>
-        <div class="ebody"><h3 class="et"><em class="thesis">Vantage</em>, a design system AI agents build to</h3> — OverseeAI's design system, from zero: 25+ WCAG 2.2 AA components in versioned releases, powering 8+ flows. DESIGN.md and the tokens are the spec, and AI coding agents read them on every build, so nothing ships off-system.</div>
+        <div class="ebody"><h3 class="et"><em class="thesis">Vantage</em>, a design system AI agents build to</h3> — OverseeAI's design system, from zero. DESIGN.md and the tokens are the spec, and AI coding agents read them on every build, so nothing ships off-system.<div class="tally sky"><span><b>25+</b> components</span><span><b>WCAG 2.2</b> AA</span><span><b>8+</b> flows</span><span>versioned releases</span></div></div>
       </article>
 
       <article class="entry compact">
@@ -1114,17 +1137,17 @@
 
       <article class="entry">
         <span class="when"><time datetime="2024">2024</time>–<time datetime="2025">25</time></span>
-        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around research with 14 users and 38 stakeholders. Customer service calls fell 37% — my favourite kind of design metric, <em class="thesis">the phone that doesn't ring</em>. Also built the company's first design system, standardising its UI patterns and cutting handoff time by 30%. (First time; <em class="thesis">Vantage</em> is my second.)<figure class="thumbs"><a href="il-takecare/"><img src="assets/thumb-icici.webp?v=9" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <a href="il-takecare/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around the three things people were phoning about. My favourite kind of metric: <em class="thesis">the phone that doesn't ring</em>. Also the company's first design system (<em class="thesis">Vantage</em> is my second).<div class="tally blush"><span><b>−37%</b> customer service calls</span><span><b>−30%</b> handoff time</span><span><b>14</b> users · <b>38</b> stakeholders</span></div><figure class="thumbs"><a href="il-takecare/"><img src="assets/thumb-icici.webp?v=9" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <a href="il-takecare/">Case study</a> &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2023">2023</time>–<time datetime="2024">24</time></span>
-        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home design pod through a full homepage revamp: home-to-listing conversion up 14%, and the Home and Explore redesign lifted cart conversion 20%. Also redesigned the Lenskart at Home service flow, cutting drop-offs 30%.<figure class="thumbs"><a href="lenskart/"><img src="assets/thumb-lenskart.webp?v=9" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></a><figcaption>Home and Explore — cart conversion up 20%. <a href="lenskart/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home pod through a full homepage revamp: search up front, photo tiles per category, a fixed bar. Also redesigned the Lenskart at Home service flow.<div class="tally lime"><span><b>+14%</b> home-to-listing conversion</span><span><b>+20%</b> cart conversion</span><span><b>−30%</b> at-home drop-offs</span></div><figure class="thumbs"><a href="lenskart/"><img src="assets/thumb-lenskart.webp?v=9" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></a><figcaption>Home and Explore — cart conversion up 20%. <a href="lenskart/">Case study</a> &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2021">2021</time>–<time datetime="2023">23</time></span>
-        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months. Led design and implementation of the mobile app's service pages: customer service calls down 70%, task completion time down 45%. Shipped <em class="thesis">One View</em>, which hit 40% adoption in its first month. Redesigned the FD booking flow, lifting deposit amounts 5%.<figure class="thumbs"><a href="axis/"><img src="assets/thumb-axis-oneview.webp?v=9" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months: service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/"><img src="assets/thumb-axis-oneview.webp?v=9" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry compact">

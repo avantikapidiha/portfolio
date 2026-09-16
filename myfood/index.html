@@ -1004,7 +1004,11 @@
     <section>
       <span class="label">03 · The build</span>
       <h2>I didn't learn to code. I learned to orchestrate.</h2>
-      <p>ChatGPT gave me the roadmap: connect GitHub, deploy on Vercel, set up Capacitor, build in Android Studio. Good for direction, not much use when things broke. Lovable got a rough working model up in two hours; as the codebase grew it overwrote changes, burned credits and struggled to debug. Claude Code could read the whole codebase and explain why things were breaking.</p>
+      <dl class="defs">
+        <div><dt>ChatGPT</dt><dd>The roadmap: GitHub, Vercel, Capacitor, Android Studio. Good for direction, not much use when things broke.</dd></div>
+        <div><dt>Lovable</dt><dd>A rough working model in two hours. As the codebase grew it overwrote changes, burned credits and struggled to debug.</dd></div>
+        <div><dt>Claude Code</dt><dd>Read the whole codebase and explained why things were breaking.</dd></div>
+      </dl>
       <p>No single tool could build the app. The loop that could is below. The glue was a planning doc, one .md file that became the contract between tools that don't talk to each other. It's the same idea I now run at OverseeAI, where the design system's DESIGN.md and tokens are the spec that coding agents build to.</p>
       <div class="flow">
         <div class="head"><span class="label">The loop</span><b>plan.md, the contract</b></div>

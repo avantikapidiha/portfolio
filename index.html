@@ -169,8 +169,9 @@
 
   /* ——— The desk: six square tiles, things that are hers. A grid at every
      width — two rows of three on phones, one row of six at desktop.
-     The tiles can be dragged into any order (the script at the foot of the
-     page), the record plays, the folder opens. Each tile carries one line
+     The tiles are dealt in on load, lean toward the pointer, and can be
+     dragged into any order over a dot-grid canvas with a magnetic landing
+     slot (the script at the foot of the page), the record plays, the folder opens. Each tile carries one line
      of hers: it rides with the named pointer on desktop and shows under
      the desk on tap. ——— */
   .desk {
@@ -191,6 +192,26 @@
   .desk img.obj { object-fit: cover; }
   .desk .books { object-fit: contain; padding: 9%; box-sizing: border-box; background: var(--sand); }
   .desk .obj.dragging { z-index: 4; cursor: grabbing; box-shadow: 0 2px 6px rgb(61 56 51 / 0.10), 0 24px 48px rgb(61 56 51 / 0.22); }
+  /* the canvas: pick a tile up and a dot grid fades in under the desk, with a
+     dashed slot where the tile will land. Near the slot the tile is pulled in
+     (the script's magnet) and the slot warms to yellow; on release it snaps. */
+  .desk { isolation: isolate; --dot: rgb(61 56 51 / 0.26); --slot-line: rgb(61 56 51 / 0.32); }
+  .desk::before {
+    content: ""; position: absolute; inset: -1.75rem -2.25rem; z-index: -1; pointer-events: none;
+    background-image: radial-gradient(circle, var(--dot) 1.1px, transparent 1.7px);
+    background-size: 18px 18px; background-position: center;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 58%, transparent 100%);
+            mask-image: radial-gradient(ellipse at center, #000 58%, transparent 100%);
+    opacity: 0; transition: opacity 260ms ease-out;
+  }
+  .desk.canvas::before { opacity: 1; }
+  .desk .slot {
+    position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; box-sizing: border-box;
+    border: 1.5px dashed var(--slot-line); border-radius: 14px; background: transparent;
+    opacity: 0; transition: transform 240ms cubic-bezier(0.23,1,0.32,1), opacity 160ms ease-out, background-color 160ms ease-out, border-color 160ms ease-out;
+  }
+  .desk .slot.on { opacity: 1; }
+  .desk .slot.near { border-color: var(--sun-deep); background: rgb(247 207 61 / 0.20); }
   /* the record: a drawn disc — grooves, a navy label, the song — on a blush tile */
   .desk .record { background: var(--butter); display: grid; place-items: center; font: inherit; color: inherit; }
   .desk .record .disc {
@@ -402,7 +423,7 @@
        may overflow both sides equally, so it escapes the 608px measure */
     .desk { grid-template-columns: repeat(6, 1fr); gap: 1rem; width: min(94vw, 56rem); max-width: none; margin-top: 1.6rem; }
     .desk .obj { grid-column: auto; }
-    .desk .obj { border-radius: 16px; }
+    .desk .obj, .desk .slot { border-radius: 16px; }
     .desk .folder.open .st-figma { transform: translate(-54px, -58px) rotate(-16deg) scale(1.5); }
     .desk .folder.open .st-term  { transform: translate(10px, -78px)  rotate(5deg)   scale(1.5); }
     .desk .folder.open .st-gh    { transform: translate(54px, -50px)  rotate(14deg)  scale(1.5); }
@@ -826,7 +847,7 @@
     /* the tiles lift under the pointer; while one is being dragged the
        others hold still (the script slides them) */
     .desk .obj { transition: transform 300ms cubic-bezier(0.23,1,0.32,1), box-shadow 300ms ease-out; }
-    .desk .obj:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgb(61 56 51 / 0.06), 0 16px 32px rgb(61 56 51 / 0.16); }
+    .desk .obj:hover { transform: perspective(700px) translateY(-3px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); box-shadow: 0 2px 4px rgb(61 56 51 / 0.06), 0 16px 32px rgb(61 56 51 / 0.16); }
     .desk .obj:active:not(.dragging) { transform: translateY(-1px) scale(0.985); transition-duration: 80ms; }   /* a press you can feel */
     .cta:active { transform: translateY(0) scale(0.985); transition-duration: 80ms; }
     .desk.sorting .obj { transition: none; }
@@ -889,6 +910,19 @@
     .timeline { animation-delay: 0.15s; }
     .about    { animation-delay: 0.20s; }
     footer    { animation-delay: 0.25s; }
+    /* the tiles are dealt onto the desk, one after another. Only until the
+       script marks the desk .dealt: a tile that is re-inserted while sorting
+       would otherwise replay this */
+    .desk:not(.dealt) .obj { animation: deal 0.55s cubic-bezier(0.23, 1, 0.32, 1) backwards; }
+    .desk:not(.dealt) .obj:nth-child(1) { animation-delay: 0.30s; }
+    .desk:not(.dealt) .obj:nth-child(2) { animation-delay: 0.36s; }
+    .desk:not(.dealt) .obj:nth-child(3) { animation-delay: 0.42s; }
+    .desk:not(.dealt) .obj:nth-child(4) { animation-delay: 0.48s; }
+    .desk:not(.dealt) .obj:nth-child(5) { animation-delay: 0.54s; }
+    .desk:not(.dealt) .obj:nth-child(6) { animation-delay: 0.60s; }
+    @keyframes deal {
+      from { opacity: 0; transform: translateY(16px) rotate(-4deg) scale(0.94); }
+    }
     @keyframes settle {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: none; }
@@ -949,6 +983,7 @@
       --sand:     #27231b;
     }
     .desk .obj { box-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 24px rgb(0 0 0 / 0.35); }
+    .desk { --dot: rgb(245 239 224 / 0.22); --slot-line: rgb(245 239 224 / 0.34); }
     .tally.lime span { background: #232a17; }
     .tally.sky span { background: #1a2230; }
     .process .chain .chip { background: rgb(255 255 255 / 0.08); }
@@ -1285,10 +1320,25 @@
     return { left: d.left + el.offsetLeft, top: d.top + el.offsetTop };
   };
   let drag = null, hold = null, raf = 0;
+  setTimeout(() => desk.classList.add('dealt'), 1400);   // the deal-in has played; never replay it
+
+  /* the landing slot: a dashed outline that slides to wherever the tile would
+     drop. Inside MAGNET px of it the tile is pulled toward the slot. */
+  const MAGNET = 34;
+  const ghost = document.createElement('div');
+  ghost.className = 'slot'; ghost.setAttribute('aria-hidden', 'true');
+  desk.appendChild(ghost);
+  const aim = () => {
+    ghost.style.width = drag.el.offsetWidth + 'px'; ghost.style.height = drag.el.offsetHeight + 'px';
+    ghost.style.transform = `translate(${drag.el.offsetLeft}px, ${drag.el.offsetTop}px)`;
+  };
 
   const place = () => {
     const s = slot(drag.el);
-    const tx = drag.x0 + (drag.x - drag.px) - s.left, ty = drag.y0 + (drag.y - drag.py) - s.top;
+    let tx = drag.x0 + (drag.x - drag.px) - s.left, ty = drag.y0 + (drag.y - drag.py) - s.top;
+    const d = Math.hypot(tx, ty), near = drag.moved && d < MAGNET;
+    if (d > 0 && d < MAGNET) { const f = Math.pow(d / MAGNET, 1.6); tx *= f; ty *= f; }
+    ghost.classList.toggle('near', near);
     drag.el.style.transform = `translate(${tx}px, ${ty}px) rotate(${drag.tilt}deg) scale(1.04)`;
   };
   const tick = () => {                        // the tilt follows the hand, then eases back
@@ -1315,6 +1365,7 @@
     const list = tiles();
     const before = new Map(list.map(t => [t, t.getBoundingClientRect()]));
     if (list.indexOf(drag.el) < list.indexOf(over)) over.after(drag.el); else over.before(drag.el);
+    aim();
     if (still) return;
     list.forEach(t => {
       if (t === drag.el) return;
@@ -1330,6 +1381,8 @@
     if (!drag.moved) {
       if (Math.hypot(drag.x - drag.px, drag.y - drag.py) < 4) return;
       drag.moved = true;
+      ghost.style.transition = 'none'; aim(); ghost.offsetWidth; ghost.style.transition = '';   // appear in place, slide from then on
+      ghost.classList.add('on'); desk.classList.add('canvas');
       if (drag.el.classList.contains('open')) { drag.el.classList.remove('open'); drag.el.setAttribute('aria-expanded', 'false'); }   // the folder tucks in once it really moves
     }
     const now = performance.now(), dt = Math.max(1, now - drag.lt);
@@ -1342,12 +1395,35 @@
     if (!drag || e.pointerId !== drag.id) return;
     const { el, moved } = drag;
     drag = null; cancelAnimationFrame(raf);
-    el.classList.remove('dragging'); desk.classList.remove('sorting');
+    el.classList.remove('dragging'); desk.classList.remove('sorting', 'canvas');
+    ghost.classList.remove('on', 'near');
+    if (moved && !still) {                     // the slot answers the landing: one soft ring outwards
+      const t = ghost.style.transform;
+      ghost.animate([{ opacity: 1, transform: t + ' scale(1)', borderColor: '#d99a00' }, { opacity: 0, transform: t + ' scale(1.12)', borderColor: '#d99a00' }], { duration: 420, easing: ease });
+    }
     if (moved) { el.dataset.dragged = '1'; setTimeout(() => { delete el.dataset.dragged; }, 0); }
     const from = el.style.transform;
     el.style.transform = '';
-    if (!still && from) el.animate([{ transform: from }, { transform: 'none' }], { duration: 340, easing: ease });
+    if (!still && from) el.animate(moved
+      ? [{ transform: from, easing: 'cubic-bezier(0.3, 0, 0.2, 1)' }, { transform: 'scale(0.955)', offset: 0.55, easing: 'cubic-bezier(0.3, 1.6, 0.5, 1)' }, { transform: 'none' }]   // snap: in, a small squash, back
+      : [{ transform: from }, { transform: 'none' }], { duration: moved ? 420 : 340, easing: ease });
   };
+
+  /* under a mouse, a tile leans toward the pointer (CSS reads --rx / --ry on hover) */
+  if (!still && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    desk.addEventListener('pointermove', e => {
+      const el = e.target.closest('.obj');
+      if (!el || drag) return;
+      const r = el.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5, ny = (e.clientY - r.top) / r.height - 0.5;
+      el.style.setProperty('--ry', (nx * 9).toFixed(2) + 'deg');
+      el.style.setProperty('--rx', (-ny * 9).toFixed(2) + 'deg');
+    });
+    desk.addEventListener('pointerout', e => {
+      const el = e.target.closest('.obj');
+      if (el && !el.contains(e.relatedTarget)) { el.style.removeProperty('--rx'); el.style.removeProperty('--ry'); }
+    });
+  }
   const endHold = () => { clearTimeout(hold); hold = null; desk.removeEventListener('pointermove', watchHold); desk.removeEventListener('pointerup', endHold); desk.removeEventListener('pointercancel', endHold); };
   let holdFrom = null;
   const watchHold = e => { if (Math.hypot(e.clientX - holdFrom.x, e.clientY - holdFrom.y) > 6) endHold(); };

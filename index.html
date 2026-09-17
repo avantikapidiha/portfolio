@@ -633,9 +633,9 @@
   }
   /* A linked card, selected like a frame on her canvas. The hero is a design
      canvas and the pointer is Figma's, so a card under the pointer gets what a
-     frame gets in the tool: a square selection box with four corner handles,
-     and the frame's name above its top-left corner (data-frame, with the arrow
-     that says it opens). No border colour, no chip. Inside, .shot clips the
+     frame gets in the tool: a quiet square selection box with four small corner
+     handles. No border colour, no chip, no label — the pointer's tag already
+     says "read". Inside, .shot clips the
      image, which grows a touch and drifts against the pointer under a soft
      light. The script sets --rx/--ry (lean) and --px/--py (pointer, 0–1). */
   .thumbs > a { transition: transform 420ms cubic-bezier(0.23, 1, 0.32, 1); }
@@ -649,36 +649,29 @@
   /* the selection: one box, drawn as background layers — four white handle
      centres, four ink handle squares, four 1.5px edges through their middles */
   .thumbs > a::before {
-    content: ""; position: absolute; inset: -11px; z-index: 3; pointer-events: none;
-    --k: var(--strong); --w: var(--paper);
+    content: ""; position: absolute; inset: -9px; z-index: 3; pointer-events: none;
+    --k: color-mix(in srgb, var(--faint) 62%, var(--paper)); --w: var(--paper);   /* a quiet grey, solid so the layers do not darken where they cross */
     background:
-      linear-gradient(var(--w), var(--w)) 1.5px 1.5px / 6px 6px no-repeat,
-      linear-gradient(var(--w), var(--w)) calc(100% - 1.5px) 1.5px / 6px 6px no-repeat,
-      linear-gradient(var(--w), var(--w)) 1.5px calc(100% - 1.5px) / 6px 6px no-repeat,
-      linear-gradient(var(--w), var(--w)) calc(100% - 1.5px) calc(100% - 1.5px) / 6px 6px no-repeat,
-      linear-gradient(var(--k), var(--k)) 0 0 / 9px 9px no-repeat,
-      linear-gradient(var(--k), var(--k)) 100% 0 / 9px 9px no-repeat,
-      linear-gradient(var(--k), var(--k)) 0 100% / 9px 9px no-repeat,
-      linear-gradient(var(--k), var(--k)) 100% 100% / 9px 9px no-repeat,
-      linear-gradient(var(--k), var(--k)) 4px 3.75px / calc(100% - 8px) 1.5px no-repeat,
-      linear-gradient(var(--k), var(--k)) 4px calc(100% - 3.75px) / calc(100% - 8px) 1.5px no-repeat,
-      linear-gradient(var(--k), var(--k)) 3.75px 4px / 1.5px calc(100% - 8px) no-repeat,
-      linear-gradient(var(--k), var(--k)) calc(100% - 3.75px) 4px / 1.5px calc(100% - 8px) no-repeat;
-    opacity: 0; transform: scale(1.025);
-    transition: opacity 160ms ease-out, transform 360ms cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  .thumbs > a::after {
-    content: attr(data-frame) "  ↗";
-    position: absolute; left: -7px; bottom: calc(100% + 13px); z-index: 3; pointer-events: none; white-space: pre;
-    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.01em; line-height: 1; color: var(--strong);
-    opacity: 0; transform: translateX(-6px);
-    transition: opacity 180ms ease-out 60ms, transform 360ms cubic-bezier(0.23, 1, 0.32, 1) 60ms;
+      linear-gradient(var(--w), var(--w)) 1px 1px / 5px 5px no-repeat,
+      linear-gradient(var(--w), var(--w)) calc(100% - 1px) 1px / 5px 5px no-repeat,
+      linear-gradient(var(--w), var(--w)) 1px calc(100% - 1px) / 5px 5px no-repeat,
+      linear-gradient(var(--w), var(--w)) calc(100% - 1px) calc(100% - 1px) / 5px 5px no-repeat,
+      linear-gradient(var(--k), var(--k)) 0 0 / 7px 7px no-repeat,
+      linear-gradient(var(--k), var(--k)) 100% 0 / 7px 7px no-repeat,
+      linear-gradient(var(--k), var(--k)) 0 100% / 7px 7px no-repeat,
+      linear-gradient(var(--k), var(--k)) 100% 100% / 7px 7px no-repeat,
+      linear-gradient(var(--k), var(--k)) 3px 3px / calc(100% - 6px) 1px no-repeat,
+      linear-gradient(var(--k), var(--k)) 3px calc(100% - 3px) / calc(100% - 6px) 1px no-repeat,
+      linear-gradient(var(--k), var(--k)) 3px 3px / 1px calc(100% - 6px) no-repeat,
+      linear-gradient(var(--k), var(--k)) calc(100% - 3px) 3px / 1px calc(100% - 6px) no-repeat;
+    opacity: 0; transform: scale(1.015);
+    transition: opacity 200ms ease-out, transform 360ms cubic-bezier(0.23, 1, 0.32, 1);
   }
   .thumbs > a:focus-visible { outline: none; }
-  .thumbs > a:focus-visible::before, .thumbs > a:focus-visible::after { opacity: 1; transform: none; }
+  .thumbs > a:focus-visible::before { opacity: 1; transform: none; }
   @media (hover: hover) and (pointer: fine) {
     .thumbs > a:hover { transform: perspective(1400px) translateY(-5px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
-    .thumbs > a:hover::before, .thumbs > a:hover::after { opacity: 1; transform: none; }
+    .thumbs > a:hover::before { opacity: 1; transform: none; }
     .thumbs > a:hover .shot { box-shadow: 0 3px 6px rgb(61 56 51 / 0.06), 0 26px 56px rgb(61 56 51 / 0.15); }
     .thumbs > a:hover img { transform: scale(1.04) translate(calc((0.5 - var(--px, 0.5)) * 14px), calc((0.5 - var(--py, 0.5)) * 10px)); }
     .thumbs > a:active { transform: perspective(1400px) translateY(-1px) scale(0.992); transition-duration: 90ms; }
@@ -1283,7 +1276,7 @@
 
       <article class="entry">
         <time class="when" datetime="2026">2026</time>
-        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; An agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. Nothing has shipped yet, so the case study claims no results.<div class="tally sky spine" aria-label="The two gates"><span>documents land</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> start extraction</span><span class="arr" aria-hidden="true">→</span><span>tables come back flagged</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> decide every flag</span><span class="arr" aria-hidden="true">→</span><span>certify</span></div><figure class="thumbs"><a href="overseeai/" data-frame="Ratebook Workbench"><span class="shot"><img src="assets/thumb-overseeai.webp?v=10" alt="Ratebook Workbench — the filed rate pages beside the machine's reading of them, with the cells the two extractors disagree on flagged" width="1504" height="940" loading="lazy"></span></a><figcaption>The filed pages beside the machine&rsquo;s reading of them; flagged cells wait for a human. <a href="overseeai/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; An agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. Nothing has shipped yet, so the case study claims no results.<div class="tally sky spine" aria-label="The two gates"><span>documents land</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> start extraction</span><span class="arr" aria-hidden="true">→</span><span>tables come back flagged</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> decide every flag</span><span class="arr" aria-hidden="true">→</span><span>certify</span></div><figure class="thumbs"><a href="overseeai/"><span class="shot"><img src="assets/thumb-overseeai.webp?v=10" alt="Ratebook Workbench — the filed rate pages beside the machine's reading of them, with the cells the two extractors disagree on flagged" width="1504" height="940" loading="lazy"></span></a><figcaption>The filed pages beside the machine&rsquo;s reading of them; flagged cells wait for a human. <a href="overseeai/">Case study</a> &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry">
@@ -1308,7 +1301,7 @@
 
       <article class="entry">
         <span class="when"><time datetime="2026-03">March</time>–<time datetime="2026-05">May 2026</time></span>
-        <div class="ebody"><h3 class="et"><a href="myfood/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo, end to end.<div class="tally sage"><span>Concept</span><span>Design</span><span>Code</span><span><b>Play Store</b> Early Access</span></div><figure class="thumbs"><a href="myfood/" data-frame="MyFood"><span class="shot"><img src="assets/thumb-myfood.webp?v=10" alt="MyFood — daily food-group balance screen" width="1504" height="940" loading="lazy"></span></a><figcaption>Daily balance — live in Play Store Early Access. <a href="myfood/">Case study</a> · <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a></figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="myfood/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo, end to end.<div class="tally sage"><span>Concept</span><span>Design</span><span>Code</span><span><b>Play Store</b> Early Access</span></div><figure class="thumbs"><a href="myfood/"><span class="shot"><img src="assets/thumb-myfood.webp?v=10" alt="MyFood — daily food-group balance screen" width="1504" height="940" loading="lazy"></span></a><figcaption>Daily balance — live in Play Store Early Access. <a href="myfood/">Case study</a> · <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a></figcaption></figure></div>
       </article>
 
       <article class="entry compact">
@@ -1328,17 +1321,17 @@
 
       <article class="entry">
         <span class="when"><time datetime="2024">2024</time>–<time datetime="2025">25</time></span>
-        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around the three things people were phoning about. My favourite kind of metric: <em class="thesis">the phone that doesn't ring</em>. Also the company's first design system (<em class="thesis">Vantage</em> is my second).<div class="tally blush"><span><b>−37%</b> customer service calls</span><span><b>−30%</b> handoff time</span><span><b>14</b> users · <b>38</b> stakeholders</span></div><figure class="thumbs"><a href="il-takecare/" data-frame="IL TakeCare"><span class="shot"><img src="assets/thumb-icici.webp?v=10" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></span></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <a href="il-takecare/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around the three things people were phoning about. My favourite kind of metric: <em class="thesis">the phone that doesn't ring</em>. Also the company's first design system (<em class="thesis">Vantage</em> is my second).<div class="tally blush"><span><b>−37%</b> customer service calls</span><span><b>−30%</b> handoff time</span><span><b>14</b> users · <b>38</b> stakeholders</span></div><figure class="thumbs"><a href="il-takecare/"><span class="shot"><img src="assets/thumb-icici.webp?v=10" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></span></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <a href="il-takecare/">Case study</a> &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2023">2023</time>–<time datetime="2024">24</time></span>
-        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home pod through a full homepage revamp: search up front, photo tiles per category, a fixed bar. Also redesigned the Lenskart at Home service flow.<div class="tally lime"><span><b>+14%</b> home-to-listing conversion</span><span><b>+20%</b> cart conversion</span><span><b>−30%</b> at-home drop-offs</span></div><figure class="thumbs"><a href="lenskart/" data-frame="Lenskart Home"><span class="shot"><img src="assets/thumb-lenskart.webp?v=10" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></span></a><figcaption>Home and Explore — cart conversion up 20%. <a href="lenskart/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home pod through a full homepage revamp: search up front, photo tiles per category, a fixed bar. Also redesigned the Lenskart at Home service flow.<div class="tally lime"><span><b>+14%</b> home-to-listing conversion</span><span><b>+20%</b> cart conversion</span><span><b>−30%</b> at-home drop-offs</span></div><figure class="thumbs"><a href="lenskart/"><span class="shot"><img src="assets/thumb-lenskart.webp?v=10" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></span></a><figcaption>Home and Explore — cart conversion up 20%. <a href="lenskart/">Case study</a> &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2021">2021</time>–<time datetime="2023">23</time></span>
-        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months: service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/" data-frame="Axis One View"><span class="shot"><img src="assets/thumb-axis-oneview.webp?v=10" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></span></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months: service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/"><span class="shot"><img src="assets/thumb-axis-oneview.webp?v=10" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></span></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry compact">

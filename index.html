@@ -535,7 +535,7 @@
   .tally.spine .arr { padding: 0; background: none; color: rgb(61 56 51 / 0.35); font-size: 0.8125rem; }
   .tally.spine .stop { background: var(--sun-fill); color: var(--on-sun); }
   .tally.spine .stop b { color: var(--on-sun); }
-  /* How I work: the loop as a chain, the way the process page draws it */
+  /* How I work: the loop as a chain — .me (yellow) = the steps she holds, plain = the AI's */
   .process .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.4rem; margin-top: 0.9rem; }
   .process .chain .chip {
     padding: 0.32rem 0.7rem 0.3rem; border-radius: 999px; background: rgb(255 255 255 / 0.7);
@@ -1136,8 +1136,8 @@
     <section class="process">
       <h2>How I work</h2>
       <div class="panel">
-      <p>AI sits inside every step, not off to the side. The loop, and the parts that are still people, are in <a href="process/"><em class="thesis">Where the AI actually sits</em></a>. This website came out of it.</p>
-      <div class="chain" aria-label="The loop"><span class="chip">artefact + link</span><span class="arr" aria-hidden="true">→</span><span class="chip">HTML prototype</span><span class="arr" aria-hidden="true">→</span><span class="chip">in front of people</span><span class="arr" aria-hidden="true">→</span><span class="chip">back-port to Figma</span><span class="arr" aria-hidden="true">→</span><span class="chip">tokens + DESIGN.md</span><span class="arr" aria-hidden="true">→</span><span class="chip">an agent builds it</span><span class="arr" aria-hidden="true">→</span><span class="chip me">and round</span></div>
+      <p>The AI builds. I decide. Who holds the work at each step, and the parts that are still people, are in <a href="process/"><em class="thesis">Where the AI actually sits</em></a>. This website came out of it.</p>
+      <div class="chain" aria-label="The loop, mine in yellow"><span class="chip me">I frame the problem</span><span class="arr" aria-hidden="true">→</span><span class="chip">it builds three directions</span><span class="arr" aria-hidden="true">→</span><span class="chip me">I choose, and cut</span><span class="arr" aria-hidden="true">→</span><span class="chip me">I run the room</span><span class="arr" aria-hidden="true">→</span><span class="chip">it records it in Figma</span><span class="arr" aria-hidden="true">→</span><span class="chip me">I write the rule</span><span class="arr" aria-hidden="true">→</span><span class="chip">and round</span></div>
       </div>
     </section>
 

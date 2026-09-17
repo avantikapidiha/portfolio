@@ -140,6 +140,42 @@
      line, then the nav row. Desktop moves the arch beside the
      name in the 68rem enhancement below. */
   header { padding-block: clamp(2.5rem, 8vh, 6rem) 0; }
+
+  /* ——— The ground behind the hero: a designer's canvas. Three quiet layers,
+     all fading to the white page before the prose starts:
+     .wash — a butter glow behind the name, a breath of lavender and peach at the sides;
+     .dots — a dot grid, faint, thinned out behind the name so the type sits on clean paper;
+     .lit  — the same grid in yellow, shown only in a pool around the pointer.
+     The pool widens while a desk tile is being dragged (html.sorting-desk). ——— */
+  @property --spot { syntax: '<length>'; inherits: true; initial-value: 150px; }
+  .ground {
+    position: absolute; inset: 0 0 auto 0; height: 60rem; z-index: -1; overflow: hidden; pointer-events: none;
+    --dot: rgb(61 56 51 / 0.13); --dot-lit: #d99a00; --mx: 50%; --my: 40%;
+    -webkit-mask-image: linear-gradient(#000 62%, transparent 100%); mask-image: linear-gradient(#000 62%, transparent 100%);
+    transition: --spot 380ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  html.sorting-desk .ground { --spot: 440px; }
+  .ground i { position: absolute; inset: 0; display: block; }
+  .ground .wash {
+    background:
+      radial-gradient(ellipse 46rem 30rem at 50% 30%, var(--butter), transparent 70%),
+      radial-gradient(ellipse 34rem 26rem at 8% 62%, var(--lavender), transparent 70%),
+      radial-gradient(ellipse 34rem 26rem at 94% 58%, var(--blush), transparent 70%);
+    opacity: 0.85;
+  }
+  .ground .dots, .ground .lit { background-size: 22px 22px; background-position: center top; }
+  .ground .dots {
+    background-image: radial-gradient(circle, var(--dot) 1.1px, transparent 1.7px);
+    -webkit-mask-image: radial-gradient(ellipse 30rem 24rem at 50% 34%, rgb(0 0 0 / 0.15), #000 100%);
+            mask-image: radial-gradient(ellipse 30rem 24rem at 50% 34%, rgb(0 0 0 / 0.15), #000 100%);
+  }
+  .ground .lit {
+    background-image: radial-gradient(circle, var(--dot-lit) 1.3px, transparent 1.9px);
+    -webkit-mask-image: radial-gradient(circle var(--spot) at var(--mx) var(--my), #000, transparent);
+            mask-image: radial-gradient(circle var(--spot) at var(--mx) var(--my), #000, transparent);
+    opacity: 0; transition: opacity 300ms ease-out;
+  }
+  .ground.on .lit, html.sorting-desk .ground .lit { opacity: 1; }
   /* Centred, like her old hero: portrait, name, scribble, role, nav, one
      yellow pill — and the desk around it. */
   .masthead {
@@ -192,19 +228,10 @@
   .desk img.obj { object-fit: cover; }
   .desk .books { object-fit: contain; padding: 9%; box-sizing: border-box; background: var(--sand); }
   .desk .obj.dragging { z-index: 4; cursor: grabbing; box-shadow: 0 2px 6px rgb(61 56 51 / 0.10), 0 24px 48px rgb(61 56 51 / 0.22); }
-  /* the canvas: pick a tile up and a dot grid fades in under the desk, with a
-     dashed slot where the tile will land. Near the slot the tile is pulled in
+  /* pick a tile up and the ground's dot grid lights up around it (see .ground),
+     with a dashed slot where the tile will land. Near the slot the tile is pulled in
      (the script's magnet) and the slot warms to yellow; on release it snaps. */
-  .desk { isolation: isolate; --dot: rgb(61 56 51 / 0.26); --slot-line: rgb(61 56 51 / 0.32); }
-  .desk::before {
-    content: ""; position: absolute; inset: -1.75rem -2.25rem; z-index: -1; pointer-events: none;
-    background-image: radial-gradient(circle, var(--dot) 1.1px, transparent 1.7px);
-    background-size: 18px 18px; background-position: center;
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 58%, transparent 100%);
-            mask-image: radial-gradient(ellipse at center, #000 58%, transparent 100%);
-    opacity: 0; transition: opacity 260ms ease-out;
-  }
-  .desk.canvas::before { opacity: 1; }
+  .desk { isolation: isolate; --slot-line: rgb(61 56 51 / 0.32); }
   .desk .slot {
     position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; box-sizing: border-box;
     border: 1.5px dashed var(--slot-line); border-radius: 14px; background: transparent;
@@ -983,7 +1010,8 @@
       --sand:     #27231b;
     }
     .desk .obj { box-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 24px rgb(0 0 0 / 0.35); }
-    .desk { --dot: rgb(245 239 224 / 0.22); --slot-line: rgb(245 239 224 / 0.34); }
+    .desk { --slot-line: rgb(245 239 224 / 0.34); }
+    .ground { --dot: rgb(245 239 224 / 0.10); --dot-lit: rgb(247 207 61 / 0.75); }
     .tally.lime span { background: #232a17; }
     .tally.sky span { background: #1a2230; }
     .process .chain .chip { background: rgb(255 255 255 / 0.08); }
@@ -1012,7 +1040,7 @@
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
     header { padding-top: 0; }
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
-    .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .cta, .nowplaying, .deskline, .rail { display: none; }
+    .ground, .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .cta, .nowplaying, .deskline, .rail { display: none; }
     .process .panel, .words figure { background: none; border-radius: 0; padding: 0; margin-inline: 0; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
@@ -1057,6 +1085,7 @@
 </head>
 <body>
   <a class="skip" href="#main-content">Skip to content</a>
+  <div class="ground" aria-hidden="true"><i class="wash"></i><i class="dots"></i><i class="lit"></i></div>
 <div class="page">
 
   <header>
@@ -1305,6 +1334,21 @@
 </div>
 
 <script>
+/* The ground: a pool of yellow dots follows the pointer across the hero.
+   Position only — the look is CSS (.ground .lit). Touch gets it while a tile
+   is being dragged; a mouse gets it whenever it is over the hero. */
+(() => {
+  const g = document.querySelector('.ground');
+  if (!g) return;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  addEventListener('pointermove', e => {          // two custom properties per move: cheap enough to skip rAF
+    const y = e.clientY + scrollY;
+    g.style.setProperty('--mx', e.clientX + 'px'); g.style.setProperty('--my', y + 'px');
+    if (fine) g.classList.toggle('on', y < g.offsetHeight);
+  }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', () => g.classList.remove('on'));
+})();
+
 /* The desk sorts: press a tile and drag it into a new slot; the others slide
    out of the way, the tile tilts with the drag and settles on release.
    Mouse: drag straight away. Touch: hold for a beat first, so a quick swipe
@@ -1382,7 +1426,7 @@
       if (Math.hypot(drag.x - drag.px, drag.y - drag.py) < 4) return;
       drag.moved = true;
       ghost.style.transition = 'none'; aim(); ghost.offsetWidth; ghost.style.transition = '';   // appear in place, slide from then on
-      ghost.classList.add('on'); desk.classList.add('canvas');
+      ghost.classList.add('on'); desk.classList.add('canvas'); document.documentElement.classList.add('sorting-desk');
       if (drag.el.classList.contains('open')) { drag.el.classList.remove('open'); drag.el.setAttribute('aria-expanded', 'false'); }   // the folder tucks in once it really moves
     }
     const now = performance.now(), dt = Math.max(1, now - drag.lt);
@@ -1395,7 +1439,7 @@
     if (!drag || e.pointerId !== drag.id) return;
     const { el, moved } = drag;
     drag = null; cancelAnimationFrame(raf);
-    el.classList.remove('dragging'); desk.classList.remove('sorting', 'canvas');
+    el.classList.remove('dragging'); desk.classList.remove('sorting', 'canvas'); document.documentElement.classList.remove('sorting-desk');
     ghost.classList.remove('on', 'near');
     if (moved && !still) {                     // the slot answers the landing: one soft ring outwards
       const t = ghost.style.transform;

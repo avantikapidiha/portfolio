@@ -1399,12 +1399,12 @@
    down sound like what they are. A tap or a key plays both, 165 ms apart,
    as recorded; the tap that ends a touch drag stays silent. The bytes load
    when the pointer first reaches the desk; the AudioContext only ever
-   starts inside a user gesture. Played at the level of the original file. */
+   starts inside a user gesture. Played about 4 dB above the original file. */
 (() => {
   const desk = document.querySelector('.desk');
   const AC = window.AudioContext || window.webkitAudioContext;
   if (!desk || !AC) return;
-  const VOLUME = 0.2, PRESS = [0, 0.07], RELEASE = [0.07, 0.08], GAP = 0.165;
+  const VOLUME = 0.32, PRESS = [0, 0.07], RELEASE = [0.07, 0.08], GAP = 0.165;   // 0.2 = the original file's level; 0.32 is +4 dB ("a little louder", 2026-09-17)
   let ctx = null, bytes = null, decoding = null, via = 'mouse', held = false;
   const fetchBytes = () => bytes = bytes || fetch('assets/click.wav')
     .then(r => r.ok ? r.arrayBuffer() : null).catch(() => null);

@@ -23,9 +23,9 @@
     --strong: #35302a;
     --soft: #6b6259;
     --faint: #6f665a;
-    --coral: #e56749;
-    --accent: #a64310;
-    --terracotta: #c05818;
+    --sun: #f2b705;        /* yellow is a fill and a mark, never text */
+    --sun-deep: #d99a00;
+    --accent: #35302a;     /* link text is ink; the yellow lives in the underline */
     --hairline: rgb(61 56 51 / 0.16);
     --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
   }
@@ -48,7 +48,7 @@
   .mark {
     display: inline-block;
     width: 44px; height: 44px;
-    color: var(--coral);
+    color: var(--sun);
     margin-bottom: 1.5rem;
   }
   .mark svg { display: block; width: 100%; height: 100%; }
@@ -74,8 +74,8 @@
   }
   .num::before, .num::after {
     content: ""; display: inline-block;
-    width: 1.4em; height: 1px;
-    background: var(--coral); opacity: 0.6;
+    width: 1.4em; height: 2px; border-radius: 2px;
+    background: var(--sun);
     vertical-align: middle;
     margin: 0 0.7em;
   }
@@ -93,13 +93,14 @@
   .actions a {
     color: var(--accent);
     text-decoration: underline;
-    text-decoration-color: rgb(166 67 16 / 0.35);
-    text-decoration-thickness: 1px;
+    text-decoration-color: var(--sun);
+    text-decoration-thickness: 2px;
+    font-weight: 500;
     text-underline-offset: 0.22em;
     padding: 0.5rem 0.2rem;
     transition: text-decoration-color 150ms ease-out;
   }
-  .actions a:hover { text-decoration-color: var(--terracotta); }
+  .actions a:hover { text-decoration-color: var(--sun-deep); }
   .sep { color: var(--faint); user-select: none; }
   :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; text-decoration: none; }
   @media (hover: hover) and (pointer: fine) {

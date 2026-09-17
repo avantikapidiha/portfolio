@@ -49,8 +49,8 @@
      Resume pairing: Instrument Serif (display)
      + DM Sans (body). White ground; the washes
      and cards carry the warmth.
-     Accent = her coral family, one system:
-     links (deepened for AA) + hand-drawn marks.
+     Accent = sunflower yellow, used as a FILL:
+     ink text, yellow marks, fills and underlines.
      MOBILE-FIRST: base styles are the 390px
      phone composition; one min-width (68rem)
      enhancement re-adds the hung margins.
@@ -61,13 +61,20 @@
     --strong: #35302a;   /* name & entry titles — 13.1:1 */
     --soft:   #6b6259;   /* secondary — 6.0:1 */
     --faint:  #6f665a;   /* dates & labels — 5.6:1 */
-    --coral:  #e56749;   /* her bright coral — marks only, never text (3.3:1) */
-    --terracotta: #c05818; /* deep end — non-text uses only (4.5:1) */
-    --accent: #a64310;   /* link text: coral family deepened for AA — 6.1:1 */
-    --sage:   #e6f3e5;   /* her sage wash — arch fill */
-    --blush:  #fef1ec;   /* her blush wash — Now block + ICICI filler */
-    --lavender: #efe9f7; /* the old site's card washes, paled to match */
-    --sand:   #f7eedc;
+    /* The accent is YELLOW, and yellow is a FILL (2026-09-17, her call; it
+       echoes the dress in the portrait). It is nearly as bright as white —
+       1.8:1 — so it never carries text and never sits under white text:
+       ink does the reading, yellow does the marking. */
+    --sun:      #f2b705; /* sunflower — marks only: sparkle, scribble, rules, underlines */
+    --sun-fill: #f7cf3d; /* the fill under an ink label — pill, chips, pointer tag */
+    --sun-deep: #d99a00; /* deep end — hovers and small glyphs; still never text */
+    --on-sun:   #35302a; /* the label on a yellow fill, in BOTH themes — 8.7:1 */
+    --accent:   #35302a; /* link text is ink; the yellow lives in the underline */
+    --butter: #fdf4d2;   /* the accent's own wash — Now block, the record's tile */
+    --sage:   #e5f2e0;   /* her sage wash, a hair warmer — arch fill, How I work */
+    --blush:  #fdeee3;   /* a peach now, not a pink — ICICI's wash */
+    --lavender: #eeeaf8; /* yellow's complement, kept pale */
+    --sand:   #f4efe6;   /* oat — pulled clear of butter */
     --hairline: rgb(61 56 51 / 0.16);
     --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
     --measure: 38rem;
@@ -94,7 +101,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  ::selection { background: #f3dacb; color: var(--strong); }  /* blush-family highlight — link text holds AA on it (4.58:1) */
+  ::selection { background: #fbe7a1; color: var(--strong); }  /* a marker-yellow highlight — ink holds 10:1 on it */
 
   .page {
     max-width: calc(var(--measure) + 3rem);
@@ -108,12 +115,16 @@
   a {
     color: var(--accent);
     text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-decoration-color: rgb(166 67 16 / 0.35);
-    text-underline-offset: 0.18em;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--sun);
+    text-underline-offset: 0.2em;
     transition: text-decoration-color 150ms ease-out;  /* feedback tier: near-imperceptible */
   }
-  a:hover { text-decoration-color: var(--terracotta); }
+  a:hover { text-decoration-color: var(--sun-deep); }
+  /* in running prose a link is ink like its sentence, so weight is its second
+     cue (the underline alone is 1.8:1); hovering lays a marker band under it */
+  main p a, main li a { font-weight: 500; border-radius: 2px; transition: text-decoration-color 150ms ease-out, background-color 150ms ease-out; }
+  main p a:hover, main li a:hover { background-color: var(--butter); }
   :focus-visible {
     outline: 2px solid var(--ink);
     outline-offset: 3px;
@@ -130,7 +141,7 @@
      name in the 68rem enhancement below. */
   header { padding-block: clamp(2.5rem, 8vh, 6rem) 0; }
   /* Centred, like her old hero: portrait, name, scribble, role, nav, one
-     coral pill — and the desk around it. */
+     yellow pill — and the desk around it. */
   .masthead {
     position: relative;
     display: flex;
@@ -145,14 +156,14 @@
     margin-top: 0.35rem;
     padding: 0.7rem 1.15rem 0.66rem;
     border-radius: 999px;
-    background: var(--coral); color: #fff;
+    background: var(--sun-fill); color: var(--on-sun);
     font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
     text-decoration: none;
-    box-shadow: 0 2px 6px rgb(229 103 73 / 0.25), 0 10px 22px rgb(229 103 73 / 0.18);
+    box-shadow: 0 2px 6px rgb(242 183 5 / 0.28), 0 10px 22px rgb(242 183 5 / 0.2);
     transition: transform 220ms cubic-bezier(0.23,1,0.32,1), background-color 150ms ease-out;
   }
   .cta .go { transition: transform 220ms cubic-bezier(0.23,1,0.32,1); }
-  .cta:hover { background: var(--terracotta); transform: translateY(-1px); }
+  .cta:hover { background: var(--sun); transform: translateY(-1px); }
   .cta:hover .go { transform: translateX(3px); }
   .cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
@@ -181,7 +192,7 @@
   .desk .books { object-fit: contain; padding: 9%; box-sizing: border-box; background: var(--sand); }
   .desk .obj.dragging { z-index: 4; cursor: grabbing; box-shadow: 0 2px 6px rgb(61 56 51 / 0.10), 0 24px 48px rgb(61 56 51 / 0.22); }
   /* the record: a drawn disc — grooves, a navy label, the song — on a blush tile */
-  .desk .record { background: var(--blush); display: grid; place-items: center; font: inherit; color: inherit; }
+  .desk .record { background: var(--butter); display: grid; place-items: center; font: inherit; color: inherit; }
   .desk .record .disc {
     position: relative; width: 76%; aspect-ratio: 1; border-radius: 50%;
     background:
@@ -209,7 +220,7 @@
     display: inline-flex; align-items: center; gap: 0.35em; flex-wrap: wrap; justify-content: center;
   }
   .nowplaying[hidden] { display: none; }   /* author display beats the hidden attribute's UA rule */
-  .nowplaying .note { color: var(--coral); }
+  .nowplaying .note { color: var(--sun-deep); }
   .nowplaying b { font-weight: 600; color: var(--strong); }
   .nowplaying a { color: var(--accent); }
   /* the folder: what she works in. A drawn manila folder on a lavender tile
@@ -259,12 +270,12 @@
     }
     html.past-hero .rail { opacity: 1; transform: none; visibility: visible; transition-delay: 0s; }
     html.past-hero .rail > * { pointer-events: auto; }
-    .rail .mark { width: 22px; height: 22px; color: var(--coral); display: block; margin-bottom: 0.35rem; transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
+    .rail .mark { width: 22px; height: 22px; color: var(--sun); display: block; margin-bottom: 0.35rem; transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
     .rail .mark svg { display: block; width: 100%; height: 100%; }
     .rail a { text-decoration: none; color: var(--faint); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1; transition: color 150ms ease-out, transform 220ms cubic-bezier(0.23,1,0.32,1); }
     .rail a:hover { color: var(--accent); transform: translateX(-3px); }
     .rail a[aria-current="page"] { color: var(--strong); position: relative; padding-right: 0.85rem; }
-    .rail a[aria-current="page"]::after { content: ""; position: absolute; right: 0; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%; background: var(--coral); }
+    .rail a[aria-current="page"]::after { content: ""; position: absolute; right: 0; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%; background: var(--sun); }
     .rail .mark-link:hover .mark { transform: rotate(-18deg) scale(1.1); }
     .rail .mark-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
   }
@@ -307,8 +318,8 @@
     color: var(--strong);
   }
 
-  /* ——— Her marks: sparkle + squiggle (decorative, coral) ——— */
-  .sparkle { color: var(--coral); }
+  /* ——— Her marks: sparkle + squiggle (decorative, yellow) ——— */
+  .sparkle { color: var(--sun); }
   .sparkle svg { display: block; width: 100%; height: 100%; }
   .sparkle-name {
     display: inline-block;
@@ -329,7 +340,7 @@
     width: 170px;
     height: auto;
     margin-top: 0.55rem;
-    color: var(--coral);
+    color: var(--sun);
   }
 
   .role {
@@ -373,7 +384,7 @@
   /* Coinage marker: any phrase Avantika owns as a coined name — set in
      Instrument Serif italic once, DM Sans on repeat. Same idiom as the
      case-page teaser dek. When wrapped in a link, inherit the link's
-     coral colour instead of overriding it. */
+     ink colour instead of overriding it. */
   .thesis {
     font-family: var(--display);
     font-style: italic;
@@ -411,7 +422,7 @@
   main > section + section { margin-top: clamp(4.25rem, 9vh, 5.5rem); }
   /* Between two timeline eras: a bigger break than a normal section boundary
      so the reader feels the shift from OverseeAI → Reset year → Consumer
-     scale. Also the small coral kicker rule on the incoming h2 has more air
+     scale. Also the small yellow kicker rule on the incoming h2 has more air
      to open a chapter. */
   main > section.timeline + section.timeline { margin-top: clamp(5.5rem, 12vh, 7rem); }
 
@@ -423,7 +434,7 @@
     color: var(--faint);
     margin-bottom: 1.1rem;
   }
-  /* Era H2s open with a short coral rule — a chapter mark echoing the
+  /* Era H2s open with a short yellow rule — a chapter mark echoing the
      one on the case-page kickers. Not decorative; a shared idiom. */
   .timeline h2 {
     display: flex;
@@ -434,8 +445,8 @@
     content: "";
     flex: none;
     display: inline-block;
-    width: 1.8em; height: 1px;
-    background: var(--coral); opacity: 0.75;
+    width: 1.8em; height: 2px; border-radius: 2px;
+    background: var(--sun);
   }
   @media (min-width: 68rem) {
     /* at desktop the timeline h2 hangs left with the era title on its own row;
@@ -454,9 +465,10 @@
   /* ——— How I work: her sage wash — the twin of the Now block below ——— */
   .process .panel { background: var(--sage); border-radius: 12px; padding: 1.05rem 1.25rem; margin-inline: -0.75rem; }
 
-  /* ——— Now: her blush wash, kept quiet — page voice, not display ——— */
+  /* ——— Now: the butter wash (the accent's own tint), kept quiet — page
+     voice, not display ——— */
   .now p {
-    background: var(--blush);
+    background: var(--butter);
     border-radius: 12px;
     padding: 1.05rem 1.25rem;
     margin-inline: -0.75rem;        /* phone: a deliberate 12px overhang, clear of the viewport edge */
@@ -518,18 +530,18 @@
   .tally.sky span { background: #e3eefb; }
   .tally.sage span { background: var(--sage); }
   .about .tally { margin-top: 0.6rem; margin-bottom: 1.1rem; }
-  /* the workbench entry's spine: five steps, the two human stops in coral */
+  /* the workbench entry's spine: five steps, the two human stops in yellow */
   .tally.spine { align-items: center; }
   .tally.spine .arr { padding: 0; background: none; color: rgb(61 56 51 / 0.35); font-size: 0.8125rem; }
-  .tally.spine .stop { background: var(--coral); color: #fff; }
-  .tally.spine .stop b { color: #fff; }
+  .tally.spine .stop { background: var(--sun-fill); color: var(--on-sun); }
+  .tally.spine .stop b { color: var(--on-sun); }
   /* How I work: the loop as a chain, the way the process page draws it */
   .process .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.4rem; margin-top: 0.9rem; }
   .process .chain .chip {
     padding: 0.32rem 0.7rem 0.3rem; border-radius: 999px; background: rgb(255 255 255 / 0.7);
     font-size: 0.8125rem; line-height: 1.2; color: var(--strong); white-space: nowrap;
   }
-  .process .chain .chip.me { background: var(--coral); color: #fff; }
+  .process .chain .chip.me { background: var(--sun-fill); color: var(--on-sun); }
   .process .chain .arr { color: rgb(61 56 51 / 0.35); font-size: 0.8125rem; }
   .entry + .entry.compact { margin-top: 2rem; }
   .entry.compact + .entry.compact { margin-top: 1.4rem; }
@@ -552,7 +564,7 @@
      it obeys the same box rules as a real image. */
   .thumbs { margin: 2rem 0 0; position: relative; }
   /* a card that opens a case study is wrapped in a block link — the
-     hover lift finally means what it implies. A small coral "open"
+     hover lift finally means what it implies. A small "open"
      chip fades in on hover, top-right corner of the card, so the
      link's affordance is unmistakable. */
   .thumbs > a { display: block; text-decoration: none; position: relative; }   /* the image link only — the caption's links stay inline */
@@ -572,14 +584,14 @@
                 border-color 220ms ease-out;
   }
   @media (hover: hover) and (pointer: fine) {
-    /* hover: a considered lift + brighter rim + a coral hairline promotion */
+    /* hover: a considered lift + brighter rim + a yellow hairline promotion */
     .thumbs > a:hover img {
       transform: translateY(-5px) scale(1.006);
       box-shadow: 0 3px 6px rgb(61 56 51 / 0.06), 0 22px 48px rgb(61 56 51 / 0.13);
-      border-color: rgb(197 88 24 / 0.35);
+      border-color: rgb(217 154 0 / 0.55);
     }
     /* "open" chip that appears on hover, top-right corner. Reads with the
-       card's warm wash — small enough to not compete, coral edge to signal
+       card's warm wash — small enough to not compete, a quiet edge to signal
        action. Hidden by default, no layout shift. */
     .thumbs > a::after {
       content: "Open →";
@@ -589,7 +601,7 @@
       background: #ffffff; color: var(--accent);
       font-size: 0.6875rem; font-weight: 600;
       letter-spacing: 0.14em; text-transform: uppercase;
-      border: 1px solid rgb(197 88 24 / 0.28);
+      border: 1px solid rgb(61 56 51 / 0.18);
       opacity: 0; transform: translateY(-4px);
       transition: opacity 220ms ease-out, transform 220ms cubic-bezier(0.23,1,0.32,1);
       pointer-events: none;
@@ -630,11 +642,11 @@
     margin: 0; position: relative;
     padding: 1.3rem 1.35rem 1.25rem;
     border-radius: 14px;
-    background: var(--blush);
+    background: var(--butter);
   }
   .words figure:nth-child(2) { background: var(--sage); }
   .words figure:nth-child(3) { background: var(--lavender); }
-  .words figure:nth-child(4) { background: var(--sand); }
+  .words figure:nth-child(4) { background: var(--blush); }
   .words blockquote {
     margin: 0;
     font-size: 1rem;
@@ -646,7 +658,7 @@
   @media (min-width: 48rem) {
     .words .grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
   }
-  /* A large coral opening quote glyph hung to the left of each quote.
+  /* A large opening quote glyph hung to the left of each quote.
      Reads as "someone actually said this" without shouting; sits in the
      margin at desktop, right above the text on phones. */
   .words blockquote::before {
@@ -657,7 +669,7 @@
     font-style: italic;
     font-size: 3.6em;
     line-height: 1;
-    color: var(--coral);
+    color: var(--sun);
     opacity: 0.55;
     pointer-events: none;
     user-select: none;
@@ -696,14 +708,14 @@
     padding-block: 1.6rem clamp(3rem, 8vh, 5rem);
     border-top: 1px solid var(--hairline);
   }
-  /* Site mark: the coral sparkle she already uses inline. On the landing
+  /* Site mark: the yellow sparkle she already uses inline. On the landing
      page it appears once, in the footer, above the closing nav — small,
      warm, wordless. Not a monogram, not a logo, just her mark. */
   .mark {
     display: block;
     width: 28px;
     height: 28px;
-    color: var(--coral);
+    color: var(--sun);
     margin-bottom: 1.1rem;
   }
   .mark svg { display: block; width: 100%; height: 100%; }
@@ -838,7 +850,7 @@
   }
 
   /* The named pointer (created by the script below; desktop only).
-     A Figma live-cursor: the arrow plus a coral name tag that trails it, and
+     A Figma live-cursor: the arrow plus a yellow name tag that trails it, and
      on a link the tag says what the link will do. The system cursor is hidden
      only once the script is actually running (html.np), so a JS-less or
      reduced-motion visit keeps a real cursor. */
@@ -855,7 +867,7 @@
   .cursor .lbl {
     position: absolute; left: 15px; top: 17px;
     display: none; padding: 0.2rem 0.5rem 0.16rem; border-radius: 7px;
-    background: var(--coral); color: #fff; white-space: nowrap;
+    background: var(--sun-fill); color: var(--on-sun); white-space: nowrap;
     font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em;
     box-shadow: 0 1px 3px rgb(61 56 51 / 0.2);
   }
@@ -926,20 +938,22 @@
       --strong:   #f5efe0;   /* titles — 16.7:1 */
       --soft:     #b1a897;   /* secondary — 7.6:1 */
       --faint:    #918876;   /* dates & labels — 5.1:1 */
-      --coral:    #ff8e6c;   /* brightened — marks only */
-      --terracotta: #ff9d75;
-      --accent:   #ffb894;   /* link text on dark — ~9.1:1 */
+      --sun:      #f7cf3d;   /* on dark, yellow finally has contrast — 11:1 */
+      --sun-fill: #f7cf3d;
+      --sun-deep: #ffdd66;   /* "deep" means brighter here */
+      --accent:   #f5efe0;   /* link text stays the text colour; the underline is the yellow */
+      --butter:   #25200e;   /* deep butter wash */
       --sage:     #1c2b1c;   /* deep sage wash */
-      --blush:    #2c1a12;   /* deep blush wash */
+      --blush:    #2b1c12;   /* deep peach wash */
       --lavender: #221d2b;
-      --sand:     #2a2419;
+      --sand:     #27231b;
     }
     .desk .obj { box-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 24px rgb(0 0 0 / 0.35); }
     .tally.lime span { background: #232a17; }
     .tally.sky span { background: #1a2230; }
     .process .chain .chip { background: rgb(255 255 255 / 0.08); }
     .desk .record .label::after { background: #e8e0d0; }
-    ::selection { background: rgb(255 142 108 / 0.32); color: var(--strong); }
+    ::selection { background: rgb(247 207 61 / 0.3); color: var(--strong); }
     /* small hardcoded-color fixups so the page stays coherent */
   }
 
@@ -955,7 +969,7 @@
     box-shadow: 0 4px 12px rgb(61 56 51 / 0.18);
   }
   .skip:focus, .skip:focus-visible {
-    left: 0.75rem; outline: 2px solid var(--coral); outline-offset: 2px;
+    left: 0.75rem; outline: 2px solid var(--sun); outline-offset: 2px;
   }
 
   @media print {
@@ -1076,7 +1090,7 @@
             <circle cx="5" cy="4" r="1.4" fill="#e56749"/><circle cx="9.5" cy="4" r="1.4" fill="#e4bf7d"/><circle cx="14" cy="4" r="1.4" fill="#9fc79b"/>
             <path d="M8 14l6 5.5-6 5.5" fill="none" stroke="#f7eedc" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             <rect x="18" y="23" width="9" height="2.4" rx="1.2" fill="#f7eedc"/>
-            <rect x="31" y="14" width="3" height="11" rx="0.8" fill="#e56749"/>
+            <rect x="31" y="14" width="3" height="11" rx="0.8" fill="#f7cf3d"/>
           </g></g>
           <g transform="translate(88 42) rotate(8)"><g class="st st-gh" filter="url(#fsh)">
             <circle r="16" fill="#fff"/><circle r="13.6" fill="#35302a"/>
@@ -1138,7 +1152,7 @@
 
       <article class="entry">
         <time class="when" datetime="2026">2026</time>
-        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; An agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. Nothing has shipped yet, so the case study claims no results.<div class="tally sky spine" aria-label="The two gates"><span>documents land</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> start extraction</span><span class="arr" aria-hidden="true">→</span><span>tables come back flagged</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> decide every flag</span><span class="arr" aria-hidden="true">→</span><span>certify</span></div><figure class="thumbs"><a href="overseeai/"><img src="assets/thumb-overseeai.webp?v=8" alt="Ratebook Workbench — the filed rate pages beside the machine's reading of them, with the cells the two extractors disagree on flagged" width="1504" height="940" loading="lazy"></a><figcaption>The filed pages beside the machine&rsquo;s reading of them; flagged cells wait for a human. <a href="overseeai/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; An agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. Nothing has shipped yet, so the case study claims no results.<div class="tally sky spine" aria-label="The two gates"><span>documents land</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> start extraction</span><span class="arr" aria-hidden="true">→</span><span>tables come back flagged</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> decide every flag</span><span class="arr" aria-hidden="true">→</span><span>certify</span></div><figure class="thumbs"><a href="overseeai/"><img src="assets/thumb-overseeai.webp?v=10" alt="Ratebook Workbench — the filed rate pages beside the machine's reading of them, with the cells the two extractors disagree on flagged" width="1504" height="940" loading="lazy"></a><figcaption>The filed pages beside the machine&rsquo;s reading of them; flagged cells wait for a human. <a href="overseeai/">Case study</a> &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry">
@@ -1163,7 +1177,7 @@
 
       <article class="entry">
         <span class="when"><time datetime="2026-03">March</time>–<time datetime="2026-05">May 2026</time></span>
-        <div class="ebody"><h3 class="et"><a href="myfood/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo, end to end.<div class="tally sage"><span>Concept</span><span>Design</span><span>Code</span><span><b>Play Store</b> Early Access</span></div><figure class="thumbs"><a href="myfood/"><img src="assets/thumb-myfood.webp?v=8" alt="MyFood — daily food-group balance screen" width="1504" height="940" loading="lazy"></a><figcaption>Daily balance — live in Play Store Early Access. <a href="myfood/">Case study</a> · <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a></figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="myfood/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo, end to end.<div class="tally sage"><span>Concept</span><span>Design</span><span>Code</span><span><b>Play Store</b> Early Access</span></div><figure class="thumbs"><a href="myfood/"><img src="assets/thumb-myfood.webp?v=10" alt="MyFood — daily food-group balance screen" width="1504" height="940" loading="lazy"></a><figcaption>Daily balance — live in Play Store Early Access. <a href="myfood/">Case study</a> · <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a></figcaption></figure></div>
       </article>
 
       <article class="entry compact">
@@ -1183,17 +1197,17 @@
 
       <article class="entry">
         <span class="when"><time datetime="2024">2024</time>–<time datetime="2025">25</time></span>
-        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around the three things people were phoning about. My favourite kind of metric: <em class="thesis">the phone that doesn't ring</em>. Also the company's first design system (<em class="thesis">Vantage</em> is my second).<div class="tally blush"><span><b>−37%</b> customer service calls</span><span><b>−30%</b> handoff time</span><span><b>14</b> users · <b>38</b> stakeholders</span></div><figure class="thumbs"><a href="il-takecare/"><img src="assets/thumb-icici.webp?v=9" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <a href="il-takecare/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around the three things people were phoning about. My favourite kind of metric: <em class="thesis">the phone that doesn't ring</em>. Also the company's first design system (<em class="thesis">Vantage</em> is my second).<div class="tally blush"><span><b>−37%</b> customer service calls</span><span><b>−30%</b> handoff time</span><span><b>14</b> users · <b>38</b> stakeholders</span></div><figure class="thumbs"><a href="il-takecare/"><img src="assets/thumb-icici.webp?v=10" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <a href="il-takecare/">Case study</a> &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2023">2023</time>–<time datetime="2024">24</time></span>
-        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home pod through a full homepage revamp: search up front, photo tiles per category, a fixed bar. Also redesigned the Lenskart at Home service flow.<div class="tally lime"><span><b>+14%</b> home-to-listing conversion</span><span><b>+20%</b> cart conversion</span><span><b>−30%</b> at-home drop-offs</span></div><figure class="thumbs"><a href="lenskart/"><img src="assets/thumb-lenskart.webp?v=9" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></a><figcaption>Home and Explore — cart conversion up 20%. <a href="lenskart/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home pod through a full homepage revamp: search up front, photo tiles per category, a fixed bar. Also redesigned the Lenskart at Home service flow.<div class="tally lime"><span><b>+14%</b> home-to-listing conversion</span><span><b>+20%</b> cart conversion</span><span><b>−30%</b> at-home drop-offs</span></div><figure class="thumbs"><a href="lenskart/"><img src="assets/thumb-lenskart.webp?v=10" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></a><figcaption>Home and Explore — cart conversion up 20%. <a href="lenskart/">Case study</a> &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2021">2021</time>–<time datetime="2023">23</time></span>
-        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months: service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/"><img src="assets/thumb-axis-oneview.webp?v=9" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months: service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/"><img src="assets/thumb-axis-oneview.webp?v=10" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three &middot; password on request.</figcaption></figure></div>
       </article>
 
       <article class="entry compact">
@@ -1486,10 +1500,10 @@
 })();
 
 /* Console signature — a tiny hello for the designer / developer who
-   opens View Source. Coral serif greeting + a one-line about the stack
+   opens View Source. A serif greeting on a yellow chip + a one-line about the stack
    + how to reach her. Not decorative on the page; only visible in devtools. */
 (() => {
-  const style = 'font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:34px;color:#e56749;line-height:1;';
+  const style = 'font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:34px;color:#35302a;background:#f7cf3d;padding:0 14px 4px;border-radius:10px;line-height:1.3;';
   const meta = 'font-family:"DM Sans",-apple-system,sans-serif;font-size:12px;color:#6b6259;line-height:1.55;';
   try {
     console.log('%chi.', style);
@@ -1497,7 +1511,7 @@
   } catch (e) { /* IE and locked-down consoles */ }
 })();
 
-/* The named pointer — a Figma live-cursor: the arrow plus a coral tag that
+/* The named pointer — a Figma live-cursor: the arrow plus a yellow tag that
    trails it. On a link the tag says what the link does. Desktop fine-pointers
    only; sits out entirely under reduced-motion or without JS, which is also
    why the system cursor is only hidden (html.np) once this is running. */
@@ -1507,7 +1521,7 @@
   const el = document.createElement('div');
   el.className = 'cursor';
   el.setAttribute('aria-hidden', 'true');
-  el.innerHTML = '<svg viewBox="0 0 14 18"><path d="M6.15 12.87 H5.96 L5.82 13 L1 17.38 V1.7 L12.28 12.87 Z" fill="#e56749" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg><span class="lbl"></span>';   // the Figma cursor: a plain point, no tail
+  el.innerHTML = '<svg viewBox="0 0 14 18"><path d="M6.15 12.87 H5.96 L5.82 13 L1 17.38 V1.7 L12.28 12.87 Z" fill="#f7cf3d" stroke="#35302a" stroke-width="1.2" stroke-linejoin="round"/></svg><span class="lbl"></span>';   // the Figma cursor: a plain point, no tail
   const lbl = el.querySelector('.lbl');
   document.body.appendChild(el);
   document.documentElement.classList.add('np');

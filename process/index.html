@@ -38,7 +38,7 @@
   /* ————————————————————————————————
      Case-study page template — one file for every case page.
      Same register as the landing page: white ground, DM Sans
-     everywhere, Instrument Serif for the name alone, one coral
+     everywhere, Instrument Serif for the name alone, one yellow
      accent system, mobile-first, a 68rem desktop enhancement
      and an 80rem one that hangs the meta card in the margin.
      Gated pages: <main> arrives encrypted (tools/encrypt-page.mjs)
@@ -51,12 +51,20 @@
     --strong: #35302a;   /* 13.1:1 */
     --soft:   #6b6259;   /* 6.0:1 */
     --faint:  #6f665a;   /* 5.6:1 */
-    --coral:  #e56749;   /* marks only */
-    --terracotta: #c05818;
-    --accent: #a64310;   /* link text, 6.1:1 */
-    --sage:   #e6f3e5;
-    --blush:  #fef1ec;
-    --lavender: #efeaf8;
+    /* The accent is YELLOW, and yellow is a FILL (2026-09-17). At 1.8:1 on
+       white it never carries text and never sits under white text: ink does
+       the reading, yellow does the marking. Same tokens as the landing page. */
+    --sun:      #f2b705; /* sunflower — marks only: sparkle, rules, underlines, dots */
+    --sun-fill: #f7cf3d; /* the fill under an ink label — chips, pointer tag */
+    --sun-deep: #d99a00; /* deep end — hovers and small glyphs; still never text */
+    --on-sun:   #35302a; /* the label on a yellow fill, in BOTH themes — 8.7:1 */
+    --accent:   #35302a; /* link text is ink; the yellow lives in the underline */
+    --alert:    #a5371b; /* the one red: a wrong password, a dropped step — 6.3:1 */
+    --butter: #fdf4d2;   /* the accent's own wash — the default callout */
+    --sage:   #e5f2e0;
+    --blush:  #fdeee3;   /* a peach now, not a pink */
+    --lavender: #eeeaf8;
+    --sand:   #f4efe6;   /* oat (was undefined here; the fourth triad mark used it) */
     --mint:   #e4f4ee;
     --sky:    #e6eef6;
     --hairline: rgb(61 56 51 / 0.16);
@@ -87,19 +95,23 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  ::selection { background: #f3dacb; color: var(--strong); }
+  ::selection { background: #fbe7a1; color: var(--strong); }
   .page { max-width: calc(var(--measure) + 3rem); margin-inline: auto; padding-inline: 1.5rem; }
   p, li, dd, figcaption, blockquote { text-wrap: pretty; }
 
   a {
     color: var(--accent);
     text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-decoration-color: rgb(166 67 16 / 0.35);
-    text-underline-offset: 0.18em;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--sun);
+    text-underline-offset: 0.2em;
     transition: text-decoration-color 150ms ease-out;
   }
-  a:hover { text-decoration-color: var(--terracotta); }
+  a:hover { text-decoration-color: var(--sun-deep); }
+  /* in running prose a link is ink like its sentence, so weight is its second
+     cue (the underline alone is 1.8:1); hovering lays a marker band under it */
+  #cs p a, #cs li a, #teaser p a { font-weight: 500; border-radius: 2px; transition: text-decoration-color 150ms ease-out, background-color 150ms ease-out; }
+  #cs p a:hover, #cs li a:hover, #teaser p a:hover { background-color: var(--butter); }
   :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; text-decoration: none; }
 
   /* ——— Top bar: the way back — sparkle mark + a small caps hint ——— */
@@ -118,7 +130,7 @@
     transition: color 150ms ease-out;
   }
   .home:hover { color: var(--accent); }
-  .home .mark { width: 22px; height: 22px; color: var(--coral); display: inline-block; transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .home .mark { width: 22px; height: 22px; color: var(--sun); display: inline-block; transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
   .home .mark svg { display: block; width: 100%; height: 100%; }
   .home:hover .mark { transform: rotate(-20deg) scale(1.1); }
   .home .arrow { display: inline-block; transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); }
@@ -148,7 +160,7 @@
     box-shadow: var(--lift);
     text-align: left;
   }
-  #gate .mark { width: 30px; height: 30px; color: var(--coral); display: block; margin-bottom: 1.1rem; }
+  #gate .mark { width: 30px; height: 30px; color: var(--sun); display: block; margin-bottom: 1.1rem; }
   #gate .mark svg { display: block; width: 100%; height: 100%; }
   #gate h1 {
     font-family: var(--display);
@@ -172,17 +184,17 @@
   }
   #gate input:hover { border-color: rgb(61 56 51 / 0.45); }
   #gate input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-color: transparent; }
-  #gate input[aria-invalid="true"] { border-color: var(--terracotta); }
+  #gate input[aria-invalid="true"] { border-color: var(--alert); }
   #gate button {
     min-height: 50px; padding-inline: 1.35rem; border: 0; border-radius: 12px;
     font: inherit; font-weight: 500; color: #fff; background: var(--strong);
     transition: background-color 150ms ease-out, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
   }
-  #gate button:hover { background: var(--terracotta); }
+  #gate button:hover { background: var(--sun-fill); color: var(--on-sun); }
   #gate button:active { transform: scale(0.97); }
   #gate button[disabled] { opacity: 0.6; }
   #gate .msg { min-height: 1.4em; margin-top: 0.5rem; font-size: 0.9375rem; color: var(--soft); }
-  #gate .msg.err { color: var(--accent); }
+  #gate .msg.err { color: var(--alert); }
   #gate .ask { margin-top: 0.5rem; font-size: 0.9375rem; color: var(--soft); }
   .locked #cs { display: none; }
   html:not(.locked) #gate { display: none; }
@@ -228,7 +240,7 @@
   .meta dd { color: var(--ink); }
   .meta .wide { grid-column: 1 / -1; }
   .meta .status::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #3f8a52; margin-right: 0.45em; vertical-align: 1px; }
-  .meta .status.wip::before { background: var(--coral); }
+  .meta .status.wip::before { background: var(--sun-deep); }
   @media (prefers-reduced-motion: no-preference) {
     /* a work-in-progress dot that breathes — the only looping animation on
        the site, and only on a page that is genuinely still moving */
@@ -262,7 +274,8 @@
     font-size: 1.35rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.008em; color: var(--strong);
     margin-bottom: 0.9rem; max-width: 30ch;
   }
-  #cs h2 .num { color: var(--coral); font-weight: 500; margin-right: 0.55em; font-variant-numeric: tabular-nums; }
+  /* the section number sits on a small yellow chip: yellow can't be the numeral, so it is the ground under it */
+  #cs h2 .num { display: inline-block; padding: 0.12em 0.42em 0.1em; margin-right: 0.6em; border-radius: 6px; background: var(--sun-fill); color: var(--on-sun); font-size: 0.72em; font-weight: 600; letter-spacing: 0.02em; vertical-align: 0.14em; font-variant-numeric: tabular-nums; }
   #cs h3 { font-size: 1.0625rem; font-weight: 600; color: var(--strong); margin: 1.8rem 0 0.35rem; }
   #cs p + p, #cs ul + p, #cs p + ul, #cs ol + p, #cs p + ol { margin-top: 1em; }
   #cs figure + p, #cs figure + h3, #cs dl + p, #cs .card + p, #cs .triad + p, #cs .flow + p, #cs .quotes + p, #cs .ifthen + p, #cs .funnel + p, #cs .counts + p, #cs .callout + p, #cs .baseline + p { margin-top: 1.6rem; }
@@ -278,14 +291,14 @@
      the page rather than a highlighted sentence. */
   .callout {
     position: relative;
-    background: var(--blush); border-radius: var(--radius);
+    background: var(--butter); border-radius: var(--radius);
     padding: 1.4rem 1.4rem 1.3rem; margin: 1.6rem -0.75rem 0;
     font-size: 1.0625em; line-height: 1.58; color: var(--strong);
   }
   .callout::before {
     content: ""; display: block; width: 32px; height: 32px; margin-bottom: 0.85rem;
     border-radius: 50%; background-color: #fff;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z' fill='%23e56749'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z' fill='%23f2b705'/></svg>");
     background-size: 15px 15px; background-position: center; background-repeat: no-repeat;
   }
   .callout.sage { background: var(--sage); }
@@ -308,11 +321,11 @@
      move the callout makes one size up */
   .triad .mark {
     display: block; width: 28px; height: 28px; border-radius: 50%;
-    background: var(--blush); margin-bottom: 0.8rem;
+    background: var(--butter); margin-bottom: 0.8rem;
   }
   .triad .card:nth-child(4n+2) .mark { background: var(--sage); }
   .triad .card:nth-child(4n+3) .mark { background: var(--lavender); }
-  .triad .card:nth-child(4n+4) .mark { background: var(--sand); }
+  .triad .card:nth-child(4n+4) .mark { background: var(--blush); }
   @media (min-width: 48rem) {
     .triad.quad { grid-template-columns: 1fr 1fr; }                                  /* two across */
     .triad.quad .card:last-child:nth-child(odd) { grid-column: 1 / -1; }             /* an odd last card takes the row */
@@ -340,14 +353,14 @@
   .counts .sub { display: block; font-size: 0.8125rem; color: var(--faint); margin-bottom: 0.2rem; }
 
   /* quotes from research: a hairline rule, tagged ABOVE by the question asked;
-     the one dissenting voice gets .against and the coral rule */
+     the one dissenting voice gets .against and the red rule */
   .quotes { display: grid; grid-template-columns: 1fr; gap: 1.1rem 2rem; margin-top: 1.4rem; }
   .quotes blockquote { margin: 0; padding-left: 1rem; border-left: 2px solid var(--hairline); background: none; border-radius: 0; }
   .quotes blockquote p { font-size: 0.9375rem; line-height: 1.5; color: var(--ink); }
   .quotes blockquote p::before { content: "“"; color: inherit; }
   .quotes blockquote p::after { content: "”"; color: inherit; }
   .quotes .asked { display: block; margin-bottom: 0.3rem; letter-spacing: 0.12em; }
-  .quotes .against { border-left-color: var(--coral); }
+  .quotes .against { border-left-color: var(--alert); }
   .quotes cite { display: block; margin-top: 0.5rem; font-style: normal; font-size: 0.8125rem; color: var(--soft); }
 
   /* the problem's input numbers: visibly quieter than outcomes */
@@ -355,7 +368,7 @@
   .baseline .cap { grid-column: 1 / -1; }
   .baseline .n { display: block; font-size: 1.5rem; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; color: var(--soft); font-variant-numeric: tabular-nums; }
   .baseline .l { display: block; margin-top: 0.3rem; font-size: 0.8125rem; line-height: 1.4; color: var(--faint); }
-  blockquote.pull { margin: 1.2rem 0 0; padding-left: 1rem; border-left: 2px solid var(--coral); color: var(--ink); }
+  blockquote.pull { margin: 1.2rem 0 0; padding-left: 1rem; border-left: 3px solid var(--sun); color: var(--ink); }
   blockquote.pull cite { display: block; margin-top: 0.4rem; font-style: normal; font-size: 0.8125rem; color: var(--soft); }
 
   /* flow chips: a journey as a chain; .drop marks where it broke, .new what the redesign added */
@@ -369,7 +382,7 @@
     display: inline-block; padding: 0.32rem 0.65rem; border-radius: 999px; background: rgb(61 56 51 / 0.06);
     font-size: 0.875rem; line-height: 1.3; color: var(--ink);
   }
-  .flow .chip.drop { background: var(--blush); color: var(--accent); }
+  .flow .chip.drop { background: var(--blush); color: var(--alert); }
   .flow .chip.new { background: var(--sage); color: #2f5f37; }
   .flow .arr { color: rgb(61 56 51 / 0.35); font-size: 0.875rem; }
   .flow .chip small { font-size: 0.8125rem; color: var(--soft); margin-left: 0.3em; }
@@ -394,8 +407,8 @@
   .defs dd { color: var(--ink); }
   .defs.wide div { grid-template-columns: 1fr; }   /* long terms (driver → place) stack on phones */
 
-  .qa h3::before { content: "“"; color: var(--coral); margin-right: 0.1em; }
-  .qa h3::after { content: "”"; color: var(--coral); margin-left: 0.1em; }
+  .qa h3::before { content: "“"; color: var(--sun-deep); margin-right: 0.1em; }
+  .qa h3::after { content: "”"; color: var(--sun-deep); margin-left: 0.1em; }
 
   /* ——— Mini demos: a pattern you can feel in five seconds ———
      The page source carries MARKUP ONLY (the linter forbids script and style in
@@ -423,14 +436,14 @@
   }
   .demo .dbtn:hover { border-color: rgb(61 56 51 / 0.3); }
   .demo .dbtn.primary { background: var(--strong); border-color: var(--strong); color: #fff; }
-  .demo .dbtn.primary:hover { background: var(--terracotta); border-color: var(--terracotta); }
+  .demo .dbtn.primary:hover { background: var(--sun-fill); border-color: var(--sun-fill); color: var(--on-sun); }
   .demo .dbtn.ghost { background: none; border-color: transparent; color: var(--soft); }
   .demo .dbtn[disabled] { opacity: 0.42; cursor: default; }
   .demo .dbtn[disabled]:hover { border-color: var(--surface-line); background: #fff; }
   .demo .dbtn.ghost[disabled]:hover { background: none; border-color: transparent; }
   .demo .dstate { margin-top: 0.9rem; font-size: 0.8125rem; line-height: 1.5; color: var(--faint); }
   .demo .bar { height: 4px; border-radius: 999px; background: rgb(61 56 51 / 0.1); margin-top: 0.9rem; overflow: hidden; }
-  .demo .bar i { display: block; height: 100%; width: 0; background: var(--coral); transition: width 1.4s linear; }
+  .demo .bar i { display: block; height: 100%; width: 0; background: var(--sun); transition: width 1.4s linear; }
   .demo .drows { list-style: none; padding: 0; margin: 0; }
   .demo .drows li {
     display: flex; align-items: center; gap: 1rem;
@@ -457,7 +470,7 @@
   .thumbs img {
     display: block; width: 100%; height: auto;
     border-radius: var(--radius); border: 1px solid var(--surface-line);
-    background: var(--blush);              /* the card's wash shows while the bytes decrypt */
+    background: var(--butter);             /* the card's wash shows while the bytes decrypt */
     box-shadow: var(--lift);
   }
   .thumbs .pair { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 1rem; }
@@ -489,7 +502,7 @@
     padding-block: 1.6rem clamp(3rem, 8vh, 5rem);
     border-top: 1px solid var(--hairline);
   }
-  footer .mark { display: block; width: 28px; height: 28px; color: var(--coral); margin-bottom: 1.1rem; }
+  footer .mark { display: block; width: 28px; height: 28px; color: var(--sun); margin-bottom: 1.1rem; }
   footer .mark svg { display: block; width: 100%; height: 100%; }
   footer .site-nav a { color: var(--accent); }
   .next { margin-top: 1.4rem; font-size: 0.9375rem; color: var(--soft); }
@@ -507,7 +520,7 @@
       z-index: 30; pointer-events: none;
     }
     .rail > * { pointer-events: auto; }
-    .rail .mark { width: 22px; height: 22px; color: var(--coral); display: block; margin-bottom: 0.35rem; transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
+    .rail .mark { width: 22px; height: 22px; color: var(--sun); display: block; margin-bottom: 0.35rem; transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
     .rail .mark svg { display: block; width: 100%; height: 100%; }
     .rail a { text-decoration: none; color: var(--faint); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1; transition: color 150ms ease-out, transform 220ms cubic-bezier(0.23,1,0.32,1); }
     .rail a:hover { color: var(--accent); transform: translateX(-3px); }
@@ -527,7 +540,7 @@
   #teaser .teaser-body { order: 1; margin-top: 0; }
   #teaser .meta { order: 2; }
   #teaser .cover img {
-    background: var(--blush); /* wash while the reader waits — matches the artifact card ecosystem */
+    background: var(--butter); /* wash while the reader waits — matches the artifact card ecosystem */
   }
   @media (min-width: 80rem) {
     /* the facts hang in the left margin beside the door, sticking as you scroll;
@@ -583,11 +596,11 @@
     footer .mark { transition: transform 200ms ease-out; }
     footer .mark:hover { animation: wiggle 500ms ease-in-out; }
     .flow .chip { transition: background-color 150ms ease-out; }
-    .flow .chip:hover { background: var(--blush); }
+    .flow .chip:hover { background: var(--butter); }
     .flow .chip.new:hover { background: #d7ecd5; }
   }
   @keyframes wiggle { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(-5deg); } 65% { transform: rotate(4deg); } }
-  /* The named pointer. A Figma live-cursor: the arrow plus a coral name tag
+  /* The named pointer. A Figma live-cursor: the arrow plus a yellow name tag
      that trails it, and on a link the tag says what the link will do. The
      system cursor is hidden only once the script is actually running (html.np),
      so a JS-less or reduced-motion visit keeps a real cursor. */
@@ -597,14 +610,14 @@
     pointer-events: none; opacity: 0; will-change: transform;
     transition: opacity 180ms ease-out;
   }
-  .cursor svg { display: block; width: 22px; height: 22px; filter: drop-shadow(0 1px 2px rgb(61 56 51 / 0.25)); }
+  .cursor svg { display: block; width: 18px; height: 23px; filter: drop-shadow(0 1px 2px rgb(61 56 51 / 0.25)); }
   /* The tag only exists over a link, and it says what the link does. Idle,
      the pointer is just the arrow — her name on her own cursor was one label
      too many. */
   .cursor .lbl {
     position: absolute; left: 15px; top: 17px;
     display: none; padding: 0.2rem 0.5rem 0.16rem; border-radius: 7px;
-    background: var(--coral); color: #fff; white-space: nowrap;
+    background: var(--sun-fill); color: var(--on-sun); white-space: nowrap;
     font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em;
     box-shadow: 0 1px 3px rgb(61 56 51 / 0.2);
   }
@@ -644,7 +657,7 @@
   .read-next .headline a:hover { color: var(--accent); text-decoration-color: var(--accent); }
   .read-next .headline .go {
     display: inline-block; margin-left: 0.15em;
-    color: var(--coral); transition: transform 220ms cubic-bezier(0.23,1,0.32,1);
+    color: var(--sun-deep); transition: transform 220ms cubic-bezier(0.23,1,0.32,1);
   }
   .read-next .headline a:hover .go { transform: translateX(4px); }
   .read-next .why { margin-top: 0.5rem; font-size: 0.9875rem; color: var(--soft); }
@@ -656,7 +669,7 @@
      Small moves that make the page feel considered without adding chrome.
      Every animation is gated by prefers-reduced-motion below. */
 
-  /* Tag pills: subtle hover lift + coral-warm hairline */
+  /* Tag pills: subtle hover lift + a warm yellow hairline */
   .tags .tag {
     transition: transform 180ms cubic-bezier(0.23,1,0.32,1),
                 border-color 180ms ease-out,
@@ -666,13 +679,13 @@
   @media (hover: hover) and (pointer: fine) {
     .tags .tag:hover {
       transform: translateY(-1px);
-      border-color: rgb(197 88 24 / 0.35);
-      background: #fff8f3;
+      border-color: rgb(217 154 0 / 0.55);
+      background: #fffaea;
       color: var(--strong);
     }
   }
 
-  /* Impact rows: hover state — a faint warm wash + a coral marker slides in */
+  /* Impact rows: hover state — a faint warm wash + a yellow marker slides in */
   .meta .impact div {
     position: relative;
     padding-inline: 0.5rem;
@@ -681,18 +694,18 @@
     transition: background-color 180ms ease-out;
   }
   @media (hover: hover) and (pointer: fine) {
-    .meta .impact div:hover { background: #fff8f3; }
+    .meta .impact div:hover { background: #fffaea; }
     .meta .impact div::before {
       content: "";
       position: absolute; left: -0.15rem; top: 0.55rem; bottom: 0.55rem;
-      width: 2px; border-radius: 2px; background: var(--coral);
+      width: 2px; border-radius: 2px; background: var(--sun);
       opacity: 0; transform: scaleY(0.3); transform-origin: center;
       transition: opacity 200ms ease-out, transform 220ms cubic-bezier(0.23,1,0.32,1);
     }
     .meta .impact div:hover::before { opacity: 1; transform: scaleY(1); }
   }
 
-  /* Rail aria-current: a coral dot before the current section */
+  /* Rail aria-current: a yellow dot before the current section */
   @media (min-width: 68rem) {
     .rail a[aria-current="page"] {
       position: relative; padding-right: 0.85rem;
@@ -701,7 +714,7 @@
       content: "";
       position: absolute; right: 0; top: 50%;
       width: 6px; height: 6px; margin-top: -3px;
-      border-radius: 50%; background: var(--coral);
+      border-radius: 50%; background: var(--sun);
     }
   }
 
@@ -711,7 +724,7 @@
     transition: transform 260ms cubic-bezier(0.23,1,0.32,1);
   }
   @media (hover: hover) and (pointer: fine) {
-    .read-next:hover .headline .go { color: var(--terracotta); }
+    .read-next:hover .headline .go { color: var(--sun-deep); }
   }
 
   /* Cover: warm shadow-lift on hover — matches the artifact-card language */
@@ -727,12 +740,12 @@
   }
 
 
-  /* Kicker: a small coral bookend so the label reads as a chapter opener */
+  /* Kicker: a small yellow bookend so the label reads as a chapter opener */
   .hero .kicker { display: inline-flex; align-items: baseline; gap: 0.6em; }
   .hero .kicker::before {
     content: "";
-    display: inline-block; width: 1.8em; height: 1px;
-    background: var(--coral); opacity: 0.7;
+    display: inline-block; width: 1.8em; height: 2px; border-radius: 2px;
+    background: var(--sun);
     vertical-align: middle;
   }
 
@@ -756,14 +769,18 @@
       --strong:   #f5efe0;   /* titles — 16.7:1 */
       --soft:     #b1a897;   /* secondary — 7.6:1 */
       --faint:    #918876;   /* dates & labels — 5.1:1 */
-      --coral:    #ff8e6c;   /* brightened — marks only */
-      --terracotta: #ff9d75;
-      --accent:   #ffb894;   /* link text on dark — ~9.1:1 */
+      --sun:      #f7cf3d;   /* on dark, yellow finally has contrast — 11:1 */
+      --sun-fill: #f7cf3d;
+      --sun-deep: #ffdd66;   /* "deep" means brighter here */
+      --accent:   #f5efe0;   /* link text stays the text colour; the underline is the yellow */
+      --alert:    #ff9b80;   /* the one red, lifted for the dark ground */
+      --butter:   #25200e;   /* deep butter wash */
       --sage:     #1c2b1c;   /* deep sage wash */
-      --blush:    #2c1a12;   /* deep blush wash */
+      --blush:    #2b1c12;   /* deep peach wash */
+      --sand:     #27231b;
       --hairline: rgb(232 224 208 / 0.14);
     }
-    ::selection { background: rgb(255 142 108 / 0.32); color: var(--strong); }
+    ::selection { background: rgb(247 207 61 / 0.3); color: var(--strong); }
     /* small hardcoded-color fixups so the page stays coherent */
   }
 
@@ -792,10 +809,10 @@
     /* the .flow.chip.new is hardcoded sage green — on dark, brighten it a hair */
     .flow .chip.new { background: rgb(154 210 148 / 0.14); color: #a8d097; }
     .flow .chip.new:hover { background: rgb(154 210 148 / 0.22); }
-    /* tag pill hover: warm coral wash instead of the light one */
-    .tags .tag:hover { background: rgb(255 142 108 / 0.09); }
+    /* tag pill hover: warm yellow wash instead of the light one */
+    .tags .tag:hover { background: rgb(247 207 61 / 0.1); }
     /* impact-row hover flip */
-    .meta .impact div:hover { background: rgb(255 142 108 / 0.08); }
+    .meta .impact div:hover { background: rgb(247 207 61 / 0.08); }
   }
 
 
@@ -815,7 +832,7 @@
     font-family: "DM Sans", sans-serif; font-size: 1.15rem; line-height: 1;
   }
   .to-top.show { display: flex; opacity: 1; transform: none; }
-  .to-top:hover { border-color: var(--coral); color: var(--coral); }
+  .to-top:hover { border-color: var(--sun-deep); color: var(--strong); }
   .to-top:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
   @media (min-width: 68rem) { .to-top { display: none !important; } }
   @media (prefers-reduced-motion: reduce) {
@@ -851,7 +868,7 @@
     box-shadow: 0 4px 12px rgb(61 56 51 / 0.18);
   }
   .skip:focus, .skip:focus-visible {
-    left: 0.75rem; outline: 2px solid var(--coral); outline-offset: 2px;
+    left: 0.75rem; outline: 2px solid var(--sun); outline-offset: 2px;
   }
 
   /* Read-next thumbnail: a small card of the next case's cover sits
@@ -897,7 +914,7 @@
     .meta { position: static; page-break-inside: avoid; margin-inline: 0; }
     .hero h1 { font-size: 22pt; page-break-after: avoid; }
     .hero .kicker { font-size: 8pt; margin-bottom: 0.6rem; }
-    .hero .kicker::before { display: none; }  /* the coral rule doesn't print */
+    .hero .kicker::before { display: none; }  /* the yellow rule doesn't print */
     .tags { display: none; }                  /* pills read awkwardly on paper */
     .cover img { max-height: 260pt; object-fit: cover; }
     #cs h2 { font-size: 14pt; page-break-after: avoid; }
@@ -1090,7 +1107,7 @@
   <section class="read-next" aria-label="Read next">
     <span class="label">Read next</span>
     <div class="layout">
-      <a href="../overseeai/" class="thumb"><img src="../assets/thumb-overseeai.webp?v=8" alt="Ratebook Workbench cover" width="1504" height="940" loading="lazy"></a>
+      <a href="../overseeai/" class="thumb"><img src="../assets/thumb-overseeai.webp?v=10" alt="Ratebook Workbench cover" width="1504" height="940" loading="lazy"></a>
       <div>
         <p class="headline"><a href="../overseeai/">Slower on purpose<span class="go" aria-hidden="true">→</span></a></p>
         <p class="why">The Ratebook Workbench — how this method looks when it's the product I'm shipping.</p>
@@ -1240,7 +1257,7 @@
   });
 })();
 
-/* The named pointer — a Figma live-cursor: the arrow plus a coral tag that
+/* The named pointer — a Figma live-cursor: the arrow plus a yellow tag that
    trails it. On a link the tag says what the link does. Link detection is
    delegated, so links that arrive after unlock get their verb too. The system
    cursor is only hidden (html.np) once this is actually running. */
@@ -1250,7 +1267,7 @@
   const el = document.createElement('div');
   el.className = 'cursor';
   el.setAttribute('aria-hidden', 'true');
-  el.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5.5 3.2 L5.5 20.4 L9.9 16.4 L12.6 21.6 L15.2 20.3 L12.6 15.3 L18 15.1 Z" fill="#e56749" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg><span class="lbl"></span>';
+  el.innerHTML = '<svg viewBox="0 0 14 18"><path d="M6.15 12.87 H5.96 L5.82 13 L1 17.38 V1.7 L12.28 12.87 Z" fill="#f7cf3d" stroke="#35302a" stroke-width="1.2" stroke-linejoin="round"/></svg><span class="lbl"></span>';
   const lbl = el.querySelector('.lbl');
   document.body.appendChild(el);
   document.documentElement.classList.add('np');

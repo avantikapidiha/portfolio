@@ -987,9 +987,9 @@
 
   <main id="cs" tabindex="-1"><div class="hero">
   <div class="tags"><span class="tag">AI workflow</span><span class="tag">Figma MCP</span><span class="tag">GitHub</span></div>
-  <span class="kicker">Practice · AI-native product design · 2025–now · 6-min read</span>
+  <span class="kicker">Practice · AI-native product design · 2025–now · 7-min read</span>
   <h1>Where the AI actually sits</h1>
-  <p class="dek">Every designer says they use AI now. This is the specific place it sits in my work: which artefact it touches, what it produces, what I check afterwards, and the parts I still do myself.</p>
+  <p class="dek">Every designer says they use AI now. This is the specific place it sits in my work: which artefact it touches, what it produces, what I check afterwards, and the design decisions that stay mine.</p>
   <figure class="cover">
     <img src="img/fig-figma-html.webp" loading="eager" fetchpriority="high" alt="The same Portals screen twice: on the left, the Figma frame; on the right, the HTML prototype it was settled in first." width="1504" height="940">
     <figcaption><span class="tag">Figma · HTML</span>The same screen, twice. Left, the frame in Figma. Right, the HTML prototype where the flow was actually settled, before the frame existed.</figcaption>
@@ -998,6 +998,7 @@
 
 <div class="cs-grid">
   <aside class="meta" aria-label="At a glance">
+    <div><dt>My part</dt><dd>The problem · the structure · the names · the cut · the room</dd></div>
     <div><dt>Tools</dt><dd>Figma and its MCP server · Claude Code · Cursor · Lovable · Stitch · Lottie</dd></div>
     <div><dt>Written for machines</dt><dd>DESIGN.md · design tokens · a voice spec shipped as a skill</dd></div>
     <div><dt>Where it lives</dt><dd>GitHub. Prototypes, specs and token files, versioned like code</dd></div>
@@ -1007,11 +1008,12 @@
       <nav class="toc" aria-label="Sections">
         <a href="#the-stack">01 · The stack</a>
         <a href="#the-loop">02 · The loop</a>
-        <a href="#figma-over-mcp">03 · Figma over MCP</a>
-        <a href="#the-room">04 · The room</a>
-        <a href="#review">05 · Review</a>
-        <a href="#a-record">06 · A record</a>
-        <a href="#limits">07 · Limits</a>
+        <a href="#my-part">03 · My part</a>
+        <a href="#figma-over-mcp">04 · Figma over MCP</a>
+        <a href="#the-room">05 · The room</a>
+        <a href="#review">06 · Review</a>
+        <a href="#a-record">07 · A record</a>
+        <a href="#limits">08 · Limits</a>
       </nav>
     </div>
   </aside>
@@ -1048,8 +1050,21 @@
       <blockquote class="pull"><p>If doing this is easier and faster for you in HTML, then just do it there. We can update the Figma later.</p><cite>Me, to Claude, most weeks</cite></blockquote>
     </section>
 
+    <section id="my-part">
+      <span class="label">03 · My part</span>
+      <h2>What I am doing while it builds</h2>
+      <p>The model made building cheap. It did not make deciding cheap. The hours that used to go into drawing screens now go into the part that was always the job. Working out what the thing is, and what it can do without.</p>
+      <div class="triad quad">
+        <div class="card"><span class="mark"></span><span class="label">Frame</span><p>Before anything is generated, I work out the structure, often on paper. What the objects are, how they relate, what each one is called, which step deserves a stop.</p></div>
+        <div class="card"><span class="mark"></span><span class="label">Choose</span><p>A prototype comes back in minutes, so I ask for three directions and keep one. Generating them is not the design work. Knowing which one is right, and why, is.</p></div>
+        <div class="card"><span class="mark"></span><span class="label">Cut</span><p>Then I edit. One helper line, not three. Blue for actions and nothing else. A toggle that shows it is on does not need a label saying so again.</p></div>
+        <div class="card"><span class="mark"></span><span class="label">Hold the line</span><p>Hierarchy, spacing, colour, tone. I have sent work back for being too loud, too clever, too much. Taste is the one input the model cannot supply for itself.</p></div>
+      </div>
+      <p>Each of those calls then goes into the spec as a rule. The next build starts from my decisions, not from the model's average.</p>
+    </section>
+
     <section id="figma-over-mcp">
-      <span class="label">03 · Figma over MCP</span>
+      <span class="label">04 · Figma over MCP</span>
       <h2>The design file became something you can query</h2>
       <p>Most people use the Figma MCP server one way, to generate code from a frame. I use it three ways, and the other two are where the value is.</p>
       <div class="triad quad">
@@ -1061,7 +1076,7 @@
     </section>
 
     <section id="the-room">
-      <span class="label">04 · The room</span>
+      <span class="label">05 · The room</span>
       <h2>The research is not generated</h2>
       <p>The redesign that cut customer service calls at ICICI Lombard was built on sessions with 14 users and 38 stakeholders. I wrote the scripts and moderated them. I still write the run-book, still moderate, still sit through the silence while someone fails to find the thing I was certain was obvious.</p>
       <p>What AI does here is the work around the room. A first pass at the script. The tidy-up of a transcript. A sweep of tags across sessions, and then an argument with me about what the tags actually mean. The findings stay mine, because the room was.</p>
@@ -1069,7 +1084,7 @@
     </section>
 
     <section id="review">
-      <span class="label">05 · Review</span>
+      <span class="label">06 · Review</span>
       <h2>I make it argue against me</h2>
       <p>The most useful instruction I give a model is to attack the work. Before I defend anything, I run an adversarial pass over it: a set of language rules, a hierarchy model, a page like this one. The prompt is a question rather than a request. Will these rules fail, and where?</p>
       <p>It is the cheapest critique available and the only one with no ego in it. Most of what comes back is noise. The one paragraph that is not is worth the pass.</p>
@@ -1077,24 +1092,22 @@
     </section>
 
     <section id="a-record">
-      <span class="label">06 · A record</span>
+      <span class="label">07 · A record</span>
       <h2>Things I made this way</h2>
       <dl class="defs wide">
         <div><dt>Sep 2026</dt><dd>This website. Designed in Figma, built in HTML, hosted on GitHub Pages. The case studies are encrypted in your browser, so the password never reaches a server, because there is no server. The screens inside them came out of Figma over MCP and were composed into cards by a script.</dd></div>
         <div><dt>May 2026</dt><dd><a href="../myfood/">MyFood</a>. Concept, design, code and the Play Store release, alone. No single tool could build it, so the planning document became the contract between tools that do not talk to each other.</dd></div>
         <div><dt>2026</dt><dd>A voice system in three tiers, product, agent and status, shipped as a skill. Screen copy is now generated to the spec, with no separate copywriting pass.</dd></div>
         <div><dt>2026</dt><dd>Vantage, a design system in versioned releases: 25+ components, and DESIGN.md and the token files as the build contract that coding agents read.</dd></div>
-        <div><dt>2025</dt><dd>A session at NIFT Mumbai on UX audits, user research and AI-assisted design. Explaining the workflow to people who had never seen it is the fastest way to find the parts you cannot yet justify.</dd></div>
-        <div><dt>2025–26</dt><dd>A deliberate year out, retraining on AI-assisted design and systems thinking. Everything above comes from that year onwards.</dd></div>
       </dl>
     </section>
 
     <section id="limits">
-      <span class="label">07 · Limits</span>
+      <span class="label">08 · Limits</span>
       <h2>What it does not do</h2>
       <ul class="learnings">
         <li><strong>It does not decide.</strong> Almost every correction I make to generated work removes something. Fewer steps, fewer labels, fewer words. Subtraction is a judgement about what matters, and nothing in the model has a stake in the answer.</li>
-        <li><strong>It does not sit in the room.</strong> See 04.</li>
+        <li><strong>It does not sit in the room.</strong> See 05.</li>
         <li><strong>It does not know what the business will not fund.</strong> The constraint that kills a design is usually political, and it is never written down anywhere the model can read.</li>
         <li><strong>It does not name things well.</strong> Naming is structure, not decoration. What a thing is called decides what people believe it does, and that call has stayed mine every time.</li>
       </ul>

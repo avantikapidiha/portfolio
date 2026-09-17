@@ -143,7 +143,8 @@
 
   /* ——— The ground behind the hero: a designer's canvas. Three quiet layers,
      all fading to the white page before the prose starts:
-     .wash — a butter glow behind the name, a breath of lavender and peach at the sides;
+     .wash — a butter glow behind the name, butter and peach at the sides (warm only: she
+             was not sure about the lavender, 2026-09-17);
      .dots — a dot grid, faint, thinned out behind the name so the type sits on clean paper;
      .lit  — the same grid in yellow, shown only in a pool around the pointer.
      The pool widens while a desk tile is being dragged (html.sorting-desk). ——— */
@@ -159,7 +160,7 @@
   .ground .wash {
     background:
       radial-gradient(ellipse 46rem 30rem at 50% 30%, var(--butter), transparent 70%),
-      radial-gradient(ellipse 34rem 26rem at 8% 62%, var(--lavender), transparent 70%),
+      radial-gradient(ellipse 26rem 20rem at 4% 68%, var(--sand), transparent 70%),
       radial-gradient(ellipse 34rem 26rem at 94% 58%, var(--blush), transparent 70%);
     opacity: 0.85;
   }
@@ -631,31 +632,56 @@
                 box-shadow 320ms cubic-bezier(0.23, 1, 0.32, 1),
                 border-color 220ms ease-out;
   }
+  /* A linked card: the LINK is the frame (radius, hairline, shadow, clip) and the
+     image moves inside it. Under a mouse the frame lifts and leans toward the
+     pointer, the image drifts a few px the other way and grows a touch, a soft
+     light follows the pointer across it, the Open chip drops in, and the
+     entry's title and the caption's Case-study link pick up the marker. The
+     script sets --rx/--ry (lean) and --px/--py (pointer, 0–1) on the link. */
+  .thumbs > a {
+    border-radius: 16px; overflow: hidden; isolation: isolate;
+    border: 1px solid rgb(61 56 51 / 0.10);
+    box-shadow: 0 1px 2px rgb(61 56 51 / 0.04), 0 8px 24px rgb(61 56 51 / 0.06);
+    transition: transform 420ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 420ms cubic-bezier(0.23, 1, 0.32, 1), border-color 220ms ease-out;
+  }
+  .thumbs > a img { border: 0; border-radius: 0; box-shadow: none; transition: transform 520ms cubic-bezier(0.23, 1, 0.32, 1); }
   @media (hover: hover) and (pointer: fine) {
-    /* hover: a considered lift + brighter rim + a yellow hairline promotion */
-    .thumbs > a:hover img {
-      transform: translateY(-5px) scale(1.006);
-      box-shadow: 0 3px 6px rgb(61 56 51 / 0.06), 0 22px 48px rgb(61 56 51 / 0.13);
-      border-color: rgb(217 154 0 / 0.55);
+    .thumbs > a:hover {
+      transform: perspective(1400px) translateY(-6px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      box-shadow: 0 3px 6px rgb(61 56 51 / 0.06), 0 26px 56px rgb(61 56 51 / 0.15);
+      border-color: rgb(217 154 0 / 0.6);
     }
-    /* "open" chip that appears on hover, top-right corner. Reads with the
-       card's warm wash — small enough to not compete, a quiet edge to signal
-       action. Hidden by default, no layout shift. */
+    .thumbs > a:hover img { transform: scale(1.04) translate(calc((0.5 - var(--px, 0.5)) * 14px), calc((0.5 - var(--py, 0.5)) * 10px)); }
+    .thumbs > a:active { transform: perspective(1400px) translateY(-2px) scale(0.992); transition-duration: 90ms; }
+    /* the light under the pointer */
+    .thumbs > a::before {
+      content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(22rem circle at calc(var(--px, 0.5) * 100%) calc(var(--py, 0.5) * 100%), rgb(255 255 255 / 0.34), transparent 60%);
+      opacity: 0; transition: opacity 300ms ease-out;
+    }
+    .thumbs > a:hover::before { opacity: 1; }
+    /* the Open chip: the site's yellow, dropping in with a little overshoot */
     .thumbs > a::after {
       content: "Open →";
-      position: absolute; top: 0.85rem; right: 0.85rem;
-      padding: 0.32rem 0.65rem 0.3rem;
+      position: absolute; top: 0.85rem; right: 0.85rem; z-index: 2;
+      padding: 0.36rem 0.72rem 0.34rem;
       border-radius: 999px;
-      background: #ffffff; color: var(--accent);
+      background: var(--sun-fill); color: var(--on-sun);
       font-size: 0.6875rem; font-weight: 600;
       letter-spacing: 0.14em; text-transform: uppercase;
-      border: 1px solid rgb(61 56 51 / 0.18);
-      opacity: 0; transform: translateY(-4px);
-      transition: opacity 220ms ease-out, transform 220ms cubic-bezier(0.23,1,0.32,1);
+      opacity: 0; transform: translateY(-10px) scale(0.92);
+      transition: opacity 200ms ease-out, transform 380ms cubic-bezier(0.3, 1.5, 0.5, 1);
       pointer-events: none;
-      box-shadow: 0 2px 6px rgb(61 56 51 / 0.08);
+      box-shadow: 0 4px 12px rgb(61 56 51 / 0.16);
     }
     .thumbs > a:hover::after { opacity: 1; transform: none; }
+    /* the words around the card answer it */
+    .ebody:has(.thumbs > a:hover) .et a,
+    .thumbs:has(> a:hover) figcaption a:first-of-type { background: linear-gradient(transparent 58%, var(--butter) 58%); }
+    /* Kind words: a card under the pointer lifts and squares up to you */
+    .words figure { transition: transform 360ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 360ms cubic-bezier(0.23, 1, 0.32, 1); }
+    .words figure:hover { transform: translateY(-4px) rotate(-0.4deg); box-shadow: 0 2px 4px rgb(61 56 51 / 0.05), 0 18px 36px rgb(61 56 51 / 0.10); }
+    .words figure:nth-child(even):hover { transform: translateY(-4px) rotate(0.4deg); }
   }
   .thumbs .pair {
     display: grid;
@@ -926,6 +952,32 @@
   .cursor.flip .lbl { left: auto; right: 6px; }
   html.np .deskline { display: none; }   /* with the pointer carrying the line, the slot under the desk is for touch */
 
+  /* ——— Scroll. Four quiet things, all off under reduced motion and without JS:
+     a 2px yellow line across the top that fills as you read; the hero loosening
+     as it leaves (--p runs 0→1 over the first 520px: the ground lags, the
+     portrait grows a touch, the tiles drift and turn a degree or two — on the
+     individual translate/rotate/scale properties, so hover and drag transforms
+     are untouched); entries, cards and chips arriving as they enter the
+     viewport (.rv → .in); and the date of the entry you are reading marked. ——— */
+  .progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 30; background: var(--sun); transform: scaleX(var(--read, 0)); transform-origin: 0 50%; pointer-events: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ground { translate: 0 calc(var(--p, 0) * 150px); }
+    .arch img { scale: calc(1 + var(--p, 0) * 0.07); }
+    .desk .obj { translate: 0 calc(var(--p, 0) * var(--dy, 0) * 1px); rotate: calc(var(--p, 0) * var(--dr, 0) * 1deg); }
+    .desk .obj:nth-child(1) { --dy: -14; --dr: -3; }   .desk .obj:nth-child(2) { --dy: 6;  --dr: 1.5; }
+    .desk .obj:nth-child(3) { --dy: -8;  --dr: -1; }   .desk .obj:nth-child(4) { --dy: 10; --dr: 2; }
+    .desk .obj:nth-child(5) { --dy: -6;  --dr: -2; }   .desk .obj:nth-child(6) { --dy: 12; --dr: 3; }
+    .desk.sorting .obj { translate: none; rotate: none; }   /* a tile in the hand sorts on a flat desk */
+
+    html.rvs .rv { opacity: 0; transform: translateY(22px); }
+    html.rvs .rv.in { opacity: 1; transform: none; transition: opacity 700ms ease-out, transform 800ms cubic-bezier(0.23, 1, 0.32, 1); }
+    html.rvs .rv .thumbs { opacity: 0; transform: translateY(14px) scale(0.975); transform-origin: 50% 100%; }
+    html.rvs .rv.in .thumbs { opacity: 1; transform: none; transition: opacity 700ms ease-out 160ms, transform 900ms cubic-bezier(0.23, 1, 0.32, 1) 160ms; }
+    html.rvs .rv .tally > * { opacity: 0; transform: translateY(8px) scale(0.96); }
+    html.rvs .rv.in .tally > * { opacity: 1; transform: none; transition: opacity 400ms ease-out, transform 520ms cubic-bezier(0.3, 1.4, 0.5, 1); transition-delay: calc(220ms + var(--i, 0) * 60ms); }
+  }
+  .entry.here .when { color: var(--strong); text-decoration: underline; text-decoration-color: var(--sun); text-decoration-thickness: 2px; text-underline-offset: 0.4em; }   /* the cell is stretched, so mark the text, not the box */
+
   /* ——— One orchestrated page-load reveal (motion lives only here) ——— */
   @media (prefers-reduced-motion: no-preference) {
     html { scroll-behavior: smooth; }   /* the rail's Work and top links glide; reduced-motion jumps */
@@ -1040,7 +1092,7 @@
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
     header { padding-top: 0; }
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
-    .ground, .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .cta, .nowplaying, .deskline, .rail { display: none; }
+    .progress, .ground, .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .cta, .nowplaying, .deskline, .rail { display: none; }
     .process .panel, .words figure { background: none; border-radius: 0; padding: 0; margin-inline: 0; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
@@ -1085,6 +1137,7 @@
 </head>
 <body>
   <a class="skip" href="#main-content">Skip to content</a>
+  <div class="progress" aria-hidden="true"></div>
   <div class="ground" aria-hidden="true"><i class="wash"></i><i class="dots"></i><i class="lit"></i></div>
 <div class="page">
 
@@ -1514,6 +1567,51 @@
     }
     const p = audio.play();
     if (p && p.then) p.then(start).catch(() => window.open(rec.dataset.store, '_blank', 'noopener')); else start();
+  });
+})();
+
+/* Scroll (the look is CSS, see "Scroll"): --read = how far down the page,
+   --p = how far the hero has left, .rv/.in = arrivals, .here = the entry
+   being read. One passive scroll listener, one rAF. */
+(() => {
+  const root = document.documentElement;
+  let queued = false;
+  const measure = () => {
+    queued = false;
+    const max = root.scrollHeight - innerHeight;
+    root.style.setProperty('--read', max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0);
+    root.style.setProperty('--p', Math.min(1, scrollY / 520).toFixed(4));
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(measure); } }, { passive: true });
+  addEventListener('resize', measure);
+  measure();
+
+  if (!('IntersectionObserver' in window)) return;
+  const here = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('here', e.isIntersecting)), { rootMargin: '-42% 0px -48% 0px' });
+  document.querySelectorAll('.timeline .entry').forEach(el => here.observe(el));
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const els = document.querySelectorAll('.timeline .entry, .timeline h2, .words figure, .process .panel, .now p, .about > *:not(h2)');
+  els.forEach(el => { el.classList.add('rv'); el.querySelectorAll('.tally > *').forEach((c, i) => c.style.setProperty('--i', i)); });
+  root.classList.add('rvs');
+  const land = el => { if (el.classList.contains('in')) return; el.classList.add('in'); setTimeout(() => el.classList.remove('rv', 'in'), 1500); };   // once landed, the classes go, so hover transforms are not outranked
+  const arrive = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { land(e.target); arrive.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+  els.forEach(el => arrive.observe(el));
+  setTimeout(() => els.forEach(el => { if (el.classList.contains('rv') && el.getBoundingClientRect().top < innerHeight) land(el); }), 1200);   // belt and braces: nothing on screen stays hidden
+})();
+
+/* The work cards lean toward the pointer and carry a light under it (CSS reads
+   --rx/--ry and --px/--py on the link). */
+(() => {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.thumbs > a').forEach(a => {
+    a.addEventListener('pointermove', e => {
+      const r = a.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      a.style.setProperty('--px', px.toFixed(3)); a.style.setProperty('--py', py.toFixed(3));
+      a.style.setProperty('--ry', ((px - 0.5) * 5).toFixed(2) + 'deg'); a.style.setProperty('--rx', ((0.5 - py) * 4).toFixed(2) + 'deg');
+    });
+    a.addEventListener('pointerleave', () => ['--px', '--py', '--rx', '--ry'].forEach(v => a.style.removeProperty(v)));
   });
 })();
 

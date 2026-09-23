@@ -1285,8 +1285,10 @@
   const lbl = el.querySelector('.lbl');
   document.body.appendChild(el);
   document.documentElement.classList.add('np');
-  let x = -100, y = -100, cx = -100, cy = -100, seen = false;
-  addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; if (!seen) { cx = x; cy = y; seen = true; el.style.opacity = 1; } }, { passive: true });
+  /* The arrow IS the pointer (the real one is hidden), so it moves on the event
+     itself: no easing, no catch-up frames. An eased follow read as lag. */
+  let seen = false;
+  addEventListener('pointermove', e => { el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`; if (!seen) { seen = true; el.style.opacity = 1; } }, { passive: true });
   document.documentElement.addEventListener('mouseleave', () => { el.style.opacity = 0; });
   document.documentElement.addEventListener('mouseenter', () => { if (seen) el.style.opacity = 1; });
   const verb = node => {
@@ -1303,8 +1305,6 @@
     if (node) lbl.textContent = verb(node);
     el.classList.toggle('on', !!node);
   });
-  const loop = () => { cx += (x - cx) * 0.22; cy += (y - cy) * 0.22; el.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(loop); };
-  loop();
 })();
 
 /* Figure zoom: a click on any in-page figure (not the cover, not a link)

@@ -1857,10 +1857,14 @@
   const lbl = el.querySelector('.lbl');
   document.body.appendChild(el);
   document.documentElement.classList.add('np');
-  let x = -100, y = -100, cx = -100, cy = -100, seen = false;
+  /* The arrow IS the pointer (the real one is hidden), so it moves on the event
+     itself: no easing, no catch-up frames. An eased follow read as lag. */
+  let seen = false, flip = false;
   addEventListener('pointermove', e => {
-    x = e.clientX; y = e.clientY;
-    if (!seen) { cx = x; cy = y; seen = true; el.style.opacity = 1; }
+    el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+    const f = e.clientX > innerWidth - 300;          // near the right edge the tag sits left of the arrow
+    if (f !== flip) { flip = f; el.classList.toggle('flip', f); }
+    if (!seen) { seen = true; el.style.opacity = 1; }
   }, { passive: true });
   document.documentElement.addEventListener('mouseleave', () => { el.style.opacity = 0; });
   document.documentElement.addEventListener('mouseenter', () => { if (seen) el.style.opacity = 1; });
@@ -1892,13 +1896,6 @@
     const tile = node.closest('.desk .obj');
     lbl.textContent = tile && tile.dataset.line ? tile.dataset.line + ' · ' + verb(node) : verb(node);
   });
-  const loop = () => {
-    cx += (x - cx) * 0.22; cy += (y - cy) * 0.22;
-    el.style.transform = `translate(${cx}px, ${cy}px)`;
-    el.classList.toggle('flip', x > innerWidth - 300);   // near the right edge the tag sits left of the arrow
-    requestAnimationFrame(loop);
-  };
-  loop();
 })();
 
 /* Hover-prefetch — the reader looks at a case link, we quietly warm the

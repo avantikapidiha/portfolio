@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- GitHub Pages serves this file at whatever path was missed (/portfolio/a/b/ on staging, /a/b/ once the domain is live), so a base pins every relative URL below to the site root. -->
+<script>(function () { var b = document.createElement('base'); b.href = location.pathname.indexOf('/portfolio/') === 0 ? '/portfolio/' : '/'; document.head.appendChild(b); })();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Not found — Avantika Pidiha</title>
 <meta name="description" content="This page doesn't exist. There's plenty else that does.">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#17140f" media="(prefers-color-scheme: dark)">
-<link rel="canonical" href="https://www.avantikapidiha.com/404">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -102,6 +103,11 @@
   }
   .actions a:hover { text-decoration-color: var(--sun-deep); }
   .sep { color: var(--faint); user-select: none; }
+  /* phones: the link row needs ~373px, so under ~437px it wraps and strands "Email me" after a dot; stack instead */
+  @media (max-width: 28rem) {
+    .actions { flex-direction: column; row-gap: 0.1rem; }
+    .actions .sep { display: none; }
+  }
   :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; text-decoration: none; }
   @media (hover: hover) and (pointer: fine) {
     .mark { transition: transform 220ms ease-out; }
@@ -116,7 +122,7 @@
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
   @media (prefers-color-scheme: dark) {
-    :root { --paper: #ffffff; }
+    :root { --paper: #17140f; --ink: #e8e0d0; --strong: #f5efe0; --soft: #b1a897; --faint: #918876; --sun: #f7cf3d; --sun-deep: #ffdd66; --accent: #f5efe0; }
   }
 </style>
 </head>
@@ -127,9 +133,9 @@
     <h1>This page doesn't exist.</h1>
     <p>Plenty else does, though. Try the work index, or the essay on how I actually work with AI.</p>
     <nav class="actions" aria-label="Recovery">
-      <a href="/">Back to the work</a>
+      <a href="./">Back to the work</a>
       <span class="sep" aria-hidden="true">·</span>
-      <a href="/process/">How I work</a>
+      <a href="process/">How I work</a>
       <span class="sep" aria-hidden="true">·</span>
       <a href="mailto:avantikapidiha28@gmail.com">Email me</a>
     </nav>

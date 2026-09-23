@@ -11,15 +11,16 @@
 <!-- STAGING ONLY: remove this noindex line when DNS flips to avantikapidiha.com (launch checklist item) -->
 <meta name="robots" content="noindex">
 <meta property="og:type" content="article">
+<meta property="og:url" content="https://www.avantikapidiha.com/myfood/">
 <meta property="og:title" content="Khana kya banaun? — Avantika Pidiha">
 <meta property="og:description" content="MyFood, a nutrition app that reframes calorie-counting as food-group balance. Designed, built and shipped solo by Avantika Pidiha.">
 <meta property="og:image" content="https://www.avantikapidiha.com/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:alt" content="Avantika Pidiha portfolio card">
+<meta property="og:image:alt" content="Avantika Pidiha — Founding Product Designer at OverseeAI">
 <meta name="twitter:image" content="https://www.avantikapidiha.com/assets/og.jpg">
-<meta name="twitter:image:alt" content="Avantika Pidiha portfolio card">
+<meta name="twitter:image:alt" content="Avantika Pidiha — Founding Product Designer at OverseeAI">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="../assets/mark.svg">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
@@ -162,7 +163,7 @@
   }
   #gate .mark { width: 30px; height: 30px; color: var(--sun); display: block; margin-bottom: 1.1rem; }
   #gate .mark svg { display: block; width: 100%; height: 100%; }
-  #gate h1 {
+  #gate h2 {
     font-family: var(--display);
     font-style: italic;
     font-weight: 400;
@@ -272,14 +273,15 @@
   #cs section > .label { display: block; margin-bottom: 0.55rem; }
   #cs h2 {
     font-size: 1.35rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.008em; color: var(--strong);
-    margin-bottom: 0.9rem; max-width: 30ch;
+    margin-bottom: 0.9rem; max-width: 30ch; text-wrap: pretty;
   }
   /* the section number sits on a small yellow chip: yellow can't be the numeral, so it is the ground under it */
   #cs h2 .num { display: inline-block; padding: 0.12em 0.42em 0.1em; margin-right: 0.6em; border-radius: 6px; background: var(--sun-fill); color: var(--on-sun); font-size: 0.72em; font-weight: 600; letter-spacing: 0.02em; vertical-align: 0.14em; font-variant-numeric: tabular-nums; }
   #cs h3 { font-size: 1.0625rem; font-weight: 600; color: var(--strong); margin: 1.8rem 0 0.35rem; }
   #cs p + p, #cs ul + p, #cs p + ul, #cs ol + p, #cs p + ol { margin-top: 1em; }
-  #cs figure + p, #cs figure + h3, #cs dl + p, #cs .card + p, #cs .triad + p, #cs .flow + p, #cs .quotes + p, #cs .ifthen + p, #cs .funnel + p, #cs .counts + p, #cs .callout + p, #cs .baseline + p { margin-top: 1.6rem; }
+  #cs figure + p, #cs figure + h3, #cs dl + p, #cs .card + p, #cs .triad + p, #cs .flow + p, #cs .quotes + p, #cs .ifthen + p, #cs .funnel + p, #cs .counts + p, #cs .callout + p, #cs .baseline + p, #cs .demo + p { margin-top: 1.6rem; }
   #cs p + .baseline, #cs p + .flow, #cs p + .quotes, #cs p + .ifthen, #cs p + dl { margin-top: 1.4rem; }
+  #cs p + .callout { margin-top: 1.6rem; }   /* a p.callout would otherwise take #cs p + p's 1em */
   #cs ul, #cs ol { padding-left: 1.15rem; }
   #cs li + li { margin-top: 0.35em; }
   #cs li::marker { color: var(--faint); }
@@ -374,7 +376,7 @@
   /* flow chips: a journey as a chain; .drop marks where it broke, .new what the redesign added */
   .flow { margin-top: 1.4rem; padding: 1rem 1.1rem 0.85rem; border: 1px solid var(--hairline-soft); border-radius: var(--radius); }
   .flow + .flow { margin-top: 0.75rem; }
-  .flow .head { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin-bottom: 0.65rem; }
+  .flow .head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.2rem 1rem; align-items: baseline; margin-bottom: 0.65rem; }
   .flow .head .label { display: inline; }
   .flow .head b { font-weight: 600; color: var(--strong); font-variant-numeric: tabular-nums; font-size: 0.9375rem; }
   .flow .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.35rem; }
@@ -385,7 +387,7 @@
   .flow .chip.drop { background: var(--blush); color: var(--alert); }
   .flow .chip.new { background: var(--sage); color: #2f5f37; }
   .flow .arr { color: rgb(61 56 51 / 0.35); font-size: 0.875rem; }
-  .bind { display: inline-flex; align-items: center; gap: inherit; white-space: nowrap; }   /* an arrow and the chip it points at (build.mjs) */
+  .bind { display: inline-flex; align-items: center; gap: inherit; }   /* an arrow and the chip it points at (build.mjs). Inline-flex already keeps the pair on one line; the chip's own text may still wrap on a phone */
   .flow .chip small { font-size: 0.8125rem; color: var(--soft); margin-left: 0.3em; }
   .flow .chain + .chain { margin-top: 0.45rem; }
 
@@ -421,7 +423,7 @@
     background: var(--surface); overflow: hidden;
   }
   .demo .dhead {
-    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 0.2rem 1rem; flex-wrap: wrap;
     padding: 0.8rem 1.15rem; border-bottom: 1px solid var(--surface-line); background: #fff;
   }
   .demo .dhead .label { display: inline; }
@@ -440,12 +442,14 @@
   .demo .dbtn.primary:hover { background: var(--sun-fill); border-color: var(--sun-fill); color: var(--on-sun); }
   .demo .dbtn.ghost { background: none; border-color: transparent; color: var(--soft); }
   .demo .dbtn[disabled] { opacity: 0.42; cursor: default; }
-  .demo .dbtn[disabled]:hover { border-color: var(--surface-line); background: #fff; }
+  .demo .dbtn[disabled]:hover { border-color: var(--surface-line); }
+  .demo .dbtn.primary[disabled]:hover { background: var(--strong); border-color: var(--strong); color: var(--paper); }
   .demo .dbtn.ghost[disabled]:hover { background: none; border-color: transparent; }
   .demo .dstate { margin-top: 0.9rem; font-size: 0.8125rem; line-height: 1.5; color: var(--faint); }
   .demo .bar { height: 4px; border-radius: 999px; background: rgb(61 56 51 / 0.1); margin-top: 0.9rem; overflow: hidden; }
   .demo .bar i { display: block; height: 100%; width: 0; background: var(--sun); transition: width 1.4s linear; }
-  .demo .drows { list-style: none; padding: 0; margin: 0; }
+  #cs .demo .drows { list-style: none; padding: 0; margin: 0; }   /* #cs: has to beat the prose list indent (#cs ul) */
+  #cs .demo .drows li + li { margin-top: 0; }
   .demo .drows li {
     display: flex; align-items: center; gap: 1rem;
     padding: 0.72rem 1.15rem; border-bottom: 1px solid var(--surface-line);
@@ -590,7 +594,8 @@
     /* stacked in the margin, the groups need rules between them or the card
        reads as one long list */
     .meta > div + div { margin-top: 0.95rem; padding-top: 0.95rem; border-top: 1px solid var(--surface-line); }
-    .cs-body > section:first-child { margin-top: 0; }
+    #cs .cs-body > section:first-child { margin-top: 0; }   /* #cs: it has to beat #cs section */
+    #cs .cs-grid { margin-top: clamp(3.5rem, 9vh, 5rem); }   /* the gap the first section carried, now above the card and the text alike */
     /* with the rail on the left, figures overhang to the right only */
     .thumbs { margin-inline: 0 -4.5rem; }
     .thumbs figcaption { margin-inline: 0 4.5rem; }
@@ -841,6 +846,7 @@
     font-family: "DM Sans", sans-serif; font-size: 1.15rem; line-height: 1;
   }
   .to-top.show { display: flex; opacity: 1; transform: none; }
+  @starting-style { .to-top.show { opacity: 0; transform: translateY(6px); } }   /* display: none to flex skips the transition; this gives the fade its first frame */
   .to-top:hover { border-color: var(--sun-deep); color: var(--strong); }
   .to-top:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
   @media (min-width: 68rem) { .to-top { display: none !important; } }
@@ -978,7 +984,7 @@
 <div class="page">
 
   <div class="top" id="top">
-    <a class="home" href="../" aria-label="Back to Avantika's work">
+    <a class="home" href="../" aria-label="Index, back to Avantika's work">
       <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
       <span class="arrow" aria-hidden="true">←</span><span>Index</span>
     </a>
@@ -991,7 +997,7 @@
     <a class="mark-link" href="../" aria-label="Home">
       <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
     </a>
-    <a href="../">Work</a>
+    <a href="../#work">Work</a>
     <a href="../process/">How I work</a>
     <a href="../resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
     <a href="mailto:avantikapidiha28@gmail.com">Email</a>
@@ -999,7 +1005,7 @@
 
   <main id="cs" tabindex="-1"><div class="hero">
   <div class="tags"><span class="tag">Solo build</span><span class="tag">Android</span><span class="tag">Nutrition</span></div>
-  <span class="kicker">MyFood · Android · Mar–May 2026 · 3-min read</span>
+  <span class="kicker">MyFood · Android · Mar–May 2026 · 3&#8209;min&nbsp;read</span>
   <h1>Khana kya banaun?</h1>
   <p class="dek">"What should I cook?" is the question every Indian household asks around six in the evening. MyFood answers it: a day's meals balanced by food group, the recipe for each, and one place for the links I save from YouTube and Instagram. I designed it, built it and shipped it alone. It's live in Play Store Early Access.</p>
   <figure class="cover">
@@ -1026,7 +1032,7 @@
     <section>
       <span class="label">02 · The recipes</span>
       <h2>The videos people actually cook from</h2>
-      <p>A recipe here is the dish plus the way people really learn it. Each one carries its serving size, the calories and macros per serving, and a rail of videos for that dish. Nobody in my family has cooked from a text recipe in years. The list filters by what you're after: high protein, low calorie, your own. Saving a link from YouTube or Instagram files it under the dish. That's the "my" in MyFood: the plan is generated, but the recipes are yours.</p>
+      <p>A recipe here is the dish plus the way people really learn it. Each one carries its serving size, the calories and macros per serving, and a rail of videos for that dish. Nobody in my family has cooked from a text recipe in years. The list filters by what you're after: high protein, low calorie, your own. Saving a link from YouTube or Instagram files it under the dish. That's the “my” in MyFood: the plan is generated, but the recipes are yours.</p>
       <figure class="thumbs">
         <img src="img/fig-recipes.webp" loading="lazy" alt="Three MyFood screens: the recipe list with filters, a recipe detail (Dal Paneer Combo) with per-serving nutrition and a video rail, and the add-recipe sheet." width="1504" height="940">
         <figcaption><span class="tag">Recipes</span>The list, a dish with its videos, and the add sheet where a saved link becomes a recipe.</figcaption>
@@ -1038,7 +1044,7 @@
       <h2>I didn't learn to code. I learned to orchestrate.</h2>
       <dl class="defs">
         <div><dt>ChatGPT</dt><dd>The roadmap: GitHub, Vercel, Capacitor, Android Studio. Good for direction, not much use when things broke.</dd></div>
-        <div><dt>Lovable</dt><dd>A rough working model in two hours. As the codebase grew it overwrote changes, burned credits and struggled to debug.</dd></div>
+        <div><dt>Lovable</dt><dd>A rough working model in two hours. As the codebase grew, it overwrote changes, burned credits and struggled to debug.</dd></div>
         <div><dt>Claude Code</dt><dd>Read the whole codebase and explained why things were breaking.</dd></div>
       </dl>
       <p>No single tool could build the app. The loop that could is below. The glue was a planning doc, one .md file that became the contract between tools that don't talk to each other. It's the same idea I now run at OverseeAI, where the design system's DESIGN.md and tokens are the spec that coding agents build to.</p>
@@ -1069,7 +1075,7 @@
   <section class="read-next" aria-label="Read next">
     <span class="label">Read next</span>
     <div class="layout">
-      <a href="../process/" class="thumb"><img src="../assets/thumb-process.webp?v=11" alt="Where the AI actually sits cover" width="1504" height="940" loading="lazy"></a>
+      <a href="../process/" class="thumb" tabindex="-1" aria-hidden="true"><img src="../assets/thumb-process.webp?v=11" alt="Where the AI actually sits cover" width="1504" height="940" loading="lazy"></a>
       <div>
         <p class="headline"><a href="../process/">Where the AI actually sits<span class="go" aria-hidden="true">→</span></a></p>
         <p class="why">How I design with AI: what it builds, and the decisions that stay mine.</p>
@@ -1084,6 +1090,8 @@
   <footer>
     <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
     <nav class="site-nav" aria-label="Footer">
+      <a href="../process/">How I work</a>
+      <span class="sep" aria-hidden="true">·</span>
       <a href="https://linkedin.com/in/avantikapidiha" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <span class="sep" aria-hidden="true">·</span>
       <a href="../resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
@@ -1178,7 +1186,7 @@
         txt(state, 'Extracting. This is the only part the machine does on its own.');
         if (fill) requestAnimationFrame(() => { fill.style.width = '100%'; });
         clearTimeout(demo._t);
-        demo._t = setTimeout(() => txt(state, '12 tables extracted. 5 cells flagged for a decision.'), 1500);
+        demo._t = setTimeout(() => txt(state, 'Twelve tables extracted. Five cells flagged for a decision.'), 1500);
       } else if (act === 'reset') {
         clearTimeout(demo._t);
         go.disabled = false;
@@ -1241,7 +1249,7 @@
   document.documentElement.addEventListener('mouseleave', () => { el.style.opacity = 0; });
   document.documentElement.addEventListener('mouseenter', () => { if (seen) el.style.opacity = 1; });
   const verb = node => {
-    if (node.tagName === 'BUTTON') return 'open';
+    if (node.tagName === 'BUTTON') return node.closest('.demo') ? 'try' : 'open';
     const h = node.getAttribute('href') || '';
     if (h.startsWith('mailto:')) return 'email';
     if (/\.pdf($|\?)/i.test(h)) return 'resume';
@@ -1277,8 +1285,9 @@
     layer = document.createElement('div');
     layer.className = 'zoom'; layer.setAttribute('role', 'dialog'); layer.setAttribute('aria-label', img.alt || 'Figure');
     const big = new Image(); big.src = src; big.alt = img.alt || '';
-    const hint = document.createElement('span'); hint.className = 'hint'; hint.textContent = 'Esc to close';
+    const hint = document.createElement('span'); hint.className = 'hint'; hint.textContent = matchMedia('(hover: hover) and (pointer: fine)').matches ? 'Esc to close' : 'Tap to close';
     layer.append(big, hint); document.body.appendChild(layer);
+    layer.tabIndex = -1; layer.setAttribute('aria-modal', 'true'); layer.focus({ preventScroll: true });   // keyboard and screen-reader focus follow the figure into the layer
     document.documentElement.style.overflow = 'hidden';
     void layer.offsetWidth;                    // commit the initial state, then transition
     layer.classList.add('on');
@@ -1290,7 +1299,7 @@
   /* keyboard: every zoomable figure is a button; runs now and again after unlock */
   const arm = () => document.querySelectorAll('#cs .thumbs img').forEach(i => {
     if (i.closest('a') || i.hasAttribute('tabindex')) return;
-    i.tabIndex = 0; i.setAttribute('role', 'button'); i.setAttribute('aria-label', (i.alt || 'Figure') + '. Opens larger.');
+    i.tabIndex = 0; i.setAttribute('role', 'button'); i.setAttribute('aria-label', (i.alt || 'Figure').replace(/\.\s*$/, '') + '. Opens larger.');
   });
   arm();
   const cs = document.getElementById('cs');
@@ -1347,6 +1356,19 @@
 })();
 </script>
 <script>
+/* Skip link: on a gated page it targets the teaser, which is hidden once the
+   page unlocks; from then on the case study itself is where the content starts. */
+(() => {
+  const skip = document.querySelector('.skip');
+  if (!skip) return;
+  skip.addEventListener('click', () => {
+    if (document.documentElement.classList.contains('locked')) return;
+    const cs = document.getElementById('cs');
+    if (cs && !cs.hasAttribute('tabindex')) cs.tabIndex = -1;
+    skip.setAttribute('href', '#cs');
+  });
+})();
+
 /* In this piece: the section you are reading is marked in the list. */
 (() => {
   const links = [...document.querySelectorAll('.toc a[href^="#"]')];

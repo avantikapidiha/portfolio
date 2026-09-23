@@ -472,6 +472,9 @@
   @media (max-width: 26rem) {
     .site-nav { column-gap: 0.45rem; }
     .site-nav a { letter-spacing: 0.12em; padding-inline: 0.2rem; }
+    /* the links keep the desktop pull (a tighter row), so re-seat the
+       footer row on the column edge, in line with the mark */
+    footer .site-nav { padding-inline-start: 0.1rem; }
   }
 
   /* Coinage marker: any phrase Avantika owns as a coined name — set in
@@ -804,9 +807,11 @@
      verbatim. Deliberately undecorated: the quote sits in the page
      voice one step up in size, and the attribution borrows the
      timeline's date treatment so the section needs no new furniture. */
-  .words .grid { display: grid; gap: 0.9rem; }
+  .words .grid { display: grid; gap: 0.9rem; margin-inline: -0.75rem; }   /* phone: the same 12px overhang as the Now and How I work washes */
+  @media print { .words .grid { margin-inline: 0; } }   /* print drops the washes, so the quotes sit on the column */
   .words figure {
     margin: 0; position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;   /* the attribution sits on the card's foot, so a row's names line up */
     padding: 1.3rem 1.35rem 1.25rem;
     border-radius: 14px;
     background: var(--butter);
@@ -841,7 +846,7 @@
     pointer-events: none;
     user-select: none;
   }
-  .words figcaption { margin-top: 0.85rem; font-size: 0.8125rem; color: var(--soft); }
+  .words figcaption { margin-top: auto; padding-top: 0.85rem; font-size: 0.8125rem; color: var(--soft); }
   .words figcaption b {
     display: block;
     font-size: 0.75rem;
@@ -924,6 +929,7 @@
     /* the Now paragraph carries wash padding; keep the hung label
        aligned with its first text line */
     .now h2, .process h2 { top: calc(0.42em + 1.05rem); }
+    .words h2 { top: calc(0.42em + 1.15rem); }   /* the quote cards pad 1.3rem; the quote's line box is a touch shorter */
     .now p, .process .panel { margin-inline: -1.25rem; }  /* wash overhangs; text stays on the column grid */
 
     /* Era labels are chapter heads: they stay IN FLOW above their group
@@ -1191,6 +1197,7 @@
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
     .progress, .ground, .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .cta, .to-work, .nowplaying, .deskline, .rail, .jump, .gatenote { display: none; }
     .process .panel, .words figure { background: none; border-radius: 0; padding: 0; margin-inline: 0; }
+    .words .grid { margin-inline: 0; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
     .now p { background: none; border-radius: 0; padding: 0; margin-inline: 0; font-size: 12pt; }
@@ -1251,7 +1258,7 @@
       <!-- one action row: the pill, then the three links -->
       <div class="ctas">
         <a class="cta" href="./resume.pdf" target="_blank" rel="noopener noreferrer">View resume<span class="go" aria-hidden="true">→</span></a>
-        <nav class="site-nav" aria-label="Contact">
+        <nav class="site-nav" aria-label="Links">
           <a href="process/">How I work</a>
           <span class="sep" aria-hidden="true">·</span>
           <a href="https://linkedin.com/in/avantikapidiha" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1276,7 +1283,7 @@
         <button class="obj record" type="button" aria-label="Play a 30-second preview of AOK by Tai Verdes" aria-pressed="false" data-line="AOK by Tai Verdes, the song that pulls me up when I'm low."
                 data-preview="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e3/69/59/e36959a6-7b06-643a-c452-501900fc6542/mzaf_8317456052580626955.plus.aac.p.m4a"
                 data-store="https://music.apple.com/us/album/aok/1567699119?i=1567699132"><span class="disc"><span class="label"><b>AOK</b><span>Tai Verdes</span></span></span></button>
-        <button class="obj folder" type="button" aria-expanded="false" aria-label="My toolkit, in a folder: Figma, a terminal, GitHub, Claude. Opens it" data-line="Figma, a terminal, GitHub, Claude. Everything I make goes through these four.">
+        <button class="obj folder" type="button" aria-expanded="false" aria-label="My toolkit, in a folder: Figma, a terminal, GitHub, Claude" data-line="Figma, a terminal, GitHub, Claude. Everything I make goes through these four.">
         <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
           <defs>
             <filter id="fsh" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.4" flood-color="#3d3833" flood-opacity="0.22"/></filter>
@@ -1353,7 +1360,7 @@
   <main id="main-content" tabindex="-1">
 
     <section class="intro" aria-label="Introduction">
-      <p>I'm the founding product designer at <a href="overseeai/">OverseeAI</a>, an agentic platform for insurance teams: AI agents run the work, human experts stay in control. I own design end to end, and my focus is what happens after the AI is done — how an expert verifies it, trusts it, and signs off.</p>
+      <p>I'm the founding product designer at <a href="overseeai/">OverseeAI</a>, an agentic platform for insurance teams: AI agents run the work, human experts stay in control. I own design end to end, and my focus is what happens after the AI is done&nbsp;— how an expert verifies it, trusts it, and signs off.</p>
       <p>I also build design systems machines can read, so AI coding agents build from the same spec I design to.</p>
       <p>Before this, consumer products at scale: customer service calls down 37% at <a href="il-takecare/">ICICI Lombard</a> and 70% at <a href="axis/">Axis Bank</a>, and <a href="lenskart/">Lenskart</a>'s home-to-listing conversion up 14%.</p>
     </section>
@@ -1362,7 +1369,7 @@
       <h2>How I work</h2>
       <div class="panel">
       <p>The AI builds. I decide. <a href="process/"><em class="thesis">Where the AI actually sits</em></a> is how I design with AI: what it builds, and the decisions that stay mine. This website came out of it.</p>
-      <div class="chain" aria-label="The loop, mine in yellow"><span class="chip me">I frame the problem</span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip">it builds three directions</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip me">I choose, and cut</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip me">I run the room</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip">it records it in Figma</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip me">I write the rule</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip">and round</span></span></div>
+      <div class="chain" role="group" aria-label="The loop, mine in yellow"><span class="chip me">I frame the problem</span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip">it builds three directions</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip me">I choose, and cut</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip me">I run the room</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip">it records it in Figma</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip me">I write the rule</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="chip">and round</span></span></div>
       </div>
     </section>
 
@@ -1377,11 +1384,11 @@
       <!-- the gate, said once instead of on every card. The script below swaps
            the second line once the reader has the password (localStorage
            'case-pass', written by the case pages' unlock). -->
-      <p class="gatenote"><span class="lock-off">Five case studies stay private, so they share one password. <a href="mailto:avantikapidiha28@gmail.com?subject=Case%20study%20password">Ask me for it</a> and I&rsquo;ll send it the same day. Every number on this page is open.</span><span class="lock-on" hidden>You have the password, so ICICI Lombard, Lenskart and Axis Bank open straight away. The two OverseeAI pages still ask each visit. <button type="button" class="forget">Forget it</button></span></p>
+      <p class="gatenote"><span class="lock-off">Five case studies stay private, so they share one password. <a href="mailto:avantikapidiha28@gmail.com?subject=Case%20study%20password">Ask me for it</a> and I'll send it the same day. Every number on this page is open.</span><span class="lock-on" hidden>You have the password, so ICICI Lombard, Lenskart and Axis Bank open straight away. The two OverseeAI pages still ask each visit. <button type="button" class="forget">Forget it</button></span></p>
 
       <article class="entry">
         <time class="when" datetime="2026">2026</time>
-        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; An agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. Nothing has shipped yet, so the case study claims no results.<div class="tally sky spine" aria-label="The two gates"><span>documents land</span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> start extraction</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span>tables come back flagged</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> decide every flag</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span>certify</span></span></div><figure class="thumbs"><a href="overseeai/"><span class="shot"><img src="assets/thumb-overseeai.webp?v=10" alt="Ratebook Workbench — the filed rate pages beside the machine's reading of them, with the cells the two extractors disagree on flagged" width="1504" height="940" loading="lazy"></span></a><figcaption>The filed pages beside the machine&rsquo;s reading of them; flagged cells wait for a human. <span class="nb"><a href="overseeai/">Case study</a> <span class="lock" data-gate="ask"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; An agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. Nothing has shipped yet, so the case study claims no results.<div class="tally sky spine" role="group" aria-label="The two gates"><span>documents land</span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> start extraction</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span>tables come back flagged</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> decide every flag</span></span><span class="bind"><span class="arr" aria-hidden="true">→</span><span>certify</span></span></div><figure class="thumbs"><a href="overseeai/"><span class="shot"><img src="assets/thumb-overseeai.webp?v=10" alt="Ratebook Workbench — the filed rate pages beside the machine's reading of them, with the cells the two extractors disagree on flagged" width="1504" height="940" loading="lazy"></span></a><figcaption>The filed pages beside the machine's reading of them; flagged cells wait for a human. <span class="nb"><a href="overseeai/" aria-label="Case study: Ratebook Workbench">Case study</a> <span class="lock" data-gate="ask"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
       </article>
 
       <article class="entry">
@@ -1391,7 +1398,7 @@
 
       <article class="entry">
         <time class="when" datetime="2026">2026</time>
-        <div class="ebody"><h3 class="et"><a href="vantage/"><em class="thesis">Vantage</em>, a design system AI agents build to</a></h3> — OverseeAI's design system, from zero. I proved the screens were drifting, pitched the system, and built it. DESIGN.md and the tokens are the spec, and AI coding agents read them on every build.<div class="tally sky"><span><b>25+</b> components</span><span><b>WCAG 2.2</b> AA</span><span><b>8+</b> flows</span><span>versioned releases</span></div><figure class="thumbs"><a href="vantage/"><span class="shot"><img src="assets/thumb-vantage.webp?v=1" alt="Vantage — the blues picked by eye across the product, and the one token that replaced them" width="1504" height="940" loading="lazy"></span></a><figcaption>Every screen picked its own blue; Vantage keeps one, named the same in Figma and in code. <span class="nb"><a href="vantage/">Case study</a> <span class="lock" data-gate="ask"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="vantage/"><em class="thesis">Vantage</em>, a design system AI agents build to</a></h3> — OverseeAI's design system, from zero. I proved the screens were drifting, pitched the system, and built it. DESIGN.md and the tokens are the spec, and AI coding agents read them on every build.<div class="tally sky"><span><b>25+</b> components</span><span><b>WCAG 2.2</b> AA</span><span><b>8+</b> flows</span><span>versioned releases</span></div><figure class="thumbs"><a href="vantage/"><span class="shot"><img src="assets/thumb-vantage.webp?v=1" alt="Vantage — the blues picked by eye across the product, and the one token that replaced them" width="1504" height="940" loading="lazy"></span></a><figcaption>Every screen picked its own blue; Vantage keeps one, named the same in Figma and in code. <span class="nb"><a href="vantage/" aria-label="Case study: Vantage">Case study</a> <span class="lock" data-gate="ask"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
       </article>
 
 
@@ -1401,8 +1408,8 @@
       <h2>Projects · 2026</h2>
 
       <article class="entry">
-        <span class="when"><time datetime="2026-03">March</time>–<time datetime="2026-05">May 2026</time></span>
-        <div class="ebody"><h3 class="et"><a href="myfood/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo, end to end.<div class="tally sage"><span>Concept</span><span>Design</span><span>Code</span><span><b>Play Store</b> Early Access</span></div><figure class="thumbs"><a href="myfood/"><span class="shot"><img src="assets/thumb-myfood.webp?v=10" alt="MyFood — daily food-group balance screen" width="1504" height="940" loading="lazy"></span></a><figcaption>Daily balance — live in Play Store Early Access. <a href="myfood/">Case study</a> · <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a></figcaption></figure></div>
+        <span class="when"><time datetime="2026-03">Mar</time>–<time datetime="2026-05">May 2026</time></span>
+        <div class="ebody"><h3 class="et"><a href="myfood/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo, end to end.<div class="tally sage"><span>Concept</span><span>Design</span><span>Code</span><span><b>Play Store</b> Early Access</span></div><figure class="thumbs"><a href="myfood/"><span class="shot"><img src="assets/thumb-myfood.webp?v=10" alt="MyFood — daily food-group balance screen" width="1504" height="940" loading="lazy"></span></a><figcaption>Daily balance — live in Play Store Early Access. <span class="nb"><a href="myfood/" aria-label="Case study: MyFood">Case study</a> · <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a></span></figcaption></figure></div>
       </article>
 
 
@@ -1413,17 +1420,17 @@
 
       <article class="entry">
         <span class="when"><time datetime="2024">2024</time>–<time datetime="2025">25</time></span>
-        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around the three things people were phoning about. My favourite kind of metric: <em class="thesis">the phone that doesn't ring</em>. Also the company's first design system (<em class="thesis">Vantage</em> is my second).<div class="tally blush"><span><b>−37%</b> customer service calls</span><span><b>−30%</b> handoff time</span><span><b>14</b> users · <b>38</b> stakeholders</span></div><figure class="thumbs"><a href="il-takecare/"><span class="shot"><img src="assets/thumb-icici.webp?v=10" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></span></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <span class="nb"><a href="il-takecare/">Case study</a> <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around the three things people were phoning about. My favourite kind of metric: <em class="thesis">the phone that doesn't ring</em>. Also the company's first design system (<em class="thesis">Vantage</em> is my second).<div class="tally blush"><span><b>−37%</b> customer service calls</span><span><b>−30%</b> handoff time</span><span><b>14</b> users · <b>38</b> stakeholders</span></div><figure class="thumbs"><a href="il-takecare/"><span class="shot"><img src="assets/thumb-icici.webp?v=10" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></span></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <span class="nb"><a href="il-takecare/" aria-label="Case study: IL TakeCare">Case study</a> <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2023">2023</time>–<time datetime="2024">24</time></span>
-        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home pod through a full homepage revamp: search up front, photo tiles per category, a fixed bar. Also redesigned the Lenskart at Home service flow.<div class="tally lime"><span><b>+14%</b> home-to-listing conversion</span><span><b>+20%</b> cart conversion</span><span><b>−30%</b> at-home drop-offs</span></div><figure class="thumbs"><a href="lenskart/"><span class="shot"><img src="assets/thumb-lenskart.webp?v=10" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></span></a><figcaption>Home and Explore — cart conversion up 20%. <span class="nb"><a href="lenskart/">Case study</a> <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home pod through a full homepage revamp: search up front, photo tiles per category, a fixed bar. Also redesigned the Lenskart at Home service flow.<div class="tally lime"><span><b>+14%</b> home-to-listing conversion</span><span><b>+20%</b> cart conversion</span><span><b>−30%</b> at-home drop-offs</span></div><figure class="thumbs"><a href="lenskart/"><span class="shot"><img src="assets/thumb-lenskart.webp?v=10" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></span></a><figcaption>Home and Explore — cart conversion up 20%. <span class="nb"><a href="lenskart/" aria-label="Case study: Lenskart">Case study</a> <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2021">2021</time>–<time datetime="2023">23</time></span>
-        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months: service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/"><span class="shot"><img src="assets/thumb-axis-oneview.webp?v=10" alt="Axis Bank — Start a Deposit, four tenures as cards with their rates on the face" width="1504" height="940" loading="lazy"></span></a><figcaption>Start a Deposit — four tenures as cards, the rate on each face; deposit amounts up 5%. <span class="nb"><a href="axis/">Case study</a> on all three <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months. Service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/"><span class="shot"><img src="assets/thumb-axis-oneview.webp?v=10" alt="Axis Bank — Start a Deposit, four tenures as cards with their rates on the face" width="1504" height="940" loading="lazy"></span></a><figcaption>Start a Deposit — four tenures as cards, the rate on each face; deposit amounts up 5%. <span class="nb"><a href="axis/" aria-label="Case study: Axis Bank">Case study</a> on all three <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></span></figcaption></figure></div>
       </article>
 
 
@@ -1459,8 +1466,8 @@
     <section class="about">
       <h2>About</h2>
       <p>The newer skills:</p>
-      <div class="tally" aria-label="Skills"><span><b>Design-to-agent handoff</b> DESIGN.md + tokens</span><span><b>Agent &amp; skill authoring</b></span><span><b>Evaluation design</b></span><span><b>Non-deterministic UX</b></span></div>
-      <p>I'm open to senior product design roles on agentic/AI products. If you're building one — say hi: <a class="say-hi" href="mailto:avantikapidiha28@gmail.com">avantikapidiha28@gmail.com</a></p>
+      <div class="tally" role="group" aria-label="Skills"><span><b>Design-to-agent handoff</b> DESIGN.md + tokens</span><span><b>Agent &amp; skill authoring</b></span><span><b>Evaluation design</b></span><span><b>Non-deterministic UX</b></span></div>
+      <p>I'm open to senior product design roles on agentic/AI products. If you're building one&nbsp;— say hi: <a class="say-hi" href="mailto:avantikapidiha28@gmail.com">avantikapidiha28@gmail.com</a></p>
     </section>
 
   </main>
@@ -1476,7 +1483,7 @@
       <span class="sep" aria-hidden="true">·</span>
       <a href="mailto:avantikapidiha28@gmail.com">Email</a>
     </nav>
-    <p class="colophon">Hand-written HTML, no framework, no build step. Instrument Serif &amp; DM Sans, self-hosted.</p>
+    <p class="colophon">Hand-written HTML, no framework. <span class="nb">Instrument Serif</span> &amp; DM Sans, self-hosted.</p>
   </footer>
 
 </div>
@@ -1859,7 +1866,7 @@
   const meta = 'font-family:"DM Sans",-apple-system,sans-serif;font-size:12px;color:#6b6259;line-height:1.55;';
   try {
     console.log('%chi.', style);
-    console.log('%cHand-written HTML, no framework, no build step.\nInstrument Serif + DM Sans, self-hosted.\nCase studies decrypt in the browser — the password never reaches a server, because there is no server.\n\nSay hi: avantikapidiha28@gmail.com', meta);
+    console.log('%cHand-written HTML, no framework.\nInstrument Serif + DM Sans, self-hosted.\nCase studies decrypt in the browser — the password never reaches a server, because there is no server.\n\nSay hi: avantikapidiha28@gmail.com', meta);
   } catch (e) { /* IE and locked-down consoles */ }
 })();
 

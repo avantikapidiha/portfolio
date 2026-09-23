@@ -199,6 +199,18 @@
     box-shadow: 0 2px 6px rgb(242 183 5 / 0.28), 0 10px 22px rgb(242 183 5 / 0.2);
     transition: transform 220ms cubic-bezier(0.23,1,0.32,1), background-color 150ms ease-out;
   }
+  .ctas { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 1.25rem; margin-top: 0.35rem; }
+  .ctas .cta { margin-top: 0; }
+  .to-work {
+    display: inline-flex; align-items: center; gap: 0.4em;
+    font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--soft); text-decoration: none; padding: 0.7rem 0.2rem 0.66rem;
+    transition: color 150ms ease-out;
+  }
+  .to-work .go { transition: transform 220ms cubic-bezier(0.23,1,0.32,1); }
+  .to-work:hover { color: var(--strong); }
+  .to-work:hover .go { transform: translateY(3px); }
+  .to-work:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
   .cta .go { transition: transform 220ms cubic-bezier(0.23,1,0.32,1); }
   .cta:hover { background: var(--sun); transform: translateY(-1px); }
   .cta:hover .go { transform: translateX(3px); }
@@ -328,6 +340,25 @@
     .rail .mark-link:hover .mark { transform: rotate(-18deg) scale(1.1); }
     .rail .mark-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
   }
+  /* The phone twin of the rail: under 68rem there is no rail, so the same four
+     links ride a slim bar at the top once the hero has gone. */
+  .jump {
+    position: fixed; inset: 0 0 auto 0; z-index: 29;
+    display: flex; justify-content: center; gap: clamp(1.1rem, 6vw, 2rem);
+    padding: calc(0.7rem + env(safe-area-inset-top)) 1rem 0.65rem;
+    background: color-mix(in srgb, var(--paper) 96%, transparent);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+    opacity: 0; transform: translateY(-100%); visibility: hidden;
+    transition: opacity 220ms ease-out, transform 300ms cubic-bezier(0.23, 1, 0.32, 1), visibility 0s 300ms;
+  }
+  html.past-hero .jump { opacity: 1; transform: none; visibility: visible; transition-delay: 0s; }
+  .jump a { text-decoration: none; color: var(--soft); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1; padding: 0.35rem 0.15rem; }
+  .jump a:hover { color: var(--strong); }
+  .jump a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+  @media (min-width: 68rem) { .jump { display: none; } }
+  html { scroll-padding-top: 3.5rem; }
+  @media (min-width: 68rem) { html { scroll-padding-top: 0; } }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .nb { white-space: nowrap; }   /* the name sparkle wraps with the surname, never alone */
 
@@ -561,7 +592,7 @@
     color: var(--strong);
   }
 
-  /* Tier 2 — compact milestones (NIFT, Harvard, B.Des): same flat
+  /* Tier 2 — compact milestones (NIFT, B.Des): same flat
      title voice, tighter rhythm and no image slots do the demotion. */
   /* the numbers, shown rather than said: a row of small receipts under an
      entry, on the case's own wash. Prose above it carries no figures. */
@@ -700,6 +731,22 @@
     height: 100%;        /* both stretch to the row */
     object-fit: cover;   /* the shorter of a pair crops, never squashes */
   }
+  /* The gate, said once: one quiet line under the first era head. */
+  .gatenote { margin: -0.35rem 0 1.6rem; font-size: 0.8125rem; line-height: 1.55; color: var(--soft); max-width: 36rem; }
+  .gatenote [hidden] { display: none; }
+  .gatenote a { color: var(--strong); }
+  .gatenote .forget {
+    font: inherit; color: var(--strong); background: none; border: 0; padding: 0; cursor: pointer;
+    text-decoration: underline; text-decoration-color: var(--hairline); text-underline-offset: 0.2em;
+  }
+  .gatenote .forget:hover { text-decoration-color: currentColor; }
+  .gatenote .forget:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 3px; }
+  /* Each gated card's state: a small lock that opens once the reader has the password. */
+  .thumbs .lock { display: inline-flex; align-items: center; gap: 0.3em; margin-left: 0.35em; color: var(--faint); }
+  .thumbs .lock svg { width: 0.85em; height: 0.85em; flex: none; }
+  .thumbs .lock .shackle { transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); transform-origin: 10.8px 7px; }
+  .thumbs .lock.open { color: var(--soft); }
+  .thumbs .lock.open .shackle { transform: rotate(28deg) translateY(-1px); }
   .thumbs figcaption {
     margin-top: 0.6rem;
     font-size: 0.8125rem;
@@ -1099,7 +1146,7 @@
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
     header { padding-top: 0; }
     header .site-nav { display: none; }    /* footer nav stays and carries the same links */
-    .progress, .ground, .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .cta, .nowplaying, .deskline, .rail { display: none; }
+    .progress, .ground, .arch, .squiggle, .sparkle, .mark, .thumbs, .cursor, .desk, .cta, .to-work, .nowplaying, .deskline, .rail, .jump, .gatenote { display: none; }
     .process .panel, .words figure { background: none; border-radius: 0; padding: 0; margin-inline: 0; }
     h1 { font-size: 26pt; }                /* Instrument Serif, matching the resume's masthead */
     .et { font-size: 10.5pt; }
@@ -1136,8 +1183,7 @@
   ],
   "email": "mailto:avantikapidiha28@gmail.com",
   "alumniOf": [
-    { "@type": "EducationalOrganization", "name": "Unitedworld Institute of Design" },
-    { "@type": "EducationalOrganization", "name": "Harvard Business School Online" }
+    { "@type": "EducationalOrganization", "name": "Unitedworld Institute of Design" }
   ]
 }
 </script>
@@ -1166,7 +1212,10 @@
         <span class="sep" aria-hidden="true">·</span>
         <a href="mailto:avantikapidiha28@gmail.com">Email</a>
       </nav>
-      <a class="cta" href="./resume.pdf" target="_blank" rel="noopener noreferrer">View resume<span class="go" aria-hidden="true">→</span></a>
+      <div class="ctas">
+        <a class="cta" href="./resume.pdf" target="_blank" rel="noopener noreferrer">View resume<span class="go" aria-hidden="true">→</span></a>
+        <a class="to-work" href="#work">Skip to the work<span class="go" aria-hidden="true">↓</span></a>
+      </div>
 
       <!-- The desk: six square tiles, things that are hers. The court most
            mornings start on; her books; the canvas from a painting session
@@ -1249,6 +1298,13 @@
     <a href="mailto:avantikapidiha28@gmail.com">Email</a>
   </nav>
 
+  <!-- the rail's phone twin: a slim bar that arrives once the hero has gone -->
+  <nav class="jump" aria-label="Site">
+    <a href="#work">Work</a>
+    <a href="process/">Writing</a>
+    <a href="./resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</a>
+    <a href="mailto:avantikapidiha28@gmail.com">Email</a>
+  </nav>
   <main id="main-content" tabindex="-1">
 
     <section class="intro" aria-label="Introduction">
@@ -1273,10 +1329,14 @@
 
     <section class="timeline" id="work">
       <h2>OverseeAI · 2026–now</h2>
+      <!-- the gate, said once instead of on every card. The script below swaps
+           the second line once the reader has the password (localStorage
+           'case-pass', written by the case pages' unlock). -->
+      <p class="gatenote"><span class="lock-off">Four case studies are client work, so they share one password. <a href="mailto:avantikapidiha28@gmail.com?subject=Case%20study%20password">Ask me for it</a> and I&rsquo;ll send it the same day. Every number on this page is open.</span><span class="lock-on" hidden>You have the password, so the client case studies open straight away. OverseeAI still asks each visit. <button type="button" class="forget">Forget it</button></span></p>
 
       <article class="entry">
         <time class="when" datetime="2026">2026</time>
-        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; An agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. Nothing has shipped yet, so the case study claims no results.<div class="tally sky spine" aria-label="The two gates"><span>documents land</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> start extraction</span><span class="arr" aria-hidden="true">→</span><span>tables come back flagged</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> decide every flag</span><span class="arr" aria-hidden="true">→</span><span>certify</span></div><figure class="thumbs"><a href="overseeai/"><span class="shot"><img src="assets/thumb-overseeai.webp?v=10" alt="Ratebook Workbench — the filed rate pages beside the machine's reading of them, with the cells the two extractors disagree on flagged" width="1504" height="940" loading="lazy"></span></a><figcaption>The filed pages beside the machine&rsquo;s reading of them; flagged cells wait for a human. <a href="overseeai/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="overseeai/">Ratebook Workbench &mdash; slower on purpose</a></h3> &mdash; An agentic workbench where insurance teams create, verify and compare ratebooks. The first version never stopped, so I put <em class="thesis">two gates</em> in it. Nothing has shipped yet, so the case study claims no results.<div class="tally sky spine" aria-label="The two gates"><span>documents land</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> start extraction</span><span class="arr" aria-hidden="true">→</span><span>tables come back flagged</span><span class="arr" aria-hidden="true">→</span><span class="stop"><b>you</b> decide every flag</span><span class="arr" aria-hidden="true">→</span><span>certify</span></div><figure class="thumbs"><a href="overseeai/"><span class="shot"><img src="assets/thumb-overseeai.webp?v=10" alt="Ratebook Workbench — the filed rate pages beside the machine's reading of them, with the cells the two extractors disagree on flagged" width="1504" height="940" loading="lazy"></span></a><figcaption>The filed pages beside the machine&rsquo;s reading of them; flagged cells wait for a human. <a href="overseeai/">Case study</a> <span class="lock" data-gate="ask"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></figcaption></figure></div>
       </article>
 
       <article class="entry">
@@ -1309,11 +1369,6 @@
         <div class="ebody"><h3 class="et">Guest lecture at NIFT Mumbai</h3> — Taught a session on UX audits, user research, and AI-assisted design. I forgot to take a photo with the students.</div>
       </article>
 
-      <article class="entry compact">
-        <time class="when" datetime="2025">2025</time>
-        <div class="ebody"><h3 class="et">Design Thinking and Innovation, Harvard Business School Online</h3> — Part of a deliberate year away from full-time work, May 2025 to April 2026: retraining in AI-assisted design and systems thinking, with time for health and family. That retraining is exactly what OverseeAI hired me for.</div>
-      </article>
-
     </section>
 
     <section class="timeline">
@@ -1321,17 +1376,17 @@
 
       <article class="entry">
         <span class="when"><time datetime="2024">2024</time>–<time datetime="2025">25</time></span>
-        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around the three things people were phoning about. My favourite kind of metric: <em class="thesis">the phone that doesn't ring</em>. Also the company's first design system (<em class="thesis">Vantage</em> is my second).<div class="tally blush"><span><b>−37%</b> customer service calls</span><span><b>−30%</b> handoff time</span><span><b>14</b> users · <b>38</b> stakeholders</span></div><figure class="thumbs"><a href="il-takecare/"><span class="shot"><img src="assets/thumb-icici.webp?v=10" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></span></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <a href="il-takecare/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="il-takecare/">ICICI Lombard — the IL TakeCare revamp</a> (Sr. Product Designer)</h3> — Redesigned the flagship insurance app around the three things people were phoning about. My favourite kind of metric: <em class="thesis">the phone that doesn't ring</em>. Also the company's first design system (<em class="thesis">Vantage</em> is my second).<div class="tally blush"><span><b>−37%</b> customer service calls</span><span><b>−30%</b> handoff time</span><span><b>14</b> users · <b>38</b> stakeholders</span></div><figure class="thumbs"><a href="il-takecare/"><span class="shot"><img src="assets/thumb-icici.webp?v=10" alt="IL TakeCare — the redesigned home for existing, new, and win-back customers" width="1504" height="940" loading="lazy"></span></a><figcaption>One home, three states — existing, new, and win-back; customer service calls down 37%. <a href="il-takecare/">Case study</a> <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2023">2023</time>–<time datetime="2024">24</time></span>
-        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home pod through a full homepage revamp: search up front, photo tiles per category, a fixed bar. Also redesigned the Lenskart at Home service flow.<div class="tally lime"><span><b>+14%</b> home-to-listing conversion</span><span><b>+20%</b> cart conversion</span><span><b>−30%</b> at-home drop-offs</span></div><figure class="thumbs"><a href="lenskart/"><span class="shot"><img src="assets/thumb-lenskart.webp?v=10" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></span></a><figcaption>Home and Explore — cart conversion up 20%. <a href="lenskart/">Case study</a> &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="lenskart/">Lenskart — the Home pod</a> (Sr. Product Designer)</h3> — Led the Home pod through a full homepage revamp: search up front, photo tiles per category, a fixed bar. Also redesigned the Lenskart at Home service flow.<div class="tally lime"><span><b>+14%</b> home-to-listing conversion</span><span><b>+20%</b> cart conversion</span><span><b>−30%</b> at-home drop-offs</span></div><figure class="thumbs"><a href="lenskart/"><span class="shot"><img src="assets/thumb-lenskart.webp?v=10" alt="Lenskart app — redesigned Home and Explore" width="1504" height="940" loading="lazy"></span></a><figcaption>Home and Explore — cart conversion up 20%. <a href="lenskart/">Case study</a> <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></figcaption></figure></div>
       </article>
 
       <article class="entry">
         <span class="when"><time datetime="2021">2021</time>–<time datetime="2023">23</time></span>
-        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months: service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/"><span class="shot"><img src="assets/thumb-axis-oneview.webp?v=10" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></span></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three &middot; password on request.</figcaption></figure></div>
+        <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months: service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/"><span class="shot"><img src="assets/thumb-axis-oneview.webp?v=10" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></span></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></figcaption></figure></div>
       </article>
 
       <article class="entry compact">
@@ -1619,6 +1674,32 @@
       a.style.setProperty('--ry', ((px - 0.5) * 5).toFixed(2) + 'deg'); a.style.setProperty('--rx', ((0.5 - py) * 4).toFixed(2) + 'deg');
     });
     a.addEventListener('pointerleave', () => ['--px', '--py', '--rx', '--ry'].forEach(v => a.style.removeProperty(v)));
+  });
+})();
+
+/* The gate's state, shown on the index. The case pages keep the password in
+   localStorage 'case-pass' after a good unlock (OverseeAI never does); here
+   it only flips the locks and the note — nothing is decrypted on this page. */
+(() => {
+  const note = document.querySelector('.gatenote');
+  const locks = document.querySelectorAll('.thumbs .lock');
+  const has = () => { try { return !!localStorage.getItem('case-pass'); } catch (e) { return false; } };
+  const paint = () => {
+    const on = has();
+    if (note) { note.querySelector('.lock-off').hidden = on; note.querySelector('.lock-on').hidden = !on; }
+    for (const l of locks) {
+      const open = on && l.dataset.gate === 'keep';
+      l.classList.toggle('open', open);
+      l.querySelector('.lt').textContent = open ? 'unlocked' : 'password';
+    }
+  };
+  paint();
+  addEventListener('pageshow', paint);        // back from a case page (bfcache)
+  addEventListener('storage', paint);         // unlocked in another tab
+  note?.querySelector('.forget')?.addEventListener('click', () => {
+    try { localStorage.removeItem('case-pass'); } catch (e) {}
+    paint();
+    note.querySelector('.lock-off a')?.focus({ preventScroll: true });
   });
 })();
 

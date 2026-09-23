@@ -1098,7 +1098,7 @@
   if (!payloadEl) return;                       // public / preview build: content is already in place
   const p = JSON.parse(payloadEl.textContent);
   const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-  const KEY = 'myfood';
+  const KEY = 'case-pass';
 
   async function deriveKey(password) {
     const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
@@ -1131,8 +1131,9 @@
     try {
       const key = await deriveKey(password);
       await reveal(key);
-      try { sessionStorage.setItem(KEY, password); } catch (e) {}
+      try { localStorage.setItem(KEY, password); } catch (e) {}
     } catch (e) {
+      if (quiet) { try { localStorage.removeItem(KEY); } catch (e2) {} }   // a remembered password that no longer works is forgotten
       if (!quiet) {
         msg.textContent = 'That password didn\'t work.'; msg.className = 'msg err';
         pw.setAttribute('aria-invalid', 'true'); pw.select();
@@ -1143,7 +1144,7 @@
 
   form.addEventListener('submit', e => { e.preventDefault(); if (pw.value) attempt(pw.value, false); });
   pw.addEventListener('input', () => { pw.removeAttribute('aria-invalid'); if (msg.classList.contains('err')) { msg.textContent = ''; msg.className = 'msg'; } });
-  try { const saved = sessionStorage.getItem(KEY); if (saved) attempt(saved, true); } catch (e) {}
+  try { const saved = localStorage.getItem(KEY); if (saved) attempt(saved, true); } catch (e) {}
 })();
 
 /* Mini demos. Markup lives in the page source; the behaviour is here and fully

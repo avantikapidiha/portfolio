@@ -328,7 +328,7 @@
   }
   .deskline[hidden] { display: none; }
 
-  /* ——— The rail: the case pages' fixed side nav (star, Work, Writing, Résumé,
+  /* ——— The rail: the case pages' fixed side nav (star, Work, How I work, Résumé,
      Email), here too so the site has one way of getting around. It stays out
      of the hero — the name already carries the star — and fades in once the
      masthead has scrolled away (html.past-hero, set by the script below).
@@ -537,7 +537,7 @@
   main > section { position: relative; margin-top: clamp(3rem, 8vh, 4.5rem); }
   main > section + section { margin-top: clamp(4.25rem, 9vh, 5.5rem); }
   /* Between two timeline eras: a bigger break than a normal section boundary
-     so the reader feels the shift from OverseeAI → Reset year → Consumer
+     so the reader feels the shift from OverseeAI → Projects → Consumer
      scale. Also the small yellow kicker rule on the incoming h2 has more air
      to open a chapter. */
   main > section.timeline + section.timeline { margin-top: clamp(5.5rem, 12vh, 7rem); }
@@ -628,7 +628,7 @@
     color: var(--strong);
   }
 
-  /* Tier 2 — compact milestones (NIFT, B.Des): same flat
+  /* Tier 2 — compact milestones (none on the page now; kept for the next one): same flat
      title voice, tighter rhythm and no image slots do the demotion. */
   /* the numbers, shown rather than said: a row of small receipts under an
      entry, on the case's own wash. Prose above it carries no figures. */
@@ -1331,16 +1331,16 @@
       <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 1.5 C13.4 7.4 16.6 10.6 22.5 12 C16.6 13.4 13.4 16.6 12 22.5 C10.6 16.6 7.4 13.4 1.5 12 C7.4 10.6 10.6 7.4 12 1.5 Z" fill="currentColor"/></svg></span>
     </a>
     <a href="#work" aria-current="page">Work</a>
-    <a href="process/">Writing</a>
-    <a href="./resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</a>
+    <a href="process/">How I work</a>
+    <a href="./resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
     <a href="mailto:avantikapidiha28@gmail.com">Email</a>
   </nav>
 
   <!-- the rail's phone twin: a slim bar that arrives once the hero has gone -->
   <nav class="jump" aria-label="Site">
     <a href="#work">Work</a>
-    <a href="process/">Writing</a>
-    <a href="./resume.pdf" target="_blank" rel="noopener noreferrer">Résumé</a>
+    <a href="process/">How I work</a>
+    <a href="./resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
     <a href="mailto:avantikapidiha28@gmail.com">Email</a>
   </nav>
   <main id="main-content" tabindex="-1">
@@ -1354,7 +1354,7 @@
     <section class="process">
       <h2>How I work</h2>
       <div class="panel">
-      <p>The AI builds. I decide. Who holds the work at each step, and the parts that are still people, are in <a href="process/"><em class="thesis">Where the AI actually sits</em></a>. This website came out of it.</p>
+      <p>The AI builds. I decide. <a href="process/"><em class="thesis">Where the AI actually sits</em></a> is how I design with AI: what it builds, and the decisions that stay mine. This website came out of it.</p>
       <div class="chain" aria-label="The loop, mine in yellow"><span class="chip me">I frame the problem</span><span class="arr" aria-hidden="true">→</span><span class="chip">it builds three directions</span><span class="arr" aria-hidden="true">→</span><span class="chip me">I choose, and cut</span><span class="arr" aria-hidden="true">→</span><span class="chip me">I run the room</span><span class="arr" aria-hidden="true">→</span><span class="chip">it records it in Figma</span><span class="arr" aria-hidden="true">→</span><span class="chip me">I write the rule</span><span class="arr" aria-hidden="true">→</span><span class="chip">and round</span></div>
       </div>
     </section>
@@ -1370,7 +1370,7 @@
       <!-- the gate, said once instead of on every card. The script below swaps
            the second line once the reader has the password (localStorage
            'case-pass', written by the case pages' unlock). -->
-      <p class="gatenote"><span class="lock-off">Four case studies are client work, so they share one password. <a href="mailto:avantikapidiha28@gmail.com?subject=Case%20study%20password">Ask me for it</a> and I&rsquo;ll send it the same day. Every number on this page is open.</span><span class="lock-on" hidden>You have the password, so the client case studies open straight away. OverseeAI still asks each visit. <button type="button" class="forget">Forget it</button></span></p>
+      <p class="gatenote"><span class="lock-off">Four case studies stay private, so they share one password. <a href="mailto:avantikapidiha28@gmail.com?subject=Case%20study%20password">Ask me for it</a> and I&rsquo;ll send it the same day. Every number on this page is open.</span><span class="lock-on" hidden>You have the password, so ICICI Lombard, Lenskart and Axis Bank open straight away. OverseeAI still asks each visit. <button type="button" class="forget">Forget it</button></span></p>
 
       <article class="entry">
         <time class="when" datetime="2026">2026</time>
@@ -1387,25 +1387,17 @@
         <div class="ebody"><h3 class="et"><em class="thesis">Vantage</em>, a design system AI agents build to</h3> — OverseeAI's design system, from zero. DESIGN.md and the tokens are the spec, and AI coding agents read them on every build, so nothing ships off-system.<div class="tally sky"><span><b>25+</b> components</span><span><b>WCAG 2.2</b> AA</span><span><b>8+</b> flows</span><span>versioned releases</span></div></div>
       </article>
 
-      <article class="entry compact">
-        <time class="when" datetime="2026-05">May 2026</time>
-        <div class="ebody"><h3 class="et">Joined OverseeAI as Founding Product Designer</h3> — The problem is inverted from everything before it: not "how does the user do the task" but "how does an expert supervise it."</div>
-      </article>
 
     </section>
 
     <section class="timeline">
-      <h2>The reset year · 2025–26</h2>
+      <h2>Projects · 2026</h2>
 
       <article class="entry">
         <span class="when"><time datetime="2026-03">March</time>–<time datetime="2026-05">May 2026</time></span>
         <div class="ebody"><h3 class="et"><a href="myfood/">MyFood</a></h3> — Designed and built a nutrition app that reframes calorie-counting as food-group balance. Solo, end to end.<div class="tally sage"><span>Concept</span><span>Design</span><span>Code</span><span><b>Play Store</b> Early Access</span></div><figure class="thumbs"><a href="myfood/"><span class="shot"><img src="assets/thumb-myfood.webp?v=10" alt="MyFood — daily food-group balance screen" width="1504" height="940" loading="lazy"></span></a><figcaption>Daily balance — live in Play Store Early Access. <a href="myfood/">Case study</a> · <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a></figcaption></figure></div>
       </article>
 
-      <article class="entry compact">
-        <time class="when" datetime="2025">2025</time>
-        <div class="ebody"><h3 class="et">Guest lecture at NIFT Mumbai</h3> — Taught a session on UX audits, user research, and AI-assisted design. I forgot to take a photo with the students.</div>
-      </article>
 
     </section>
 
@@ -1427,10 +1419,6 @@
         <div class="ebody"><h3 class="et"><a href="axis/">Axis Bank — service pages, One View, fixed deposits</a> (Product Designer, via THEM Consulting)</h3> — Three projects over eighteen months: service pages that moved branch errands into the app, <em class="thesis">One View</em> for every account in one list, and a fixed-deposit flow built to keep money in.<div class="tally lavender"><span><b>−70%</b> customer service calls</span><span><b>−45%</b> task time</span><span><b>40%</b> One View adoption, month one</span><span><b>+5%</b> deposit amounts</span></div><figure class="thumbs"><a href="axis/"><span class="shot"><img src="assets/thumb-axis-oneview.webp?v=10" alt="Axis One View — unified accounts view" width="1504" height="940" loading="lazy"></span></a><figcaption>One View — every account in one place; 40% adoption in month one. <a href="axis/">Case study</a> on all three <span class="lock" data-gate="keep"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="7" width="10" height="7" rx="1.6" fill="currentColor"/><path class="shackle" d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="lt">password</span></span></figcaption></figure></div>
       </article>
 
-      <article class="entry compact">
-        <span class="when"><time datetime="2017">2017</time>–<time datetime="2021">21</time></span>
-        <div class="ebody"><h3 class="et">B.Des, Unitedworld Institute of Design</h3> — Where it started.</div>
-      </article>
 
     </section>
 

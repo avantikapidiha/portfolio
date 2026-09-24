@@ -610,11 +610,11 @@
     .meta .wide { grid-column: 1; }
     /* still taller than the view: no scroll inside the card; it rides with the page instead (script below sets .tall) */
     .meta.tall { position: static; max-height: none; overflow: visible; }
-    /* the section list runs in two short columns, so the whole card fits a laptop screen */
-    .meta .toc { columns: 2; column-gap: 1rem; }
-    .meta .toc a { break-inside: avoid; border-bottom: 0; padding-block: 0.2rem; font-size: 0.8125rem; }
-    .meta .toc a:hover, .meta .toc a[aria-current="true"] { padding-left: 0; }   /* no indent in a narrow column: the dot sits in the gutter */
-    .meta .toc a[aria-current="true"]::before { left: -0.8rem; }
+    /* .toc.two: a page with short section names can run its list in two columns, so the whole card fits a laptop screen */
+    .meta .toc.two { columns: 2; column-gap: 1rem; }
+    .meta .toc.two a { break-inside: avoid; border-bottom: 0; padding-block: 0.2rem; font-size: 0.8125rem; }
+    .meta .toc.two a:hover, .meta .toc.two a[aria-current="true"] { padding-left: 0; }   /* no indent in a narrow column: the dot sits in the gutter */
+    .meta .toc.two a[aria-current="true"]::before { left: -0.8rem; }
     /* stacked in the margin, the groups need rules between them or the card
        reads as one long list */
     .meta > div + div { margin-top: 0.95rem; padding-top: 0.95rem; border-top: 1px solid var(--surface-line); }

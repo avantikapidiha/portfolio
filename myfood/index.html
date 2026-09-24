@@ -279,8 +279,8 @@
   #cs h2 .num { display: inline-block; padding: 0.12em 0.42em 0.1em; margin-right: 0.6em; border-radius: 6px; background: var(--sun-fill); color: var(--on-sun); font-size: 0.72em; font-weight: 600; letter-spacing: 0.02em; vertical-align: 0.14em; font-variant-numeric: tabular-nums; }
   #cs h3 { font-size: 1.0625rem; font-weight: 600; color: var(--strong); margin: 1.8rem 0 0.35rem; }
   #cs p + p, #cs ul + p, #cs p + ul, #cs ol + p, #cs p + ol { margin-top: 1em; }
-  #cs figure + p, #cs figure + h3, #cs dl + p, #cs .card + p, #cs .triad + p, #cs .flow + p, #cs .quotes + p, #cs .ifthen + p, #cs .funnel + p, #cs .counts + p, #cs .callout + p, #cs .baseline + p, #cs .demo + p { margin-top: 1.6rem; }
-  #cs p + .baseline, #cs p + .flow, #cs p + .quotes, #cs p + .ifthen, #cs p + dl { margin-top: 1.4rem; }
+  #cs figure + p, #cs figure + h3, #cs dl + p, #cs .compare + p, #cs .card + p, #cs .triad + p, #cs .flow + p, #cs .quotes + p, #cs .ifthen + p, #cs .funnel + p, #cs .counts + p, #cs .callout + p, #cs .baseline + p, #cs .demo + p { margin-top: 1.6rem; }
+  #cs p + .baseline, #cs p + .flow, #cs p + .quotes, #cs p + .ifthen, #cs p + dl, #cs p + .compare { margin-top: 1.4rem; }
   #cs p + .callout { margin-top: 1.6rem; }   /* a p.callout would otherwise take #cs p + p's 1em */
   #cs ul, #cs ol { padding-left: 1.15rem; }
   #cs li + li { margin-top: 0.35em; }
@@ -403,6 +403,18 @@
   .ifthen .none { color: var(--faint); font-weight: 400; }
 
   /* two-column definition rows (success metrics, principles) */
+  /* compare: a small labelled table for before/after and round-by-round comparisons.
+     Column heads say what each column is, so nothing needs a colour key. */
+  .compare { width: 100%; margin-top: 1.4rem; border-collapse: collapse; font-size: 0.9375rem; line-height: 1.4; }
+  .compare caption { caption-side: top; text-align: left; font-size: 0.6875rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--soft); padding-bottom: 0.7rem; }
+  .compare th, .compare td { text-align: left; vertical-align: top; padding: 0.6rem 0.9rem 0.6rem 0; border-top: 1px solid var(--hairline-soft); }
+  .compare th:last-child, .compare td:last-child { padding-right: 0; }
+  .compare thead th { border-top: 0; font-size: 0.8125rem; font-weight: 600; color: var(--strong); padding-top: 0; padding-bottom: 0.5rem; }
+  .compare tbody th { font-weight: 400; color: var(--soft); }
+  .compare tbody td { color: var(--ink); }
+  .compare tbody td:last-child { color: var(--strong); font-weight: 500; }
+  .compare tbody tr:last-child > * { border-bottom: 1px solid var(--hairline-soft); }
+  .compare small { display: block; color: var(--soft); font-size: 0.8125rem; font-weight: 400; margin-top: 0.1rem; }
   .defs { margin-top: 1.2rem; }
   .defs div { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.25rem 1rem; padding: 0.6rem 0; border-top: 1px solid var(--hairline-soft); font-size: 0.9875rem; }
   .defs div:last-child { border-bottom: 1px solid var(--hairline-soft); }
@@ -591,6 +603,13 @@
       .meta dt { margin-bottom: 0.15rem; }
     }
     .meta .wide { grid-column: 1; }
+    /* still taller than the view: no scroll inside the card; it rides with the page instead (script below sets .tall) */
+    .meta.tall { position: static; max-height: none; overflow: visible; }
+    /* the section list runs in two short columns, so the whole card fits a laptop screen */
+    .meta .toc { columns: 2; column-gap: 1rem; }
+    .meta .toc a { break-inside: avoid; border-bottom: 0; padding-block: 0.2rem; font-size: 0.8125rem; }
+    .meta .toc a:hover, .meta .toc a[aria-current="true"] { padding-left: 0; }   /* no indent in a narrow column: the dot sits in the gutter */
+    .meta .toc a[aria-current="true"]::before { left: -0.8rem; }
     /* stacked in the margin, the groups need rules between them or the card
        reads as one long list */
     .meta > div + div { margin-top: 0.95rem; padding-top: 0.95rem; border-top: 1px solid var(--surface-line); }
@@ -927,7 +946,7 @@
     body { background: #ffffff; font-size: 10.5pt; line-height: 1.5; }
     /* chrome and hover-only affordances vanish on paper */
     .top, .site-nav, .rail, .to-top, .cursor, #gate, .toc { display: none; }
-    .thumbs img, .cover img, .card, .flow, .quotes blockquote, .baseline, .ifthen, .defs, .read-next, .meta, .hero { break-inside: avoid; }
+    .thumbs img, .cover img, .card, .flow, .compare, .quotes blockquote, .baseline, .ifthen, .defs, .read-next, .meta, .hero { break-inside: avoid; }
     .meta { position: static; page-break-inside: avoid; margin-inline: 0; }
     .hero h1 { font-size: 22pt; page-break-after: avoid; }
     .hero .kicker { font-size: 8pt; margin-bottom: 0.6rem; }
@@ -1380,6 +1399,18 @@
   }, { rootMargin: '-35% 0px -60% 0px' });
   watch();
   new MutationObserver(watch).observe(document.getElementById('cs') || document.body, { childList: true });   // sections that arrive after unlock
+})();
+
+/* The margin card never scrolls inside itself: if it's taller than the view, it stops sticking (.tall). */
+(() => {
+  const fit = () => document.querySelectorAll('#cs aside.meta').forEach(m => {
+    m.classList.remove('tall');
+    if (getComputedStyle(m).position === 'sticky' && m.scrollHeight > m.clientHeight + 2) m.classList.add('tall');
+  });
+  const ro = 'ResizeObserver' in window ? new ResizeObserver(() => fit()) : null;   // web fonts and the unlock grow the card after load
+  const watch = () => { fit(); if (ro) document.querySelectorAll('#cs aside.meta > *').forEach(c => ro.observe(c)); };
+  watch(); addEventListener('resize', fit); addEventListener('load', fit);
+  new MutationObserver(watch).observe(document.getElementById('cs') || document.body, { childList: true });   // the card that arrives after unlock
 })();
 
 /* Back to top — appears past half-viewport scroll on mobile; smooth-scroll

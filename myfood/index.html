@@ -502,7 +502,12 @@
   .zoom img { max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: var(--radius); box-shadow: 0 2px 6px rgb(61 56 51 / 0.08), 0 30px 70px rgb(61 56 51 / 0.18);
     transform: scale(0.985); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); }
   .zoom.on img { transform: none; }
+  @media (max-width: 40rem) {   /* phones: a text figure at 100% is unreadable, so it opens wide and pans */
+    .zoom { place-items: start; overflow: auto; -webkit-overflow-scrolling: touch; padding: 1rem; }
+    .zoom img { max-width: none; max-height: none; width: 260vw; }
+  }
   .zoom .hint { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+  @media (max-width: 40rem) { .zoom .hint { position: fixed; background: var(--paper, #fdfcfa); padding: 0.3rem 0.7rem; border-radius: 999px; } }
   @media (prefers-color-scheme: dark) { .zoom { background: rgb(23 20 15 / 0.96); } }
   .thumbs .pair img { height: 100%; object-fit: cover; }
   /* caption as a line of its own furniture: the tag is a pill, the sentence
@@ -723,9 +728,12 @@
     margin-inline: -0.5rem;
     border-radius: 6px;
     transition: background-color 180ms ease-out;
+    border-bottom: 0;   /* the hairline is drawn inside the padding, so it never overhangs the card or curls at the corners */
+    background: linear-gradient(var(--surface-line), var(--surface-line)) no-repeat 0.5rem 100% / calc(100% - 1rem) 1px;
   }
+  .meta .impact div:last-child { background-image: none; }
   @media (hover: hover) and (pointer: fine) {
-    .meta .impact div:hover { background: #fffaea; }
+    .meta .impact div:hover { background-color: #fffaea; }
     .meta .impact div::before {
       content: "";
       position: absolute; left: -0.15rem; top: 0.55rem; bottom: 0.55rem;
@@ -845,7 +853,7 @@
     /* tag pill hover: warm yellow wash instead of the light one */
     .tags .tag:hover { background: rgb(247 207 61 / 0.1); }
     /* impact-row hover flip */
-    .meta .impact div:hover { background: rgb(247 207 61 / 0.08); }
+    .meta .impact div:hover { background-color: rgb(247 207 61 / 0.08); }
   }
 
 
@@ -1304,7 +1312,7 @@
     layer = document.createElement('div');
     layer.className = 'zoom'; layer.setAttribute('role', 'dialog'); layer.setAttribute('aria-label', img.alt || 'Figure');
     const big = new Image(); big.src = src; big.alt = img.alt || '';
-    const hint = document.createElement('span'); hint.className = 'hint'; hint.textContent = matchMedia('(hover: hover) and (pointer: fine)').matches ? 'Esc to close' : 'Tap to close';
+    const hint = document.createElement('span'); hint.className = 'hint'; hint.textContent = matchMedia('(hover: hover) and (pointer: fine)').matches ? 'Esc to close' : (matchMedia('(max-width: 40rem)').matches ? 'Drag to pan · tap to close' : 'Tap to close');
     layer.append(big, hint); document.body.appendChild(layer);
     layer.tabIndex = -1; layer.setAttribute('aria-modal', 'true'); layer.focus({ preventScroll: true });   // keyboard and screen-reader focus follow the figure into the layer
     document.documentElement.style.overflow = 'hidden';
@@ -1397,6 +1405,10 @@
   const io = new IntersectionObserver(es => {
     for (const e of es) if (e.isIntersecting) { links.forEach(l => l.removeAttribute('aria-current')); map.get(e.target).setAttribute('aria-current', 'true'); }
   }, { rootMargin: '-35% 0px -60% 0px' });
+  addEventListener('scroll', () => {   // the last section is often too short to cross the band: at the foot of the page, it's the current one
+    if (innerHeight + scrollY < document.documentElement.scrollHeight - 4) return;
+    links.forEach(l => l.removeAttribute('aria-current')); links[links.length - 1].setAttribute('aria-current', 'true');
+  }, { passive: true });
   watch();
   new MutationObserver(watch).observe(document.getElementById('cs') || document.body, { childList: true });   // sections that arrive after unlock
 })();

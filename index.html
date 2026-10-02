@@ -1371,10 +1371,9 @@
 
     <section class="timeline" id="work">
       <h2>OverseeAI · 2026–now</h2>
-      <!-- the gate, said once instead of on every card. The script below swaps
-           the second line once the reader has the password (localStorage
-           'case-pass', written by the case pages' unlock). -->
-      <p class="gatenote"><span class="lock-off">Five case studies stay private, so they share one password. <a href="mailto:avantikapidiha28@gmail.com?subject=Case%20study%20password">Ask me for it</a> and I'll send it the same day. Every number on this page is open.</span><span class="lock-on" hidden>You have the password, so every case study opens straight away on this browser. <button type="button" class="forget">Forget it</button></span></p>
+      <!-- shown only once the reader has the password (localStorage 'case-pass',
+           written by the case pages' unlock); the script below flips it. -->
+      <p class="gatenote" hidden><span class="lock-on">You have the password, so every case study opens straight away on this browser. <button type="button" class="forget">Forget it</button></span></p>
 
       <article class="entry">
         <time class="when" datetime="2026">2026</time>
@@ -1715,7 +1714,7 @@
   const has = () => { try { return !!localStorage.getItem('case-pass'); } catch (e) { return false; } };
   const paint = () => {
     const on = has();
-    if (note) { note.querySelector('.lock-off').hidden = on; note.querySelector('.lock-on').hidden = !on; }
+    if (note) note.hidden = !on;               // the note only exists once the reader has the password
     for (const l of locks) {
       const open = on && l.dataset.gate === 'keep';
       l.classList.toggle('open', open);
@@ -1728,7 +1727,6 @@
   note?.querySelector('.forget')?.addEventListener('click', () => {
     try { localStorage.removeItem('case-pass'); } catch (e) {}
     paint();
-    note.querySelector('.lock-off a')?.focus({ preventScroll: true });
   });
 })();
 

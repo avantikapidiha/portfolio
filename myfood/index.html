@@ -113,6 +113,9 @@
      cue (the underline alone is 1.8:1); hovering lays a marker band under it */
   #cs p a, #cs li a, #teaser p a { font-weight: 500; border-radius: 2px; transition: text-decoration-color 150ms ease-out, background-color 150ms ease-out; }
   #cs p a:hover, #cs li a:hover, #teaser p a:hover { background-color: var(--butter); }
+  /* an inline marker band for one sentence in running prose; the ink stays the
+     sentence's own, only the ground changes, and it wraps cleanly across lines */
+  #cs p mark { background: var(--butter); color: inherit; padding: 0.08em 0.18em; margin: 0 -0.18em; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
   :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; text-decoration: none; }
 
   /* ——— Top bar: the way back — sparkle mark + a small caps hint ——— */

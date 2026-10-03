@@ -1037,7 +1037,7 @@
   <div class="tags"><span class="tag">Solo build</span><span class="tag">Android</span><span class="tag">Nutrition</span></div>
   <span class="kicker">MyFood · Android · Mar–May 2026 · 3&#8209;min&nbsp;read</span>
   <h1>Khana kya banaun?</h1>
-  <p class="dek">"What should I cook?" is the question every Indian household asks around six in the evening. MyFood answers it: a day's meals balanced by food group, the recipe for each, and one place for the links I save from YouTube and Instagram. I designed it, built it and shipped it alone. It's live in Play Store Early Access.</p>
+  <p class="dek">Around six every evening, every Indian house asks the same question: what should I cook? I wanted one app that answered it, and nothing I tried did. So in the spring of 2026 I built it myself, without learning to code. This is how that went, and what I learned about the real skill.</p>
   <figure class="cover">
     <img src="img/fig-home.webp" loading="eager" fetchpriority="high" alt="Two MyFood screens side by side: the setup question 'What do you eat?' with vegetarian options, and the home screen showing today's food-group balance and three meal cards." width="1504" height="940">
     <figcaption><span class="tag">Setup · Home</span>Setup asks one question. Home answers the other: today's balance out of nine groups, and the day's three meals.</figcaption>
@@ -1054,15 +1054,17 @@
 
   <div class="cs-body">
     <section>
-      <span class="label">01 · The idea</span>
-      <h2>Food groups, not calories</h2>
-      <p>The nutrition apps I'd used treat food as arithmetic: calories in, calories out, a number to chase. That isn't how anyone cooks. A household cooks by balance: a grain, a dal, a vegetable, something from dairy, and the rest follows. So MyFood counts food groups instead of calories. Setup asks one question, what you eat. The home answers the other at a glance: today's balance out of nine groups, the day's three meals, and a recipe behind each one.</p>
+      <span class="label">01 · The question</span>
+      <h2>One place for all my food</h2>
+      <p>I did not want a diet app. I wanted three things. Suggest a balanced day of meals. Give me the recipe for each one. And keep the links I save from YouTube and Instagram, because that is where everyone in my family actually learns a dish. One place for all my food.</p>
+      <p>No app did all three, and the ones that came close treated food as arithmetic: calories in, calories out, a number to chase. That is not how anyone cooks. So I built the app I wanted.</p>
     </section>
 
     <section>
-      <span class="label">02 · The recipes</span>
-      <h2>The videos people actually cook from</h2>
-      <p>A recipe here is the dish plus the way people really learn it. Each one carries its serving size, the calories and macros per serving, and a rail of videos for that dish. Nobody in my family has cooked from a text recipe in years. The list filters by what you're after: high protein, low calorie, your own. Saving a link from YouTube or Instagram files it under the dish. That's the “my” in MyFood: the plan is generated, but the recipes are yours.</p>
+      <span class="label">02 · The app</span>
+      <h2>Food groups, not calories</h2>
+      <p>A household cooks by balance. A grain, a dal, a vegetable, something from dairy, and the rest follows. So MyFood counts food groups instead of calories. Setup asks one question, what you eat. The home answers the other at a glance: today's balance out of nine groups, the day's three meals, and a recipe behind each one.</p>
+      <p>A recipe here is the dish plus the way people really learn it. Each one carries its serving size, the calories and macros per serving, and a rail of videos for that dish. The list filters by what you are after: high protein, low calorie, your own. Saving a link from YouTube or Instagram files it under the dish. That is the "my" in MyFood. The plan is generated, but the recipes are yours.</p>
       <figure class="thumbs">
         <img src="img/fig-recipes.webp" loading="lazy" alt="Three MyFood screens: the recipe list with filters, a recipe detail (Dal Paneer Combo) with per-serving nutrition and a video rail, and the add-recipe sheet." width="1504" height="940">
         <figcaption><span class="tag">Recipes</span>The list, a dish with its videos, and the add sheet where a saved link becomes a recipe.</figcaption>
@@ -1072,16 +1074,16 @@
     <section>
       <span class="label">03 · The build</span>
       <h2>I didn't learn to code. I learned to orchestrate.</h2>
-      <dl class="defs">
-        <div><dt>ChatGPT</dt><dd>The roadmap: GitHub, Vercel, Capacitor, Android Studio. Good for direction, not much use when things broke.</dd></div>
-        <div><dt>Lovable</dt><dd>A rough working model in two hours. As the codebase grew, it overwrote changes, burned credits and struggled to debug.</dd></div>
-        <div><dt>Claude Code</dt><dd>Read the whole codebase and explained why things were breaking.</dd></div>
-      </dl>
-      <p>No single tool could build the app. The loop that could is below. The glue was a planning doc, one .md file that became the contract between tools that don't talk to each other. It's the same idea I now run at OverseeAI, where the design system's DESIGN.md and tokens are the spec that coding agents build to.</p>
+      <p>I started where everyone starts. ChatGPT gave me the roadmap: connect GitHub, deploy on Vercel, set up Capacitor, build in Android Studio. Great for direction. Not so great when things broke.</p>
+      <p>Lovable got me a rough working model in two hours, which felt like magic. Then the codebase grew and the magic wore off. It overwrote changes, burned credits, and struggled to debug its own work.</p>
+      <p>Claude Code changed the game. It could read the entire codebase and explain why things were breaking, instead of guessing at a fix.</p>
+      <blockquote class="pull"><p>AI tools are instruments. But to create a symphony, you need an orchestrator.</p><cite>From the post that announced the app</cite></blockquote>
+      <p>No single tool could build the app. Together, with me orchestrating, they could. Claude Code planned, Lovable implemented, Vercel deployed, and Claude Code reviewed the result and planned the next step.</p>
       <div class="flow">
         <div class="head"><span class="label">The loop</span><b>plan.md, the contract</b></div>
         <div class="chain"><span class="chip">Claude Code plans</span><span class="bind"><span class="arr">→</span><span class="chip">Lovable implements</span></span><span class="bind"><span class="arr">→</span><span class="chip">Vercel deploys</span></span><span class="bind"><span class="arr">→</span><span class="chip">Claude Code reviews</span></span><span class="bind"><span class="arr">→</span><span class="chip new">and plans again</span></span></div>
       </div>
+      <p>The glue was an .md file. A plain planning document that became the contract between tools that do not talk to each other. It is the same idea I now run at OverseeAI, where DESIGN.md and the token files are the spec that coding agents build to.</p>
     </section>
 
     <section>
@@ -1089,14 +1091,18 @@
       <h2>The eggs</h2>
       <p>At one point the planner was recommending eggs three times a day, for everyone. Technically correct: it was optimising for B12 in a vegetarian-leaning diet. Completely useless as a product. No prompt fixes that. A product decision does.</p>
       <p class="callout">The real skill wasn't prompting. It wasn't debugging, or orchestrating the tools. It was knowing when to override all of them with a product decision.</p>
-      <p>That doesn't change when the code is generated. The model was right and the product was wrong, and someone has to know the difference.</p>
+      <p>That does not change when the code is generated. The model was right and the product was wrong, and someone has to know the difference.</p>
     </section>
 
     <section>
       <span class="label">05 · Where it is</span>
-      <h2>Live, in Early Access</h2>
-      <p>The app is on the Play Store in Early Access, and the web build is at <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a>. The build story is on <a href="https://www.linkedin.com/feed/update/urn:li:activity:7451188277711319041/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, where it started. No download or retention numbers yet; the status is the outcome.</p>
-      <p>And the question that started it all? App toh ban gayi. Now I just send the links to my cook.</p>
+      <h2>App toh ban gayi</h2>
+      <p>MyFood is live on the Play Store in Early Access, and the web build is at <a href="https://www.myfoodapp.xyz/" target="_blank" rel="noopener noreferrer">myfoodapp.xyz</a>. The build story is on <a href="https://www.linkedin.com/feed/update/urn:li:activity:7451188277711319041/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, where it started. There are no download or retention numbers yet. The status is the outcome.</p>
+      <figure class="thumbs">
+        <img src="img/fig-playstore.webp" loading="lazy" alt="The Google Play listing for MyFood (Early Access) by Avantika Pidiha, with the app icon, a 2.2 MB download size, a 3+ rating and an Install button." width="1504" height="940">
+        <figcaption><span class="tag">Play Store</span>The listing, as it appears on a phone. Early Access, under my own name.</figcaption>
+      </figure>
+      <p>And the question that started it all? Now I just send the links to my cook.</p>
     </section>
   </div>
 </div>
